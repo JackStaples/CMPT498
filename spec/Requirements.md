@@ -1,4 +1,4 @@
-## __Edmonton Traffic Data Analysis and Visualization Requirements Document__ 
+## __Edmonton Traffic Data Analysis and Visualization Requirements Document__
 
 The goal of this project is to create a web based tool that uses the traffic data collected by dual loop detectors to analyze, visualize, and clean the data.
 It is important that estimation of missing data, and malfunctioning systems be reported somehow through the tool.
