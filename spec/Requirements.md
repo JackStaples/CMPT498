@@ -11,6 +11,8 @@ The following data must be visualized in the tool
  - Health (of data) status by lane and VDS location 
  - Completeness (percent of VDS lanes that worked properly in terms of volume, speed, and occupancy to total number of VDS lanes) per day per data attribute (volume, speed, occupancy)
  - Erroneous Data should be reported (both missing data, and incorrect data)
+ - Weather should be available to be seen for the day the user has selected
+ - Old data should be able to be visualized
  
 ## __Functional Requirements__
 
