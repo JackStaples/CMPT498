@@ -21,4 +21,11 @@ The system must follow these technologies
  - The tool will be web based
  - The tool must make use of the database structure provided by the city, it should integrate with their system with less than a minutes setup
  - An API should be developped to integrate with the database, so that it is flexible to change in the future
+ - The system will send an email at the end of the day with the health of the systems
+ 
+## __Non-Functional Requirements__
+
+The system will aim to follow these criteria
+ - The system will update as new data is streamed in
+ - The system will aim to be highly modular so that it can scale well into the future
  
