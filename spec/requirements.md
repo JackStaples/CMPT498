@@ -1,6 +1,6 @@
 ## __Edmonton Traffic Data Analysis and Visualization Requirements Document__
 
-The goal of this project is to create a web based tool that uses the traffic data collected by dual loop detectors to analyze, visualize, and clean the data.
+The goal of this project is to create a web-based tool that uses the traffic data collected by dual loop detectors to analyze, visualize, and clean the data.
 It is important that estimation of missing data and malfunctioning systems be reported somehow through the tool.
 
 ## __Visualization Requirements__
@@ -18,11 +18,11 @@ The following data must be visualized in the tool
 
 The system must follow these technologies
  - Tableau will be used to handle and create the visualizations
- - The tool will be web based
+ - The tool will be web-based
  - The tool must make use of the database structure provided by the city, it should integrate with their system with less than a minutes setup
- - An API should be developped to integrate with the database, so that it is flexible to change in the future
+ - An API should be developed to integrate with the database so that it is flexible to change in the future
  - The system will send an email at the end of the day with the health of the systems
- - The system will be able to detect errors in communication with the database, and notifiy the user of the nature of the issue.
+ - The system will be able to detect errors in communication with the database and notify the user of the nature of the issue.
  - The system will be able to be used on Windows 7,8 and 10.
  
 ## __Non-Functional Requirements__
@@ -30,4 +30,4 @@ The system must follow these technologies
 The system will aim to follow these criteria
  - The system will update as new data is streamed in
  - The system will aim to be highly modular so that it can scale well into the future
- - All code in the system will be thoroughly documented to ensure easier modificaton and maintenance.
+ - All code in the system will be thoroughly documented to ensure easier modification and maintenance.
