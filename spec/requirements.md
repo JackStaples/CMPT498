@@ -12,7 +12,7 @@ The following data must be visualized in the tool
  - Completeness (percent of VDS lanes that worked properly in terms of volume, speed, and occupancy to total number of VDS lanes) per day per data attribute (volume, speed, occupancy)
  - Erroneous Data should be reported (both missing data, and incorrect data)
  - Weather should be available to be seen for the day the user has selected
- - Old data should be able to be visualized
+ - Old data should be able to be visualized, within size restraints.
  
 ## __Functional Requirements__
 
@@ -22,10 +22,12 @@ The system must follow these technologies
  - The tool must make use of the database structure provided by the city, it should integrate with their system with less than a minutes setup
  - An API should be developped to integrate with the database, so that it is flexible to change in the future
  - The system will send an email at the end of the day with the health of the systems
+ - The system will be able to detect errors in communication with the database, and notifiy the user of the nature of the issue.
+ - The system will be able to be used on Windows 7,8 and 10.
  
 ## __Non-Functional Requirements__
 
 The system will aim to follow these criteria
  - The system will update as new data is streamed in
  - The system will aim to be highly modular so that it can scale well into the future
- 
+ - All code in the system will be thoroughly documented to ensure easier modificaton and maintenance.
