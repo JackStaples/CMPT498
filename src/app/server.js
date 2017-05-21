@@ -1,15 +1,12 @@
 var express = require('express');
 var react = require('react');
-
+var ReactEngine = require('express-react-engine');
 var app = express();
 
-app.set('view engine', 'jsx');
-app.set('views', __dirname + '/../public/views');
+app.engine('jsx', ReactEngine());
+app.set('views', __dirname + '/../public/components');
 
+var routes = require("./routes.js")(app);
 app.use(express.static(__dirname + '/../public'));
-
-app.get('/', function(req, res){
-  res.render((__dirname + '/../public/views/home.jsx'));
-});
 
 module.exports = app;
