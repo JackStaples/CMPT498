@@ -23,7 +23,6 @@ The system must follow these technologies
  - An API should be developed to integrate with the database so that it is flexible to change in the future
  - The system will send an email at the end of the day with the health of the systems
  - The system will be able to detect errors in communication with the database and notify the user of the nature of the issue.
- - The system will be able to be used on Windows 7,8 and 10.
  
 ## __Non-Functional Requirements__
 
