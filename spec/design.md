@@ -14,4 +14,14 @@
 
 * The user can also go to another screen where a larger breadth of vizualations are available to them, such as a longer history of the month/year as well as other analytics they would like to see.
 
-* 
+## UI Elements
+
+* Center of the first screen will be a map of Edmonton, with all of the locations marked on the map and are clickable
+
+* There will be a filter along the side of the screen that can sort certain locations based on pre-defined criteria
+
+* There will be a navigation bar at the top to allow the user to navigate to different parts of the web tool
+
+* There will be a panel on the right side of the map for the different visualization elements
+
+
