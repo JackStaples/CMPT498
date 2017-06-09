@@ -1,7 +1,7 @@
 
 def main():
-    name = '1007.csv'
-    newName = '1007format.csv'
+    name = 'Combined.csv'
+    newName = 'CombinedDTformat.csv'
 
     with open(name, 'r') as File:
 
@@ -36,7 +36,7 @@ def makeListFromDate(date):
     date[6:8] + ' ' + \
     date[8:10] + ':' + \
     date[10:12] + ':' + \
-    date[12:] )
+    date[12:14] )
 
 
 # Joins list into string
