@@ -14,7 +14,9 @@ def makeFile(File, newName):
     header = File.readline()
     with open(newName, 'w') as newFile:
         newFile.write(header)
+
         for line in File:
+            if(line.isspace()): continue
             newFile.write(fmt(line))
     newFile.close()
 
@@ -23,7 +25,7 @@ def fmt(line):
     line = line.split(',')
     line[1] = makeListFromDate(line[1])
 
-    return makeString(line, dateData)
+    return makeString(line)
 
 # 2015 09 01 09 39 00.000
 def makeListFromDate(date):
@@ -38,9 +40,7 @@ def makeListFromDate(date):
 
 
 # Joins list into string
-def makeString(line, dateData):
-    for i in range(len(dateData)-1, -1, -1):
-        line.insert(1, dateData[i])
+def makeString(line):
     string = ''
     for item in line:
         string += item + ','
