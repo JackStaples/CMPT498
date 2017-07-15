@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import ReactDOM from 'react-dom';
 import './App.css';
+import { Nav, NavItem, Jumbotron, Button } from 'react-bootstrap';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
-}
+var NavElem = React.createClass({
+	render: function(){
+		return (
+			<Nav bsStyle="pills">
+				<NavItem href="#">Real-Time</NavItem>
+				<NavItem href="#">Historical</NavItem>
+				<NavItem href="#">Errors</NavItem>
+				<NavItem href="#">Export</NavItem>
+			</Nav>
+		);
+	}
+});
 
-export default App;
+ReactDOM.render(
+	<NavElem/>,
+	document.getElementById('container')
+);
