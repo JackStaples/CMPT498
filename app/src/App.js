@@ -4,13 +4,11 @@ import './App.css';
 import { Nav, NavItem, Jumbotron, Button } from 'react-bootstrap';
 
 var NavElem = React.createClass({
-
 	anotherCall(){
 		console.log("hey it worked");
 	},
 
 	handleSelect(eventKey){
-		alert(`selected ${eventKey}`);
 		if (`${eventKey}` == "Real-Time"){
 			ReactDOM.render(
 				<RealTime/>,
@@ -81,4 +79,8 @@ var Export = React.createClass ({
 ReactDOM.render(
 	<NavElem/>,
 	document.getElementById('navigation')
+);
+ReactDOM.render(
+	<RealTime/>,
+	document.getElementById('container')
 );
