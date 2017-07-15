@@ -4,13 +4,17 @@ import './App.css';
 import { Nav, NavItem, Jumbotron, Button } from 'react-bootstrap';
 
 var NavElem = React.createClass({
+	handleSelect(eventKey){
+		alert(`selected ${eventKey}`);
+	},
+
 	render: function(){
 		return (
-			<Nav bsStyle="pills">
-				<NavItem href="#">Real-Time</NavItem>
-				<NavItem href="#">Historical</NavItem>
-				<NavItem href="#">Errors</NavItem>
-				<NavItem href="#">Export</NavItem>
+			<Nav bsStyle="pills" onSelect={this.handleSelect}>
+				<NavItem eventKey="Real-Time" href="#">Real-Time</NavItem>
+				<NavItem eventKey="Historical" href="#">Historical</NavItem>
+				<NavItem eventKey="Errors" href="#">Errors</NavItem>
+				<NavItem eventKey="Export" href="#">Export</NavItem>
 			</Nav>
 		);
 	}
