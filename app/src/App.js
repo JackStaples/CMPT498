@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './App.css';
-import { Nav, NavItem, Jumbotron, Button } from 'react-bootstrap';
+import { Nav, NavItem, Button } from 'react-bootstrap';
+import scatterplot from './scatterplot.js';
+import * as d3 from 'd3';
 
 var NavElem = React.createClass({
 	anotherCall(){
@@ -50,9 +52,12 @@ var NavElem = React.createClass({
 var RealTime = React.createClass ({
 	render: function(){
 		return (
-			<div>Hello, I am the Real-Time Module</div>
+			<div name="Realtime">
+				<div class='content'></div>
+      		</div>
 		);
 	}
+
 })
 var Historical = React.createClass ({
 	render: function(){
