@@ -1,43 +1,42 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './App.css';
-import { Nav, NavItem, Button } from 'react-bootstrap';
-import scatterplot from './scatterplot.js';
-import * as d3 from 'd3';
+import { Nav, NavItem } from 'react-bootstrap';
+import Scatter, { renderScatterplot } from './scatterplot.js';
 
-var NavElem = React.createClass({
+class NavElem extends React.Component{
 	anotherCall(){
 		console.log("hey it worked");
-	},
+	}
 
 	handleSelect(eventKey){
-		if (`${eventKey}` == "Real-Time"){
+		if (`${eventKey}` === "Real-Time"){
 			ReactDOM.render(
 				<RealTime/>,
 				document.getElementById('container')
 			);
 		}
-		else if (`${eventKey}` == "Historical"){
+		else if (`${eventKey}` === "Historical"){
 			ReactDOM.render(
 				<Historical/>,
 				document.getElementById('container')
 			);
 		}
-		else if (`${eventKey}` == "Errors"){
+		else if (`${eventKey}` === "Errors"){
 			ReactDOM.render(
 				<Errors/>,
 				document.getElementById('container')
 			);
 		}
-		else if (`${eventKey}` == "Export"){
+		else if (`${eventKey}` === "Export"){
 			ReactDOM.render(
 				<Export/>,
 				document.getElementById('container')
 			);
 		}
-	},
+	}
 
-	render: function(){
+	render(){
 		return (
 			<Nav bsStyle="tabs" onSelect={this.handleSelect}>
 				<NavItem eventKey="Real-Time" href="#">Real-Time</NavItem>
@@ -47,39 +46,65 @@ var NavElem = React.createClass({
 			</Nav>
 		);
 	}
-});
 
-var RealTime = React.createClass ({
-	render: function(){
+	componentDidMount() {
+		console.log("Navigation is mounted");
+	}
+}
+
+class RealTime extends React.Component {
+
+	render() {
 		return (
 			<div name="Realtime">
-				<div class='content'></div>
+				<div>Hello, I am the RealTime Module</div>
+				<div 
+					id="Scatterplot"
+					ref={ renderScatterplot }
+				/>
+				<div 
+					id="Linegraph"
+
+				/>
       		</div>
 		);
 	}
 
-})
-var Historical = React.createClass ({
-	render: function(){
+	componentDidMount() {
+		console.log("Realtime was mounted");
+	}
+	componentWillUnmount() {
+		console.log("Realtime is unmounting");
+	}
+	shouldComponentUpdate() {
+		return false;
+	}
+
+}
+
+class Historical extends React.Component {
+	render(){
 		return (
 			<div>Hello, I am the Historical Module</div>
 		);
 	}
-})
-var Errors = React.createClass ({
-	render: function(){
+}
+
+class Errors extends React.Component {
+	render(){
 		return (
 			<div>Hello, I am the Errors Module</div>
 		);
 	}
-})
-var Export = React.createClass ({
-	render: function(){
+}
+
+class Export extends React.Component {
+	render(){
 		return (
 			<div>Hello, I am the Export Module</div>
 		);
 	}
-})
+}
 
 ReactDOM.render(
 	<NavElem/>,

@@ -29,8 +29,8 @@
     <label><input type="checkbox" id="sortIncorrect"> Sort on incorrect</label>
     
     <script>
-        //d3.csv("./correctness.csv", function(data) {
-        d3.csv("./laneCorrectness.csv", function(data) {
+        d3.csv("./correctness.csv", function(data) {
+        //d3.csv("./laneCorrectness.csv", function(data) {
           var property = Object.keys(data[0]);
           var highVal = 0;
           var lowVal = 0;

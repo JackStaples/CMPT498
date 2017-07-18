@@ -1,12 +1,15 @@
+import React, { Component } from 'react';
 import * as d3 from 'd3';
 
-var parseDate = d3.timeParse("%Y-%m-%d %H:%M:%S.%L");
+  export function renderScatterplot(){
+    console.log("Rendering scatterplot");
+    var parseDate = d3.timeParse("%Y-%m-%d %H:%M:%S.%L");
     //d3.csv("./september1011SpeedErrors.csv", function(data) {
     //d3.csv("./1033september1hour.csv", function(data) {
     //d3.csv("./1011september1hourvolume.csv", function(data) {
     //d3.csv("./1011september1houroccupancy.csv", function(data) {
     //d3.csv("./1011september1hourlanes.csv", function(data) {
-    d3.csv("./Visualizations/1033september1.csv", function(data) {
+    d3.csv("./1033september1.csv", function(data) {
     //d3.csv("./1011september1hourlanes.csv", function(data) {
       var property = Object.keys(data[0]);
       var highVal = 0;
@@ -15,7 +18,7 @@ var parseDate = d3.timeParse("%Y-%m-%d %H:%M:%S.%L");
       var highestTime = 0;
       var len = data.length;
       // converts the csv strings to datetime and int, records the max and min values of speed
-      for (var i = 0; i <= data.length; i++){
+      for (var i in data){
         data[i][property[0]] = parseDate(data[i][property[0]])
         data[i][property[1]] = parseInt(data[i][property[1]])
         // track the minimum value for the x axis
@@ -50,12 +53,12 @@ var parseDate = d3.timeParse("%Y-%m-%d %H:%M:%S.%L");
       // create the y-axis that will be used for the visualization, it uses a number scale.
       // nice formats it so there is space above the upper bounds
       var y = d3.scaleLinear()
-    	  .domain([minVal, highVal])
-    	  .range([ height, 0 ]);
+        .domain([minVal, highVal])
+        .range([ height, 0 ]);
       y.nice();
 
       // select the body of the DOM and assign spacing to it
-      var chart = d3.select('body')
+      var chart = d3.select('#Scatterplot')
         .append('svg:svg')
         .attr('width', width + margin.right + margin.left)
         .attr('height', height + margin.top + margin.bottom)
@@ -123,3 +126,5 @@ var parseDate = d3.timeParse("%Y-%m-%d %H:%M:%S.%L");
           .attr("transform", "translate(" + width/2 + "," + (margin.top-15) + ")")
           .text(property[1] + " from " + data[lowestTime][property[0]].toLocaleString() + " to " + data[highestTime][property[0]].toLocaleString());
     }); 
+  console.log("Scatterplot code has run");
+  }
