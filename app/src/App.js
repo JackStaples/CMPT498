@@ -60,7 +60,6 @@ class RealTime extends React.Component {
 	render() {
 		return (
 			<div name="Realtime">
-				<div>Hello, I am the RealTime Module</div>
 				<div 
 					id="realTimeScatterplot"
 					ref={ renderScatterplot("#realTimeScatterplot") }
@@ -89,7 +88,6 @@ class Historical extends React.Component {
 	render(){
 		return (
 			<div>
-				<div>Hello, I am the Historical Module</div>
 				<div 
 					id="hexbin"
 					ref={ renderHexbin }
@@ -120,7 +118,6 @@ class Errors extends React.Component {
 	render(){
 		return (
 			<div>
-				<div>Hello, I am the Errors Module</div>
 				<svg width="1366" height="700"
 					id="vdsidBargraph"
 					ref={ renderBargraph("correctness.csv", "#vdsidBargraph") }
