@@ -99,6 +99,15 @@ class Historical extends React.Component {
 			</div>
 		);
 	}
+	componentDidMount() {
+		console.log("Historical was mounted");
+	}
+	componentWillUnmount() {
+		console.log("Historical is unmounting");
+	}
+	shouldComponentUpdate() {
+		return false;
+	}
 }
 
 class Errors extends React.Component {
