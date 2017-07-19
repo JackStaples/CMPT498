@@ -4,6 +4,7 @@ import './App.css';
 import { Nav, NavItem } from 'react-bootstrap';
 import Scatter, { renderScatterplot } from './scatterplot.js';
 import Hexbin, { renderHexbin } from './hexbin.js';
+import Linegraph, { renderLinegraph } from './linegraph.js';
 
 class NavElem extends React.Component{
 	anotherCall(){
@@ -64,8 +65,8 @@ class RealTime extends React.Component {
 					ref={ renderScatterplot("#realTimeScatterplot") }
 				/>
 				<div 
-					id="Linegraph"
-
+					id="realTimeLinegraph"
+					ref={ renderLinegraph("#realTimeLinegraph") }
 				/>
       		</div>
 		);
@@ -95,6 +96,10 @@ class Historical extends React.Component {
 				<div
 					id="historicalScatterplot"
 					ref={ renderScatterplot("#historicalScatterplot") }
+				/>
+				<div
+					id="historicalLinegraph"
+					ref={ renderLinegraph("#historicalLinegraph") }
 				/>
 			</div>
 		);
