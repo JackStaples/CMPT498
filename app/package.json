@@ -5,6 +5,7 @@
   "dependencies": {
     "bootstrap": "^3.3.7",
     "d3": "^4.10.0",
+    "d3-hexbin": "^0.2.2",
     "react": "^15.5.4",
     "react-bootstrap": "^0.31.1",
     "react-dom": "^15.5.4"

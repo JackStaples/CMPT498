@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3';
 
-  export function renderScatterplot(){
-    console.log("Rendering scatterplot");
+  export function renderScatterplot(target){
+
+    console.log("Rendering scatterplot, target div is: " + target);
     var parseDate = d3.timeParse("%Y-%m-%d %H:%M:%S.%L");
     //d3.csv("./september1011SpeedErrors.csv", function(data) {
     //d3.csv("./1033september1hour.csv", function(data) {
@@ -58,7 +59,7 @@ import * as d3 from 'd3';
       y.nice();
 
       // select the body of the DOM and assign spacing to it
-      var chart = d3.select('#Scatterplot')
+      var chart = d3.select(target)
         .append('svg:svg')
         .attr('width', width + margin.right + margin.left)
         .attr('height', height + margin.top + margin.bottom)

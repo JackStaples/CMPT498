@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './App.css';
 import { Nav, NavItem } from 'react-bootstrap';
 import Scatter, { renderScatterplot } from './scatterplot.js';
+import Hexbin, { renderHexbin } from './hexbin.js';
 
 class NavElem extends React.Component{
 	anotherCall(){
@@ -59,8 +60,8 @@ class RealTime extends React.Component {
 			<div name="Realtime">
 				<div>Hello, I am the RealTime Module</div>
 				<div 
-					id="Scatterplot"
-					ref={ renderScatterplot }
+					id="realTimeScatterplot"
+					ref={ renderScatterplot("#realTimeScatterplot") }
 				/>
 				<div 
 					id="Linegraph"
@@ -85,7 +86,17 @@ class RealTime extends React.Component {
 class Historical extends React.Component {
 	render(){
 		return (
-			<div>Hello, I am the Historical Module</div>
+			<div>
+				<div>Hello, I am the Historical Module</div>
+				<div 
+					id="hexbin"
+					ref={ renderHexbin }
+				/>
+				<div
+					id="historicalScatterplot"
+					ref={ renderScatterplot("#historicalScatterplot") }
+				/>
+			</div>
 		);
 	}
 }
