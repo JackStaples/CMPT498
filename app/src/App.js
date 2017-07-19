@@ -5,6 +5,7 @@ import { Nav, NavItem } from 'react-bootstrap';
 import Scatter, { renderScatterplot } from './scatterplot.js';
 import Hexbin, { renderHexbin } from './hexbin.js';
 import Linegraph, { renderLinegraph } from './linegraph.js';
+import Barchart, { renderBargraph } from './bargraph.js';
 
 class NavElem extends React.Component{
 	anotherCall(){
@@ -118,7 +119,17 @@ class Historical extends React.Component {
 class Errors extends React.Component {
 	render(){
 		return (
-			<div>Hello, I am the Errors Module</div>
+			<div>
+				<div>Hello, I am the Errors Module</div>
+				<svg width="1366" height="700"
+					id="vdsidBargraph"
+					ref={ renderBargraph("correctness.csv", "#vdsidBargraph") }
+				/>
+				<svg width="1366" height="700"
+					id="lanesBargraph"
+					ref={ renderBargraph("laneCorrectness.csv", "#lanesBargraph") }
+				/>
+			</div>
 		);
 	}
 }
