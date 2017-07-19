@@ -6,6 +6,8 @@ import Scatter, { renderScatterplot } from './scatterplot.js';
 import Hexbin, { renderHexbin } from './hexbin.js';
 import Linegraph, { renderLinegraph } from './linegraph.js';
 import Barchart, { renderBargraph } from './bargraph.js';
+import Script from 'react-load-script'
+import Map, { renderMap } from './map.js';
 
 class NavElem extends React.Component{
 	anotherCall(){
@@ -60,8 +62,19 @@ class RealTime extends React.Component {
 	render() {
 		return (
 			<div name="Realtime">
+				<Script
+      				url="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKjGHFwdw-vL0GxlmTwYSh6uDmjs3jyU8&callback=initMap"
+      				onCreate={this.handleScriptCreate.bind(this)}
+      				onError={this.handleScriptError.bind(this)}
+     				onLoad={this.handleScriptLoad.bind(this)}
+   				 />
+				<div
+					id="map"
+					ref={ renderMap("map") }
+				/>
 				<div 
 					id="realTimeScatterplot"
+					margin="0 auto"
 					ref={ renderScatterplot("#realTimeScatterplot") }
 				/>
 				<div 
