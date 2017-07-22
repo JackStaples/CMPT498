@@ -6,6 +6,7 @@ import Scatter, { renderScatterplot } from './scatterplot.js';
 import Hexbin, { renderHexbin } from './hexbin.js';
 import Linegraph, { renderLinegraph } from './linegraph.js';
 import Barchart, { renderBargraph } from './bargraph.js';
+import Calendar, { renderCalendar } from './calendar.js';
 
 class NavElem extends React.Component{
 	anotherCall(){
@@ -90,6 +91,10 @@ class Historical extends React.Component {
 		return (
 			<div>
 				<div>Hello, I am the Historical Module</div>
+				<div
+					id="Calendar"
+					ref={ renderCalendar }
+				/>
 				<div 
 					id="hexbin"
 					ref={ renderHexbin }
