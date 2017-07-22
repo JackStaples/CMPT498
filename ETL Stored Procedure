@@ -1,0 +1,56 @@
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		Mark Tigchelaar
+-- Create date: July 17, 2017
+-- Description:	Stored Procedure for transfering data
+--				from ETS traffic database into a data warehouse
+--				for analysis.
+-- =============================================
+
+CREATE PROCEDURE DataBaseTransfer
+		@StartDate datetime,
+		@EndDate datetime
+AS
+BEGIN 
+	begin transaction
+
+	begin try
+	SET NOCOUNT ON;
+
+	insert into Warehouse 
+		(dt, vdsId, lane, rawSpeed, speed, rawOcc, occ, vol, correct, incorrect, total)
+
+			select
+				@StartDate,
+				vdsId,
+				lane,
+				avg(speed) as rawSpeed,
+				avg((case when speed >= 0 then speed else 0 end)) as speed,
+				avg(occupancy) as rawOcc,
+				avg((case when occupancy >= 0 then occupancy else 0 end)) as occ,
+				avg(volume) as vol,
+				sum(case when volume >= 0 then 1 else 0 end) +
+				sum(case when speed >= 0 then 1 else 0 end) + 
+				sum(case when occupancy >= 0 then 1 else 0 end) as correct,
+				sum(case when volume < 0 then 1 else 0 end) +
+				sum(case when speed < 0 then 1 else 0 end) +
+				sum(case when occupancy < 0 then 1 else 0 end) as incorrect,
+				count(1) as total
+			from [both raw]
+			where datetime >= @StartDate and datetime < @EndDate
+			group by vdsId, lane
+			order by vdsId, lane
+
+	commit
+	select 1;
+	end try
+	begin catch
+		select ERROR_LINE(), ERROR_MESSAGE(), ERROR_NUMBER()
+		rollback 
+	end catch
+END 
+GO
