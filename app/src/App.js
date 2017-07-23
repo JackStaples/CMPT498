@@ -153,7 +153,7 @@ class Export extends React.Component {
   	name: 'Jack',
   	age: 24,
   	friend: {
-  		name: 'fuckin no one lol',
+  		name: 'fetus',
   		age: 'unborn',
   	}
   }]
