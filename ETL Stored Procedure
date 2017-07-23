@@ -11,7 +11,7 @@ GO
 --				for analysis.
 -- =============================================
 
-CREATE PROCEDURE DataBaseTransfer
+ALTER PROCEDURE DataBaseTransfer
 		@StartDate datetime,
 		@EndDate datetime
 AS
@@ -46,16 +46,49 @@ BEGIN
 			order by vdsId, lane
 			
 	update Warehouse 
-		set speed = B.speed, occ = B.occ, vol = B.vol from
-		(select datetime, vdsId, lane, avg(speed) as speed, avg(occupancy) as occ, avg(volume) as vol
-		from [both raw]
-		where 
-		speed > 0 and occupancy > 0 and volume > 0 and 
-		datetime >= @StartDate and datetime < @EndDate
-		group by datetime, vdsId, lane
-		) as B
-	where Warehouse.dt = B.datetime and Warehouse.vdsId = B.vdsId and Warehouse.lane = B.lane		
+	set
+	speed = (case when Warehouse.speed < B.speed then B.speed else Warehouse.speed end)--,
+	from
+	(select datetime, vdsId, lane, avg(speed) as speed
+	from [both raw]
+	where 
+	speed > 0
+	and
+	datetime >= '2017-01-01 00:00:00.00' and datetime < '2017-01-02 00:00:00.00'
+	group by datetime, vdsId, lane
+	) as B
+	where Warehouse.dt = B.datetime and Warehouse.vdsId = B.vdsId and Warehouse.lane = B.lane
 
+
+	update Warehouse 
+	set
+	occ = (case when Warehouse.rawOcc < B.occ then B.occ else Warehouse.rawOcc end)
+	from
+	(select datetime, vdsId, lane,  avg(occupancy) as occ
+	from [both raw]
+	where 
+	occupancy > 0
+	and
+	datetime >= '2017-01-01 00:00:00.00' and datetime < '2017-01-02 00:00:00.00'
+	group by datetime, vdsId, lane
+	) as B
+	where Warehouse.dt = B.datetime and Warehouse.vdsId = B.vdsId and Warehouse.lane = B.lane
+	
+
+	update Warehouse 
+	set
+	vol = (case when Warehouse.vol < B.vol then B.vol else Warehouse.vol end)
+	from
+	(select datetime, vdsId, lane,  avg(volume) as vol
+	from [both raw]
+	where 
+	volume > 0
+	and
+	datetime >= '2017-01-01 00:00:00.00' and datetime < '2017-01-02 00:00:00.00'
+	group by datetime, vdsId, lane
+	) as B
+	where Warehouse.dt = B.datetime and Warehouse.vdsId = B.vdsId and Warehouse.lane = B.lane
+	
 	commit
 	select 1;
 	end try
