@@ -7,11 +7,11 @@ GO
 -- Author:		Mark Tigchelaar
 -- Create date: July 17, 2017
 -- Description:	Stored Procedure for transfering data
---				from ETS traffic database into a data warehouse
---				for analysis.
+--		from ETS traffic database into a data warehouse
+--		for analysis.
 -- =============================================
 
-ALTER PROCEDURE DataBaseTransfer
+CREATE PROCEDURE DataBaseTransfer
 		@StartDate datetime,
 		@EndDate datetime
 AS
