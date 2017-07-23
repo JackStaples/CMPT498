@@ -44,6 +44,17 @@ BEGIN
 			where datetime >= @StartDate and datetime < @EndDate
 			group by vdsId, lane
 			order by vdsId, lane
+			
+	update Warehouse 
+		set speed = B.speed, occ = B.occ, vol = B.vol from
+		(select datetime, vdsId, lane, avg(speed) as speed, avg(occupancy) as occ, avg(volume) as vol
+		from [both raw]
+		where 
+		speed > 0 and occupancy > 0 and volume > 0 and 
+		datetime >= @StartDate and datetime < @EndDate
+		group by datetime, vdsId, lane
+		) as B
+	where Warehouse.dt = B.datetime and Warehouse.vdsId = B.vdsId and Warehouse.lane = B.lane		
 
 	commit
 	select 1;
