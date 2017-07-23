@@ -7,7 +7,8 @@ import Hexbin, { renderHexbin } from './hexbin.js';
 import Linegraph, { renderLinegraph } from './linegraph.js';
 import Barchart, { renderBargraph } from './bargraph.js';
 import Calendar, { renderCalendar } from './calendar.js';
-
+import ReactTable from 'react-table';
+import 'react-table/react-table.css';
 class NavElem extends React.Component{
 	anotherCall(){
 		console.log("hey it worked");
@@ -140,11 +141,45 @@ class Errors extends React.Component {
 }
 
 class Export extends React.Component {
-	render(){
-		return (
-			<div>Hello, I am the Export Module</div>
-		);
-	}
+	render() {
+  const data = [{
+    name: 'Tanner Linsley',
+    age: 26,
+    friend: {
+      name: 'Jason Maurer',
+      age: 23,
+    }
+  },{
+  	name: 'Jack',
+  	age: 24,
+  	friend: {
+  		name: 'fuckin no one lol',
+  		age: 'unborn',
+  	}
+  }]
+
+  const columns = [{
+    Header: 'Name',
+    accessor: 'name' 
+  }, {
+    Header: 'Age',
+    accessor: 'age',
+    Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
+  }, {
+    id: 'friendName', 
+    Header: 'Friend Name',
+    accessor: d => d.friend.name 
+  }, {
+    Header: props => <span>Friend Age</span>,
+    accessor: 'friend.age'
+  }];
+
+  return (
+  <ReactTable
+    data={data}
+    columns={columns}
+  	/>
+	)}
 }
 
 ReactDOM.render(
