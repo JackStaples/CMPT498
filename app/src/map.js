@@ -1,6 +1,14 @@
 import * as d3 from 'd3';
 
 export function renderMap(target) {
+
+  const script = document.createElement("script");
+
+  script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDKjGHFwdw-vL0GxlmTwYSh6uDmjs3jyU8&callback=initMap";
+  script.async = true;
+
+  document.body.appendChild(script);
+
 	var map;
       var latC = 53.5444;
       var longC  = -113.4909;

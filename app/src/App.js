@@ -6,8 +6,9 @@ import Scatter, { renderScatterplot } from './scatterplot.js';
 import Hexbin, { renderHexbin } from './hexbin.js';
 import Linegraph, { renderLinegraph } from './linegraph.js';
 import Barchart, { renderBargraph } from './bargraph.js';
-import Script from 'react-load-script'
-import Map, { renderMap } from './map.js';
+import Google, { MapElement, RenderGoogleMap } from './googlemap.js';
+import Calendar, { renderCalendar } from './calendar.js';
+
 
 class NavElem extends React.Component{
 	anotherCall(){
@@ -62,16 +63,7 @@ class RealTime extends React.Component {
 	render() {
 		return (
 			<div name="Realtime">
-				<Script
-      				url="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKjGHFwdw-vL0GxlmTwYSh6uDmjs3jyU8&callback=initMap"
-      				onCreate={this.handleScriptCreate.bind(this)}
-      				onError={this.handleScriptError.bind(this)}
-     				onLoad={this.handleScriptLoad.bind(this)}
-   				 />
-				<div
-					id="map"
-					ref={ renderMap("map") }
-				/>
+				<MapElement />
 				<div 
 					id="realTimeScatterplot"
 					margin="0 auto"
@@ -87,6 +79,7 @@ class RealTime extends React.Component {
 
 	componentDidMount() {
 		console.log("Realtime was mounted");
+
 	}
 	componentWillUnmount() {
 		console.log("Realtime is unmounting");
@@ -101,6 +94,11 @@ class Historical extends React.Component {
 	render(){
 		return (
 			<div>
+				<div
+                    id="Calendar"
+                    ref={ renderCalendar }
+                />
+				<MapElement />
 				<div 
 					id="hexbin"
 					ref={ renderHexbin }
@@ -140,7 +138,16 @@ class Errors extends React.Component {
 					ref={ renderBargraph("laneCorrectness.csv", "#lanesBargraph") }
 				/>
 			</div>
-		);
+		);	
+	}
+	componentDidMount() {
+		console.log("Historical was mounted");
+	}
+	componentWillUnmount() {
+		console.log("Historical is unmounting");
+	}
+	shouldComponentUpdate() {
+		return false;
 	}
 }
 
