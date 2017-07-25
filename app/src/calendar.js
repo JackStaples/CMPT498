@@ -2,7 +2,7 @@ import * as d3 from 'd3';
 
 export function renderCalendar(target){
 
-var width = 960,
+var width = 1366,
     height = 136,
     cellSize = 17;
 

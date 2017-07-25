@@ -1,18 +1,16 @@
-
 import React, { Component } from 'react';
 import ReactDOM, { render } from 'react-dom';
 import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
 import _ from "lodash";
 
-//import Helmet from "react-helmet";
-
+import * as d3 from 'd3';
 
 // Wrap all `react-google-maps` components with `withGoogleMap` HOC
 // and name it GettingStartedGoogleMap
 export const RenderGoogleMap = withGoogleMap(props => (
   <GoogleMap
     ref={props.onMapLoad}
-    defaultZoom={ 10 }
+    defaultZoom={ 11 }
     defaultCenter={{ lat: 53.5444, lng: -113.4909 }}
     onClick={props.onMapClick}
   >
@@ -27,21 +25,18 @@ export const RenderGoogleMap = withGoogleMap(props => (
 export class MapElement extends Component {
 
 
-  state = {
-    markers:
+  state = function() {
+  console.log("its running");
+    return(
+    {markers:
         [{
       position: {
         lat: 53.5444,
         lng: -113.4909,
       },
       defaultAnimation: 2,
-    },{
-      position: {
-        lat: 52.5444,
-        lng: -113.4909,
-      },
-      defaultAnimation: 2,
-    }]
+    }]}
+    )
   };
 
   handleMapLoad = this.handleMapLoad.bind(this);
