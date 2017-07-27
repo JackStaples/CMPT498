@@ -32,14 +32,15 @@ namespace ETLRough
         static void Main(string[] args)
         {
             setup();
-            createTable();
+            createWarehouseTable();
+            createLocationTable();
             getTimeSpan();
             transfer();
             System.Console.WriteLine("Now waiting, Press any key to exit.");
             System.Console.Read();
         }
 
-        static void createTable()
+        static private void createWarehouseTable()
         {
             System.Console.WriteLine("Creating 'Warehouse' table with clustered index...");
             string query = "create table Warehouse ( dt datetime NOT NULL, vdsId int NOT NULL, " +
@@ -50,9 +51,30 @@ namespace ETLRough
 
         }
 
+        static private void createlocationTable()
+        {
+            string query = "create table VDSIDs ( vdsId int, location varchar(50), spdLimit int ) ";
+            GeneralQuery(query, false, "Table already present.", 0);
+            string[] lines = System.IO.File.ReadAllLines(@"C:\Users\Mark\Desktop\VDSIDdata.csv");//------Change this
+
+            query = "insert into VDSIDs ( vdsId, location, spdLimit) values ";
+            string[] splitted;
+            char[] param = { ',' };
+            foreach (string line in lines)
+            {
+                splitted = line.Split(param, StringSplitOptions.None);
+
+                query += "( " + splitted[0] + ", '" + splitted[1] + "', " + splitted[2] + " ), ";
+            }
+            char[] param2 = { ',' , ' ' };
+            query = query.TrimEnd(param2);
+
+            GeneralQuery(query, false, "Query rejected.", 0);
+        }
+        
         // Eventually, this will first get the time span
         // from the warehouse, as to not do a double insertion.
-        static void getTimeSpan()
+        static private void getTimeSpan()
         {
             System.Console.WriteLine("Getting list of all dates...");
             string query = "select distinct datetime from " + table +
@@ -84,7 +106,7 @@ namespace ETLRough
         }
 
 
-        static void transfer()
+        static private void transfer()
         {
             string query;
             for(int i = 0; i < Timespan.Count - 1; i++)
@@ -103,7 +125,7 @@ namespace ETLRough
         }
 
         // uses class variable resultList
-        static void GeneralQuery(string query, bool get, string err, int listNum)
+        static private void GeneralQuery(string query, bool get, string err, int listNum)
         {
             Command.CommandText = query;        
             Connector.Open();
@@ -119,7 +141,7 @@ namespace ETLRough
 
         }
 
-        static void getData( string err, int listNum)
+        static private void getData( string err, int listNum)
         {
             if(listNum == 0)
             {
@@ -158,7 +180,7 @@ namespace ETLRough
         }
 
 
-        static void sendData(string err)
+        static private void sendData(string err)
         {
             try
             {
