@@ -20,6 +20,7 @@
       <!-- the scatterplot goes in here -->
     </div>
     <script>
+
     parseDate = d3.timeParse("%Y-%m-%d %H:%M:%S.%L");
     //d3.csv("./september1011SpeedErrors.csv", function(data) {
     //d3.csv("./1033september1hour.csv", function(data) {
@@ -28,6 +29,7 @@
     //d3.csv("./1011september1hourlanes.csv", function(data) {
     d3.csv("./1033september1.csv", function(data) {
     //d3.csv("./1011september1hourlanes.csv", function(data) {
+      console.log(JSON.stringify(data));
       var property = Object.keys(data[0]);
       var highVal = 0;
       var minVal = 0;
