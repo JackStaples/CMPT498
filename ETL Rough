@@ -55,7 +55,7 @@ namespace ETLRough
         {
             string query = "create table VDSIDs ( vdsId int, location varchar(50), spdLimit int ) ";
             GeneralQuery(query, false, "Table already present.", 0);
-            string[] lines = System.IO.File.ReadAllLines(@"C:\Users\Mark\Desktop\VDSIDdata.csv");
+            string[] lines = System.IO.File.ReadAllLines(@"C:\Users\Mark\Desktop\VDSIDdata.csv");//------Change this
 
             query = "insert into VDSIDs ( vdsId, location, spdLimit) values ";
             string[] splitted;
