@@ -6,12 +6,13 @@ var table2 = "Warehouse";
 function test() {
   var response;
     //response = calenderQuery('speed');
-    //response = lineGraphQuery('speed', '1003', 12, '2016-09-01 00:00:00.00', '2016-09-02 00:00:00.00', false);
-    //response = scatterPlotQuery('speed', '1003', '2016-09-01 00:00:00.00', '2016-09-02 00:00:00.00', false);
-    //response = hexbinQuery("speed", "occ", '2016-09-01 00:00:00.00', '2016-09-02 00:00:00.00', false);
+    //response = lineGraphQuery('speed', '1003', 12, '2016-09-01 00:00:00.00', '2016-09-02 00:00:00.00', true);
+    //response = scatterPlotQuery('speed', '1003', '2016-09-01 00:00:00.00', '2016-09-02 00:00:00.00', true);
+    //response = hexbinQuery("speed", "occ", '2016-09-01 00:00:00.00', '2016-09-02 00:00:00.00', true);
     //response = barChartQuery();
     //response = laneErrorQuery("1003");
     //response = completenessQuery("1003", '2016-09-01 00:00:00.00', '2016-09-02 00:00:00.00');
+    //response = mapQuery();
 }
 
 
@@ -31,6 +32,7 @@ function callDB(query) {
         console.log(err);
       } else {
         sql.close();
+        console.log(records);
         return records;
       }
     });
@@ -49,9 +51,11 @@ function scatterPlotQuery(column, vdsId, lowdate, highdate, live) {
     table = table2;
     dt = "dt";
   }
-  var query = "select " + dt +", lane, " + column + " from " + table + " where ";
-  query += DateSplit(lowdate, highdate, live);
-  query += " and vdsId = " + vdsId + " order by " + dt + ", lane;";
+  var query = "select " + table + "."+ dt +", " + table + ".lane, " +
+  table + "." + column + " from " + table + ", VDSIDs where ";
+  query += DateSplit(table, lowdate, highdate, live);
+  query += " and " + table+ ".vdsId = " + vdsId + " and " + table +
+  ".vdsId = VDSIDs.vdsId order by " + dt + ", lane;";
   return callDB(query);
 }
 
@@ -60,18 +64,19 @@ function lineGraphQuery(column, vdsId, hour, lowdate, highdate, live) {
   var table;
   var dt;
   if(live) {
-    hour = " and datepart(hh, datetime) = " + hour;
     table = table1;
+    hour = " and datepart(hh,  " + table + ".datetime) = " + hour;
     dt = "datetime";
   } else {
     hour = "";
     table = table2;
     dt = "dt";
   }
-  var query = "select " + dt + ", lane, " + column + " from " + table + " where ";
-  query += DateSplit(lowdate, highdate, live);
-  query += hour;
-  query += " and vdsId = " + vdsId + " order by " + dt + ", lane;";
+  var query = "select " + table + "."+ dt +", " + table + ".lane, " +
+  table + "." + column + " from " + table + ", VDSIDs where ";
+  query += DateSplit(table, lowdate, highdate, live);
+  query += " and " + table+ ".vdsId = " + vdsId + " and " + table +
+  ".vdsId = VDSIDs.vdsId order by " + dt + ", lane;";
   return callDB(query);
 }
 
@@ -100,7 +105,7 @@ function laneErrorQuery(vdsId) {
 
 function hexbinQuery(xAxis, yAxis, lowdate, highdate) {
   var query = "select " + xAxis + ", " + yAxis + " from " + table2 +
-  " where " + DateSplit(lowdate, highdate, false) + " ;";
+  " where " + DateSplit(table2, lowdate, highdate, false) + " ;";
   return callDB(query);
 }
 
@@ -108,18 +113,18 @@ function hexbinQuery(xAxis, yAxis, lowdate, highdate) {
 function completenessQuery(vdsId, lowdate, highdate) {
   var query = "select vdsId, sum(total) as total from " +
   table2 + " where vdsId = " + vdsId +
-  " and " + DateSplit(lowdate, highdate, false) +
+  " and " + DateSplit(table2, lowdate, highdate, false) +
   " group by vdsId;";
   return callDB(query);
 }
 
 // Splits '2016-09-01 00:00:00.00' type datetimes.
-function DateSplit(lowdate, highdate, live) {
+function DateSplit(table,lowdate, highdate, live) {
   if(live) {
     var today = new Date();
-    return "datepart(yyyy, datetime) = " + today.getFullYear() +
-    " and datepart(mm, datetime) = " + (today.getMonth()+1) +
-    " and datepart(dd, datetime) = " + today.getDate()
+    return " datepart(yyyy, " + table + ".datetime) = " + today.getFullYear() +
+    " and datepart(mm, " + table + ".datetime) = " + (today.getMonth()+1) +
+    " and datepart(dd, " + table + ".datetime) = " + today.getDate();
   }
     var lowdate = lowdate.split(" ");
     var highdate = highdate.split(" ");
@@ -128,12 +133,15 @@ function DateSplit(lowdate, highdate, live) {
     lowdate = lowdate.split("-");
     highdate = highdate.split("-");
 
-    return "datepart(yyyy, dt) >= " + lowdate[0] +
-      " and datepart(yyyy, dt) <= " + highdate[0] +
-      " and datepart(mm, dt) >= " + lowdate[1] +
-      " and datepart(mm, dt) <= " + highdate[1] +
-      " and datepart(dd, dt) >= " + lowdate[2] +
-      " and datepart(dd, dt) <= " + highdate[2] + " ";
+    return " datepart(yyyy, " + table + ".dt) >= " + lowdate[0] +
+      " and datepart(yyyy, " + table + ".dt) <= " + highdate[0] +
+      " and datepart(mm, " + table + ".dt) >= " + lowdate[1] +
+      " and datepart(mm, " + table + ".dt) <= " + highdate[1] +
+      " and datepart(dd, " + table + ".dt) >= " + lowdate[2] +
+      " and datepart(dd, " + table + ".dt) <= " + highdate[2] + " ";
 }
 
+function mapQuery() {
+  return callDB("select * from VDSIDs");
+}
 test();
