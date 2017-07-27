@@ -25,10 +25,9 @@ export const RenderGoogleMap = withGoogleMap(props => (
 export class MapElement extends Component {
 
 
-  state = function() {
-  console.log("its running");
-    return(
-    {markers:
+  state = //function() {
+    //return(
+    { markers:
         [{
       position: {
         lat: 53.5444,
@@ -36,8 +35,8 @@ export class MapElement extends Component {
       },
       defaultAnimation: 2,
     }]}
-    )
-  };
+    //)
+  //};
 
   handleMapLoad = this.handleMapLoad.bind(this);
 
