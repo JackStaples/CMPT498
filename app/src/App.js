@@ -7,6 +7,7 @@ import Hexbin, { renderHexbin } from './hexbin.js';
 import Linegraph, { renderLinegraph } from './linegraph.js';
 import Barchart, { renderBargraph } from './bargraph.js';
 import Calendar, { renderCalendar } from './calendar.js';
+import Table, { TableElem } from './table.js'
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 class NavElem extends React.Component{
@@ -108,6 +109,7 @@ class Historical extends React.Component {
 					id="historicalLinegraph"
 					ref={ renderLinegraph("#historicalLinegraph") }
 				/>
+				<TableElem />
 			</div>
 		);
 	}
@@ -141,45 +143,12 @@ class Errors extends React.Component {
 }
 
 class Export extends React.Component {
+
 	render() {
-  const data = [{
-    name: 'Tanner Linsley',
-    age: 26,
-    friend: {
-      name: 'Jason Maurer',
-      age: 23,
-    }
-  },{
-  	name: 'Jack',
-  	age: 24,
-  	friend: {
-  		name: 'fetus',
-  		age: 'unborn',
-  	}
-  }]
-
-  const columns = [{
-    Header: 'Name',
-    accessor: 'name' 
-  }, {
-    Header: 'Age',
-    accessor: 'age',
-    Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-  }, {
-    id: 'friendName', 
-    Header: 'Friend Name',
-    accessor: d => d.friend.name 
-  }, {
-    Header: props => <span>Friend Age</span>,
-    accessor: 'friend.age'
-  }];
-
-  return (
-  <ReactTable
-    data={data}
-    columns={columns}
-  	/>
-	)}
+		return (
+		<TableElem />
+		);
+  }
 }
 
 ReactDOM.render(
