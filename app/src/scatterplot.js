@@ -42,7 +42,7 @@ import * as d3 from 'd3';
       
       // this defines the whitespace around the graph, as well as the size of the graph
       var margin = {top: 40, right: 15, bottom: 60, left: 60}
-        , width = 1200 - margin.left - margin.right
+        , width = 1366 - margin.left - margin.right
         , height = 600 - margin.top - margin.bottom;
             
       // create the x-axis that will be used for the visualization, it uses a time scale

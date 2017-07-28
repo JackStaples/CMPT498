@@ -4,6 +4,11 @@ import './App.css';
 import { Nav, NavItem } from 'react-bootstrap';
 import Scatter, { renderScatterplot } from './scatterplot.js';
 import Hexbin, { renderHexbin } from './hexbin.js';
+import Linegraph, { renderLinegraph } from './linegraph.js';
+import Barchart, { renderBargraph } from './bargraph.js';
+import Google, { MapElement, RenderGoogleMap } from './googlemap.js';
+import Calendar, { renderCalendar } from './calendar.js';
+
 
 class NavElem extends React.Component{
 	anotherCall(){
@@ -58,14 +63,15 @@ class RealTime extends React.Component {
 	render() {
 		return (
 			<div name="Realtime">
-				<div>Hello, I am the RealTime Module</div>
+				<MapElement />
 				<div 
 					id="realTimeScatterplot"
+					margin="0 auto"
 					ref={ renderScatterplot("#realTimeScatterplot") }
 				/>
 				<div 
-					id="Linegraph"
-
+					id="realTimeLinegraph"
+					ref={ renderLinegraph("#realTimeLinegraph") }
 				/>
       		</div>
 		);
@@ -73,6 +79,7 @@ class RealTime extends React.Component {
 
 	componentDidMount() {
 		console.log("Realtime was mounted");
+
 	}
 	componentWillUnmount() {
 		console.log("Realtime is unmounting");
@@ -87,7 +94,11 @@ class Historical extends React.Component {
 	render(){
 		return (
 			<div>
-				<div>Hello, I am the Historical Module</div>
+				<div
+                    id="Calendar"
+                    ref={ renderCalendar }
+                />
+				<MapElement />
 				<div 
 					id="hexbin"
 					ref={ renderHexbin }
@@ -95,6 +106,10 @@ class Historical extends React.Component {
 				<div
 					id="historicalScatterplot"
 					ref={ renderScatterplot("#historicalScatterplot") }
+				/>
+				<div
+					id="historicalLinegraph"
+					ref={ renderLinegraph("#historicalLinegraph") }
 				/>
 			</div>
 		);
@@ -113,8 +128,26 @@ class Historical extends React.Component {
 class Errors extends React.Component {
 	render(){
 		return (
-			<div>Hello, I am the Errors Module</div>
-		);
+			<div>
+				<svg width="1366" height="700"
+					id="vdsidBargraph"
+					ref={ renderBargraph("correctness.csv", "#vdsidBargraph") }
+				/>
+				<svg width="1366" height="700"
+					id="lanesBargraph"
+					ref={ renderBargraph("laneCorrectness.csv", "#lanesBargraph") }
+				/>
+			</div>
+		);	
+	}
+	componentDidMount() {
+		console.log("Historical was mounted");
+	}
+	componentWillUnmount() {
+		console.log("Historical is unmounting");
+	}
+	shouldComponentUpdate() {
+		return false;
 	}
 }
 
