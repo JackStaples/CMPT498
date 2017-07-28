@@ -1,7 +1,12 @@
 import * as d3 from 'd3';
 
 export function renderLinegraph(target){
-	var parseDate = d3.timeParse("%Y-%m-%d %H:%M:%S.%L");
+    handleLinegraph(target);
+
+}
+
+function handleLinegraph(target){
+  var parseDate = d3.timeParse("%Y-%m-%d %H:%M:%S.%L");
         d3.csv("./1011september1hourlanes.csv", function(data) {
         //d3.csv("./1008septemberhourlanes.csv", function(data) {
         //d3.csv("./1011septemberday.csv", function(data) {

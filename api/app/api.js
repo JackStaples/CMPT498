@@ -1,8 +1,9 @@
+
 var sql = require('mssql/msnodesqlv8');
 
 
 var table1 = "[both raw]";
-var table2 = "Warehouse";
+var table2 = "warehouse";
 function test() {
   var response;
     //response = calenderQuery('speed');
@@ -16,24 +17,25 @@ function test() {
 }
 
 
-function callDB(query) {
+function callDB(query, res, callback) {
+  console.log(query);
   var config = {
     driver: 'msnodesqlv8',
-    server: 'DESKTOP-TOSQMFB',
+    server: 'DESKTOP-L3U7II0',
     database: 'CMPT498',
     options: { trustedConnection: true, useUTC: true }
   };
   sql.close();
-  return sql.connect(config, function (err) {
+  sql.connect(config, function (err) {
     if(err) { console.log(err); }
     var request = new sql.Request();
-    return request.query(query, function(err, records) {
+    request.query(query, function(err, records) {
       if(err) {
         console.log(err);
       } else {
         sql.close();
         console.log(records);
-        return records;
+        callback(res, records);
       }
     });
   });
@@ -43,6 +45,7 @@ function callDB(query) {
 function scatterPlotQuery(column, vdsId, lowdate, highdate, live) {
   var table;
   var dt;
+  var hour;
   if(live) {
     table = table1;
     dt = "datetime";
@@ -60,10 +63,10 @@ function scatterPlotQuery(column, vdsId, lowdate, highdate, live) {
 }
 
 
-function lineGraphQuery(column, vdsId, hour, lowdate, highdate, live) {
+exports.lineGraphQuery = function(column, vdsId, hour, lowdate, highdate, live, res, callback) {
   var table;
   var dt;
-  if(live) {
+  if( live != "false" ) {
     table = table1;
     hour = " and datepart(hh,  " + table + ".datetime) = " + hour;
     dt = "datetime";
@@ -77,7 +80,7 @@ function lineGraphQuery(column, vdsId, hour, lowdate, highdate, live) {
   query += DateSplit(table, lowdate, highdate, live);
   query += " and " + table+ ".vdsId = " + vdsId + " and " + table +
   ".vdsId = VDSIDs.vdsId order by " + dt + ", lane;";
-  return callDB(query);
+  callDB(query, res, callback);
 }
 
 
@@ -120,7 +123,7 @@ function completenessQuery(vdsId, lowdate, highdate) {
 
 // Splits '2016-09-01 00:00:00.00' type datetimes.
 function DateSplit(table,lowdate, highdate, live) {
-  if(live) {
+  if(live != "false") {
     var today = new Date();
     return " datepart(yyyy, " + table + ".datetime) = " + today.getFullYear() +
     " and datepart(mm, " + table + ".datetime) = " + (today.getMonth()+1) +
@@ -142,6 +145,7 @@ function DateSplit(table,lowdate, highdate, live) {
 }
 
 function mapQuery() {
+  console.log("map querying is running");
   return callDB("select * from VDSIDs");
 }
-test();
+//test();
