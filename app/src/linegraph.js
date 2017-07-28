@@ -1,11 +1,19 @@
 import * as d3 from 'd3';
 
+function httpGet(url){
+  var xmlHTTP = new XMLHttpRequest();
+  xmlHttp.open("GET", url, false );
+  xmlHttp.send( null );
+  return xmlHttp.responseText;
+}
+
 export function renderLinegraph(target){
     handleLinegraph(target);
 
 }
 
 function handleLinegraph(target){
+  var test = httpGet("localhost:3001/linegraph?column=speed&vdsId=1003&hour=1&lowdate=2009-09-01+00:00:00&highdate=lowdate=2009-09-02+00:00:00&live=false")
   var parseDate = d3.timeParse("%Y-%m-%d %H:%M:%S.%L");
         d3.csv("./1011september1hourlanes.csv", function(data) {
         //d3.csv("./1008septemberhourlanes.csv", function(data) {
