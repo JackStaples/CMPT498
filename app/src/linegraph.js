@@ -1,23 +1,27 @@
 import * as d3 from 'd3';
 
-function httpGet(url){
+
+function httpGet(url, target, callback){
   var xmlHTTP = new XMLHttpRequest();
-  xmlHttp.open("GET", url, false );
-  xmlHttp.send( null );
-  return xmlHttp.responseText;
+  xmlHTTP.onreadystatechange = function() {
+  if (xmlHTTP.readyState==4 && xmlHTTP.status==200) {
+    var response = JSON.parse(xmlHTTP.responseText)
+    callback(target, response);
+  }
+  };
+  xmlHTTP.open('GET', url, true );
+  xmlHTTP.send(null);
 }
 
 export function renderLinegraph(target){
-    handleLinegraph(target);
-
+    httpGet("http://localhost:3001/linegraph?column=speed&vdsId=1003&hour=1&lowdate=2016-09-01+00:00:00&highdate=2016-09-02+00:00:00&live=false", target, handleLinegraph);
 }
 
-function handleLinegraph(target){
-  var test = httpGet("localhost:3001/linegraph?column=speed&vdsId=1003&hour=1&lowdate=2009-09-01+00:00:00&highdate=lowdate=2009-09-02+00:00:00&live=false")
-  var parseDate = d3.timeParse("%Y-%m-%d %H:%M:%S.%L");
-        d3.csv("./1011september1hourlanes.csv", function(data) {
-        //d3.csv("./1008septemberhourlanes.csv", function(data) {
-        //d3.csv("./1011septemberday.csv", function(data) {
+function handleLinegraph(target, response){
+  console.log("starting linegraph");
+  console.log(JSON.stringify(response.recordset));
+  var data = response.recordset;
+  var parseDate = d3.timeParse("%Y-%m-%d %H:%M:%S");
           var property = Object.keys(data[0]);
           var highVal = 0;
           var minVal = 0;
@@ -39,34 +43,34 @@ function handleLinegraph(target){
             data[i][property[2]] = parseInt(data[i][property[2]]);
             
             // fill the arrays for the lines
-            if ( data[i][property[2]] == 1 ) {
+            if ( data[i][property[1]] == 1 ) {
               lanesOne.push(data[i]);
               if (lane < 1){
               lane = 1 }
             }
-            else if ( data[i][property[2]] == 2 ) {
+            else if ( data[i][property[1]] == 2 ) {
               lanesTwo.push(data[i]);
               if (lane < 2){
               lane = 2 }
             }
-            else if ( data[i][property[2]] == 3 ) {
+            else if ( data[i][property[1]] == 3 ) {
               lanesThree.push(data[i]);
               if (lane < 3){
               lane = 3 }
             }
-            else if ( data[i][property[2]] == 4 ) {
+            else if ( data[i][property[1]] == 4 ) {
               lanesFour.push(data[i]);
               if (lane < 4){
               lane = 4}
             }
             
             // track the minimum value for the x axis
-            if (data[i][property[1]] > highVal){
-              highVal = data[i][property[1]]; 
+            if (data[i][property[2]] > highVal){
+              highVal = data[i][property[2]]; 
             }
             // track the minimum value for the y axis
-            if (data[i][property[1]] < minVal){
-              minVal = data[i][property[1]];
+            if (data[i][property[0]] < minVal){
+              minVal = data[i][property[0]];
             }
             // track the lowest time for the title
             if (data[i][property[0]] < data[lowestTime][property[0]] && data[i][property[0]] != null ){
@@ -196,7 +200,7 @@ function handleLinegraph(target){
           .text(property[0]);
         
         // header title
-        chart.append("text")
+        /*chart.append("text")
           .attr("text-anchor", "middle")
           .attr("transform", "translate(" + width/2 + "," + (margin.top-15) + ")")
           .text(property[1] + " of different lanes from " + data[lowestTime][property[0]].toLocaleString() + " to " + data[highestTime][property[0]].toLocaleString());
@@ -223,6 +227,5 @@ function handleLinegraph(target){
             .attr("x", width - 24)
             .attr("y", 9.5)
             .attr("dy", "0.32em")
-            .text(function(d) { return d; });
-        });
+            .text(function(d) { return d; });*/
 }
