@@ -5,32 +5,21 @@ var sql = require('mssql/msnodesqlv8');
 var table1 = "[both raw]";
 var table2 = "warehouse";
 
-function callDB(query, res, callback) {
+function callDB(query, res, callback, sql) {
   console.log(query);
-  var config = {
-    driver: 'msnodesqlv8',
-    server: 'DESKTOP-L3U7II0',
-    database: 'CMPT498',
-    options: { trustedConnection: true, useUTC: true }
-  };
-  sql.close();
-  sql.connect(config, function (err) {
-    if(err) { console.log(err); }
     var request = new sql.Request();
     request.query(query, function(err, records) {
       if(err) {
         console.log(err);
       } else {
-        sql.close();
         console.log(records);
         callback(res, records);
       }
     });
-  });
 }
 
 
-exports.scatterPlotQuery = function(column, vdsId, lowdate, highdate, live, res, callback) {
+exports.scatterPlotQuery = function(column, vdsId, lowdate, highdate, live, res, callback, sql) {
   console.log("scatterplot is starting");
   var table;
   var dt;
@@ -49,7 +38,7 @@ exports.scatterPlotQuery = function(column, vdsId, lowdate, highdate, live, res,
   query += DateSplit(table, lowdate, highdate, live);
   query += " and " + table + ".vdsId = " + vdsId + " " + hour + " and " + table +
   ".vdsId = VDSIDs.vdsId order by " + dt + ", lane;";
-  callDB(query, res, callback);
+  callDB(query, res, callback, sql);
   
   /*
   var query = "select " + table + "."+ dt +", " + table + ".lane, " +
@@ -62,7 +51,7 @@ exports.scatterPlotQuery = function(column, vdsId, lowdate, highdate, live, res,
 }
 
 
-exports.lineGraphQuery = function(column, vdsId, hour, lowdate, highdate, live, res, callback) {
+exports.lineGraphQuery = function(column, vdsId, hour, lowdate, highdate, live, res, callback, sql) {
   console.log("linegraph is starting");
   var table;
   var dt;
@@ -81,7 +70,7 @@ exports.lineGraphQuery = function(column, vdsId, hour, lowdate, highdate, live, 
   query += DateSplit(table, lowdate, highdate, live);
   query += " and " + table + ".vdsId = " + vdsId + " " + hour + " and " + table +
   ".vdsId = VDSIDs.vdsId order by " + dt + ", lane;";
-  callDB(query, res, callback);
+  callDB(query, res, callback, sql);
 }
 
 
