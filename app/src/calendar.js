@@ -1,7 +1,26 @@
 import * as d3 from 'd3';
+import get, { httpGet } from './getRequest.js';
+
+
 
 export function renderCalendar(target){
+  httpGet("http://localhost:3001/calendar?column=occ&year=2016", target, handleCalendar);
+}
 
+export function handleCalendar(target,response){
+  
+var data = response.recordset;
+var parseDate = d3.timeParse("%Y-%m-%d");
+var property = Object.keys(data[0]);
+for (var i in data){
+  data[i][property[0]] = data[i][property[0]].slice(0,10)
+}
+      for (var i in data){
+        console.log(data[i][property[0]])
+        data[i][property[0]] = data[i][property[0]].slice(0,10)
+        data[i][property[1]] = parseInt(data[i][property[1]]);
+        console.log("\nThis is the timestamp     " + data[i][property[0]]);
+}
 var width = 1366,
     height = 136,
     cellSize = 17;
@@ -13,7 +32,7 @@ var months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", 
 
 
 var color = d3.scaleQuantize()
-    .domain([10, 40])
+    .domain([0, 10])
     .range(["#a50026", "#d73027", "#f46d43", "#fdae61", "#fee08b", "#ffffbf", "#d9ef8b", "#a6d96a", "#66bd63", "#1a9850", "#006837"]);
 //Creates the number of
 var svg = d3.select(target)
@@ -70,24 +89,14 @@ svg.append("g")
   .enter().append("path")
     .attr("d", pathMonth);
 
-
-
-d3.csv("./occupancyCombined.csv", function(error, csv) {
-
-  console.log("This is the stuff " + JSON.stringify(csv));
-  var data = d3.nest()
-      .key(function(d) { return d.datetime; })
-      .rollup(function(d) { return d[0].occupancy; })
-    .object(csv);
  
-
-  rect.filter(function(d) { return d in data; })
-      .attr("fill", function(d) { return color(data[d]); })
+  for (var i in data){
+    console.log("\nThis is the 1th property " + data[i][property[1]]);
+  rect.filter(function(d) { return data[i][property[0]]; })
+      .attr("fill", function(d) { return color(data[i][property[1]]); })
     .append("title")
-      .text(function(d) { return d + ": " + data[d] });
-
-  console.log(data);
-});
+      .text(function(d) { return d + ": " + data[i][property[1]] });
+  }
 }
 
 function pathMonth(t0) {

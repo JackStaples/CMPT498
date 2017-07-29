@@ -21,7 +21,7 @@ function callDB(query, res, callback) {
   console.log(query);
   var config = {
     driver: 'msnodesqlv8',
-    server: 'DESKTOP-L3U7II0',
+    server: 'BRETT-LT-PC',
     database: 'CMPT498',
     options: { trustedConnection: true, useUTC: true }
   };
@@ -84,11 +84,12 @@ exports.lineGraphQuery = function(column, vdsId, hour, lowdate, highdate, live, 
 }
 
 
-function calenderQuery(column) {
+exports.calendarQuery = function(column, year,res,callback) {
   var query = "select cast(dt as date) as datetime, avg(" + column +
   ") as aggregate from " + table2 + " where " +
-  "dt is not null group by cast(dt as date)";
-  return callDB(query);
+  "dt is not null and datepart(yyyy, dt) = " + year +
+  " group by cast(dt as date)";
+  callDB(query,res,callback);
 }
 
 

@@ -14,6 +14,13 @@ exports.scatterplot = function(req, res){
   api.scatterPlotQuery(req.query.column, req.query.vdsId, req.query.lowdate, req.query.highdate, req.query.live, res, apiReturn);
 }
 
+exports.calendar = function(req, res){
+  console.log(JSON.stringify(req.query));
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  api.calendarQuery(req.query.column,req.query.year,res,apiReturn);
+}
+
 function apiReturn(res, results){
   res.send(results);
 }
