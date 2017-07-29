@@ -63,13 +63,17 @@ class RealTime extends React.Component {
 	render() {
 		return (
 			<div name="Realtime">
-				
+				<MapElement />
 				<div 
 					id="realTimeScatterplot"
 					margin="0 auto"
 					ref={ renderScatterplot("#realTimeScatterplot") }
 				/>
-				
+				<div 
+					id="realTimeLinegraph"
+					ref={ renderLinegraph("#realTimeLinegraph") }
+				/>
+      		</div>
 		);
 	}
 
@@ -94,7 +98,7 @@ class Historical extends React.Component {
                     id="Calendar"
                     ref={ renderCalendar }
                 />
-				
+				<MapElement />
 				<div 
 					id="hexbin"
 					ref={ renderHexbin }

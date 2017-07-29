@@ -1,25 +1,11 @@
 import * as d3 from 'd3';
-
-
-function httpGet(url, target, callback){
-  var xmlHTTP = new XMLHttpRequest();
-  xmlHTTP.onreadystatechange = function() {
-  if (xmlHTTP.readyState==4 && xmlHTTP.status==200) {
-    var response = JSON.parse(xmlHTTP.responseText)
-    callback(target, response);
-  }
-  };
-  xmlHTTP.open('GET', url, true );
-  xmlHTTP.send(null);
-}
+import get, { httpGet } from './getRequest.js';
 
 export function renderLinegraph(target){
     httpGet("http://localhost:3001/linegraph?column=speed&vdsId=1003&hour=1&lowdate=2016-09-01+00:00:00&highdate=2016-09-02+00:00:00&live=false", target, handleLinegraph);
 }
 
 function handleLinegraph(target, response){
-  console.log("starting linegraph");
-  console.log(JSON.stringify(response.recordset));
   var data = response.recordset;
   var parseDate = d3.timeParse("%Y-%m-%d %H:%M:%S");
           var property = Object.keys(data[0]);

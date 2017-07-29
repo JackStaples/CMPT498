@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
+import get, { httpGet } from './getRequest.js';
 import * as d3 from 'd3';
 
-  export function renderScatterplot(target){
+export function renderScatterplot(target){
+  httpGet("http://localhost:3001/linegraph?column=speed&vdsId=1003&hour=1&lowdate=2016-09-01+00:00:00&highdate=2016-09-02+00:00:00&live=false", target, handleScatterplot);
+}
 
-    console.log("Rendering scatterplot, target div is: " + target);
-    var parseDate = d3.timeParse("%Y-%m-%d %H:%M:%S.%L");
-    //d3.csv("./september1011SpeedErrors.csv", function(data) {
-    //d3.csv("./1033september1hour.csv", function(data) {
-    //d3.csv("./1011september1hourvolume.csv", function(data) {
-    //d3.csv("./1011september1houroccupancy.csv", function(data) {
-    //d3.csv("./1011september1hourlanes.csv", function(data) {
-    d3.csv("./1033september1.csv", function(data) {
-    //d3.csv("./1011september1hourlanes.csv", function(data) {
+function handleScatterplot(target, response){
+  var data = response.recordset;
+  console.log(JSON.stringify(data));
+    var parseDate = d3.timeParse("%Y-%m-%d %H:%M:%S");
       var property = Object.keys(data[0]);
       var highVal = 0;
       var minVal = 0;
@@ -21,14 +19,14 @@ import * as d3 from 'd3';
       // converts the csv strings to datetime and int, records the max and min values of speed
       for (var i in data){
         data[i][property[0]] = parseDate(data[i][property[0]])
-        data[i][property[1]] = parseInt(data[i][property[1]])
+        data[i][property[2]] = parseInt(data[i][property[2]])
         // track the minimum value for the x axis
-        if (data[i][property[1]] > highVal){
-          highVal = data[i][property[1]]; 
+        if (data[i][property[2]] > highVal){
+          highVal = data[i][property[2]]; 
         }
         // track the minimum value for the y axis
-        if (data[i][property[1]] < minVal){
-          minVal = data[i][property[1]];
+        if (data[i][property[2]] < minVal){
+          minVal = data[i][property[2]];
         }
         // track the lowest time for the title
         if (data[i][property[0]] < data[lowestTime][property[0]] && data[i][property[0]] != null ){
@@ -99,13 +97,13 @@ import * as d3 from 'd3';
         .attr("r", function(data) { 
           return (len > 3500 ? 2 : 4); })
         .attr("cx", function(data) { return x(data[property[0]]); })
-        .attr("cy", function(data) { return y(data[property[1]]); })
+        .attr("cy", function(data) { return y(data[property[2]]); })
         .attr("fill", function(data){
-          return (data[property[1]] >= 0 ? "LimeGreen" : "Crimson");
+          return (data[property[2]] >= 0 ? "LimeGreen" : "Crimson");
         })
         // add the hover over on the circle that displays the time and speed
         .append("title")
-          .text(function(data) { return "Time: " + data[property[0]].toString() + " "+ [property[1]] + ": " + data[property[1]] });
+          .text(function(data) { return "Time: " + data[property[0]].toString() + " "+ [property[2]] + ": " + data[property[2]] });
 
       
         //this section adds the titles to the chart  
@@ -113,7 +111,7 @@ import * as d3 from 'd3';
         chart.append("text")
           .attr("text-anchor", "middle")
           .attr("transform", "translate(" + 15 + "," + (height/2) + ")rotate(-90)")
-          .text(property[1]);
+          .text(property[2]);
       
         //x-axis title
         chart.append("text")
@@ -126,6 +124,5 @@ import * as d3 from 'd3';
           .attr("text-anchor", "middle")
           .attr("transform", "translate(" + width/2 + "," + (margin.top-15) + ")")
           .text(property[1] + " from " + data[lowestTime][property[0]].toLocaleString() + " to " + data[highestTime][property[0]].toLocaleString());
-    }); 
   console.log("Scatterplot code has run");
-  }
+}
