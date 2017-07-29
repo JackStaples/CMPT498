@@ -23,12 +23,10 @@ exports.scatterPlotQuery = function(column, vdsId, lowdate, highdate, live, res,
   console.log("scatterplot is starting");
   var table;
   var dt;
-  var hour;
   if(live != "false") {
     table = table1;
     dt = "datetime";
   } else {
-    hour = "";
     table = table2;
     dt = "dt";
   }
@@ -36,8 +34,9 @@ exports.scatterPlotQuery = function(column, vdsId, lowdate, highdate, live, res,
   var query = "select " + table + "."+ dt +", " + table + ".lane, " +
   table + "." + column + " from " + table + ", VDSIDs where ";
   query += DateSplit(table, lowdate, highdate, live);
-  query += " and " + table + ".vdsId = " + vdsId + " " + hour + " and " + table +
+  query += " and " + table + ".vdsId = " + vdsId  + " and " + table +
   ".vdsId = VDSIDs.vdsId order by " + dt + ", lane;";
+  console.log("Query: ");
   callDB(query, res, callback, sql);
   
   /*
@@ -113,6 +112,7 @@ function completenessQuery(vdsId, lowdate, highdate) {
 
 // Splits '2016-09-01 00:00:00.00' type datetimes.
 function DateSplit(table,lowdate, highdate, live) {
+  console.log(live);
   if(live != "false") {
     var today = new Date();
     return " datepart(yyyy, " + table + ".datetime) = " + today.getFullYear() +
