@@ -4,18 +4,6 @@ var sql = require('mssql/msnodesqlv8');
 
 var table1 = "[both raw]";
 var table2 = "warehouse";
-function test() {
-  var response;
-    //response = calenderQuery('speed');
-    //response = lineGraphQuery('speed', '1003', 12, '2016-09-01 00:00:00.00', '2016-09-02 00:00:00.00', true);
-    //response = scatterPlotQuery('speed', '1003', '2016-09-01 00:00:00.00', '2016-09-02 00:00:00.00', true);
-    //response = hexbinQuery("speed", "occ", '2016-09-01 00:00:00.00', '2016-09-02 00:00:00.00', true);
-    //response = barChartQuery();
-    //response = laneErrorQuery("1003");
-    //response = completenessQuery("1003", '2016-09-01 00:00:00.00', '2016-09-02 00:00:00.00');
-    //response = mapQuery();
-}
-
 
 function callDB(query, res, callback) {
   console.log(query);
@@ -78,14 +66,15 @@ exports.lineGraphQuery = function(column, vdsId, hour, lowdate, highdate, live, 
   console.log("linegraph is starting");
   var table;
   var dt;
+  
   if( live != "false" ) {
     table = table1;
-    hour = " and datepart(hh,  " + table + ".datetime) = " + hour;
     dt = "datetime";
+    hour = " and datepart(hh,  " + table + ".datetime) = " + hour;
   } else {
-    hour = "";
     table = table2;
     dt = "dt";
+    hour = " and datepart(hh,  " + table + ".dt) = " + hour;
   }
   var query = "select " + table + "."+ dt +", " + table + ".lane, " +
   table + "." + column + " from " + table + ", VDSIDs where ";
@@ -160,4 +149,3 @@ function mapQuery() {
   console.log("map querying is running");
   return callDB("select * from VDSIDs");
 }
-//test();

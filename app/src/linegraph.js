@@ -2,7 +2,7 @@ import * as d3 from 'd3';
 import get, { httpGet } from './getRequest.js';
 
 export function renderLinegraph(target){
-    httpGet("http://localhost:3001/linegraph?column=speed&vdsId=1003&hour=1&lowdate=2016-09-01+00:00:00&highdate=2016-09-02+00:00:00&live=false", target, handleLinegraph);
+    httpGet("http://localhost:3001/linegraph?column=speed&vdsId=1011&hour=9&lowdate=2016-09-01+00:00:00&highdate=2016-09-02+00:00:00&live=false", target, handleLinegraph);
 }
 
 function handleLinegraph(target, response){

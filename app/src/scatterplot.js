@@ -3,7 +3,7 @@ import get, { httpGet } from './getRequest.js';
 import * as d3 from 'd3';
 
 export function renderScatterplot(target){
-  httpGet("http://localhost:3001/scatterplot?column=speed&vdsId=1003&lowdate=2016-09-01+00:00:00&highdate=2016-09-02+00:00:00&live=false", target, handleScatterplot);
+  httpGet("http://localhost:3001/scatterplot?column=speed&vdsId=1011&lowdate=2016-09-01+00:00:00&highdate=2016-09-02+00:00:00&live=false", target, handleScatterplot);
 }
 
 function handleScatterplot(target, response){
