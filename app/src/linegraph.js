@@ -89,7 +89,7 @@ function handleLinegraph(target, response){
           // define the line
           var line = d3.line()
             .x(function(data) { return x( data[property[0]]); })
-            .y(function(data) { return y( data[property[1]]); });
+            .y(function(data) { return y( data[property[2]]); });
 
           // select the body of the DOM and assign spacing to it
           var chart = d3.select(target)
@@ -135,7 +135,7 @@ function handleLinegraph(target, response){
             .datum(lanesOne)
             .attr("d", line)
             .append("title")
-              .text(function() { return "Lane: " + lanesOne[0][property[2]] });
+              .text(function() { return "Lane: " + lanesOne[0][property[1]] });
           }  
             
           if (lanesTwo.length > 0){
@@ -147,7 +147,7 @@ function handleLinegraph(target, response){
             .datum(lanesTwo)
             .attr("d", line)
             .append("title")
-              .text(function() { return "Lane: " + lanesTwo[0][property[2]] });
+              .text(function() { return "Lane: " + lanesTwo[0][property[1]] });
           }
           if (lanesThree.length > 0){
           // Add the third line
@@ -158,7 +158,7 @@ function handleLinegraph(target, response){
             .datum(lanesThree)
             .attr("d", line)
             .append("title")
-              .text(function() { return "Lane: " + lanesThree[0][property[2]] });
+              .text(function() { return "Lane: " + lanesThree[0][property[1]] });
           }
           
           if (lanesFour.length > 0){
@@ -170,7 +170,7 @@ function handleLinegraph(target, response){
             .datum(lanesFour)
             .attr("d", line)
             .append("title")
-              .text(function() { return "Lane " + lanesFour[0][property[2]] });
+              .text(function() { return "Lane " + lanesFour[0][property[1]] });
           }
         //this section adds the titles to the chart  
         // y-axis title

@@ -42,11 +42,12 @@ function callDB(query, res, callback) {
 }
 
 
-function scatterPlotQuery(column, vdsId, lowdate, highdate, live) {
+exports.scatterPlotQuery = function(column, vdsId, lowdate, highdate, live, res, callback) {
+  console.log("scatterplot is starting");
   var table;
   var dt;
   var hour;
-  if(live) {
+  if(live != "false") {
     table = table1;
     dt = "datetime";
   } else {
@@ -54,16 +55,27 @@ function scatterPlotQuery(column, vdsId, lowdate, highdate, live) {
     table = table2;
     dt = "dt";
   }
+  
+  var query = "select " + table + "."+ dt +", " + table + ".lane, " +
+  table + "." + column + " from " + table + ", VDSIDs where ";
+  query += DateSplit(table, lowdate, highdate, live);
+  query += " and " + table + ".vdsId = " + vdsId + " " + hour + " and " + table +
+  ".vdsId = VDSIDs.vdsId order by " + dt + ", lane;";
+  callDB(query, res, callback);
+  
+  /*
   var query = "select " + table + "."+ dt +", " + table + ".lane, " +
   table + "." + column + " from " + table + ", VDSIDs where ";
   query += DateSplit(table, lowdate, highdate, live);
   query += " and " + table+ ".vdsId = " + vdsId + " and " + table +
   ".vdsId = VDSIDs.vdsId order by " + dt + ", lane;";
   return callDB(query);
+  */
 }
 
 
 exports.lineGraphQuery = function(column, vdsId, hour, lowdate, highdate, live, res, callback) {
+  console.log("linegraph is starting");
   var table;
   var dt;
   if( live != "false" ) {
@@ -78,7 +90,7 @@ exports.lineGraphQuery = function(column, vdsId, hour, lowdate, highdate, live, 
   var query = "select " + table + "."+ dt +", " + table + ".lane, " +
   table + "." + column + " from " + table + ", VDSIDs where ";
   query += DateSplit(table, lowdate, highdate, live);
-  query += " and " + table+ ".vdsId = " + vdsId + " and " + table +
+  query += " and " + table + ".vdsId = " + vdsId + " " + hour + " and " + table +
   ".vdsId = VDSIDs.vdsId order by " + dt + ", lane;";
   callDB(query, res, callback);
 }
