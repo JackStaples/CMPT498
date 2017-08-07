@@ -60,23 +60,23 @@ svg.append("text")
     .attr("text-anchor", "middle")
     .text(function(d) { return d; });
 
-//svg.append("text")
-  //.text("Jan")
-  //.attr("transform", "translate(20)");
+svg.append("text")
+  .text("Jan")
+  .attr("transform", "translate(20)");
 
-//svg.append("text")
-  //.text("Feb")
-  //.attr("transform", "translate(115)");
+svg.append("text")
+  .text("Dec")
+  .attr("transform", "translate(875)");
 
-//svg.append("text")
-  //.text("Su")
-  //.attr("font-size", 10)
-  //.attr("transform", "translate(-14, 12)");
+svg.append("text")
+  .text("Su")
+  .attr("font-size", 10)
+  .attr("transform", "translate(-14, 12)");
 
-//svg.append("text")
-  //.text("Sat")
-  //.attr("font-size", 10)
-  //.attr("transform", "translate(-15, 112)");
+svg.append("text")
+  .text("Sat")
+  .attr("font-size", 10)
+  .attr("transform", "translate(-15, 112)");
 
 var rect = svg.append("g")
     .attr("fill", "none")
