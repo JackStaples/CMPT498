@@ -10,8 +10,11 @@ export function renderCalendar(target){
 export function handleCalendar(target,response){
   
 var data = response.recordset;
-var parseDate = d3.timeParse("%Y-%m-%d");
 var property = Object.keys(data[0]);
+console.log("This is the property!!!!!!" + property)
+var max = 0;
+var min = 1000;
+var year = "";
 for (var i in data){
   data[i][property[0]] = data[i][property[0]].slice(0,10)
 }
@@ -19,6 +22,13 @@ for (var i in data){
         console.log(data[i][property[0]])
         data[i][property[0]] = data[i][property[0]].slice(0,10)
         data[i][property[1]] = parseInt(data[i][property[1]]);
+        if (data[i][property[1]] > max){
+          max = data[i][property[1]];
+        } 
+        if (data[i][property[1]] < min){
+          min = data[i][property[1]];
+        }
+        console.log("These are the max and the min" +  max +  "    "  + min)
         console.log("\nThis is the timestamp     " + data[i][property[0]]);
 }
 var width = 1366,
@@ -29,10 +39,12 @@ var formatPercent = d3.format(".1%");
 
 var months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
 
-
+var max;
+var year;
+var min;
 
 var color = d3.scaleQuantize()
-    .domain([0, 10])
+    .domain([min, max])
     .range(["#a50026", "#d73027", "#f46d43", "#fdae61", "#fee08b", "#ffffbf", "#d9ef8b", "#a6d96a", "#66bd63", "#1a9850", "#006837"]);
 //Creates the number of
 var svg = d3.select(target)
@@ -89,14 +101,15 @@ svg.append("g")
   .enter().append("path")
     .attr("d", pathMonth);
 
- 
-  for (var i in data){
-    console.log("\nThis is the 1th property " + data[i][property[1]]);
-  rect.filter(function(d) { return data[i][property[0]]; })
-      .attr("fill", function(d) { return color(data[i][property[1]]); })
+  var d3nest = d3.nest()
+      .key(function(d) { return d.datetime; })
+      .rollup(function(d) { return d[0].aggregate; })
+    .object(data);
+  console.log(d3nest);
+  rect.filter(function(d) { return d in d3nest; })
+      .attr("fill", function(d) { return color(d3nest[d]); })
     .append("title")
-      .text(function(d) { return d + ": " + data[i][property[1]] });
-  }
+      .text(function(d) { return d + ": " + d3nest[d] });
 }
 
 function pathMonth(t0) {
