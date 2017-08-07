@@ -31,6 +31,7 @@ for (var i in data){
         console.log("These are the max and the min" +  max +  "    "  + min)
         console.log("\nThis is the timestamp     " + data[i][property[0]]);
 }
+var year = parseInt(data[0][property[0]].slice(0,4));
 var width = 1366,
     height = 136,
     cellSize = 17;
@@ -39,17 +40,13 @@ var formatPercent = d3.format(".1%");
 
 var months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
 
-var max;
-var year;
-var min;
-
 var color = d3.scaleQuantize()
     .domain([min, max])
     .range(["#a50026", "#d73027", "#f46d43", "#fdae61", "#fee08b", "#ffffbf", "#d9ef8b", "#a6d96a", "#66bd63", "#1a9850", "#006837"]);
 //Creates the number of
 var svg = d3.select(target)
   .selectAll("svg")
-  .data(d3.range(2016, 2018))
+  .data(d3.range(year, year+1))
   .enter().append("svg")
     .attr("width", width)
     .attr("height", height)
