@@ -3,23 +3,25 @@ import get, { httpGet } from './getRequest.js';
 
 
 
-export function renderCalendar(target){
-  httpGet("http://localhost:3001/calendar?column=occ&year=2016", target, handleCalendar);
+export function renderCalendar(target, year, occ){
+  var queryString = "http://localhost:3001/calendar?column=" + occ + "&year=" + year;
+  httpGet(queryString, target, handleCalendar);
+  console.log("trying to query")
 }
 
 export function handleCalendar(target,response){
   
 var data = response.recordset;
+//console.log("\n\n\nthis is the data:   " + data)
 var property = Object.keys(data[0]);
-console.log("This is the property!!!!!!" + property)
+//console.log("This is the property!!!!!!" + property)
 var max = 0;
 var min = 1000;
-var year = "";
 for (var i in data){
   data[i][property[0]] = data[i][property[0]].slice(0,10)
 }
       for (var i in data){
-        console.log(data[i][property[0]])
+        console.log("This is the number         " + data[i][property[1]])
         data[i][property[0]] = data[i][property[0]].slice(0,10)
         data[i][property[1]] = parseInt(data[i][property[1]]);
         if (data[i][property[1]] > max){
@@ -28,8 +30,8 @@ for (var i in data){
         if (data[i][property[1]] < min){
           min = data[i][property[1]];
         }
-        console.log("These are the max and the min" +  max +  "    "  + min)
-        console.log("\nThis is the timestamp     " + data[i][property[0]]);
+        //console.log("These are the max and the min" +  max +  "    "  + min)
+        //console.log("\nThis is the timestamp     " + data[i][property[0]]);
 }
 var year = parseInt(data[0][property[0]].slice(0,4));
 var width = 1366,

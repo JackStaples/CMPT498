@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './App.css';
-import { Nav, NavItem } from 'react-bootstrap';
+import { Nav, NavItem, DropdownButton, MenuItem } from 'react-bootstrap';
 import Scatter, { renderScatterplot } from './scatterplot.js';
 import Hexbin, { renderHexbin } from './hexbin.js';
 import Linegraph, { renderLinegraph } from './linegraph.js';
 import Barchart, { renderBargraph } from './bargraph.js';
 import Google, { MapElement, RenderGoogleMap } from './googlemap.js';
 import Calendar, { renderCalendar } from './calendar.js';
-
 
 class NavElem extends React.Component{
 	anotherCall(){
@@ -58,10 +57,27 @@ class NavElem extends React.Component{
 	}
 }
 
+class DataWidgets extends React.Component {
+
+
+
+	render() {
+		return (
+		<DropdownButton bsStyle="default" id="column_selector">
+			<MenuItem eventKey="Occupancy">Occupancy</MenuItem>
+			<MenuItem eventKey="Speed">Speed</MenuItem>
+			<MenuItem eventKey="Volume">Occupancy</MenuItem>
+		</DropdownButton>
+		);
+	}
+}
+
 class RealTime extends React.Component {
 
 	render() {
 		return (
+
+
 			<div name="Realtime">
 				<MapElement />
 				<div 
@@ -91,13 +107,36 @@ class RealTime extends React.Component {
 }
 
 class Historical extends React.Component {
+
+	constructor(props) {
+    	super(props);
+        this.state = {column: "speed"};
+        this.update = this.update.bind(this);
+  	}
+  	update(eventKey){
+  		this.setState({
+  			column: `${eventKey}`
+  		}, function () {
+  			console.log("This is the event key" + `${eventKey}`)
+  			console.log("this is the state column" + this.state.column)
+  		});
+
+  	}
 	render(){
 		return (
 			<div>
+			<DropdownButton bsStyle="default" id="column_selector" title="Columns" onSelect={this.update}>
+			<MenuItem eventKey="occ">Occupancy</MenuItem>
+			<MenuItem eventKey="speed">Speed</MenuItem>
+			<MenuItem eventKey="vol">Occupancy</MenuItem>
+		</DropdownButton>
 				<div
                     id="Calendar"
-                    ref={ renderCalendar }
+                    ref={ renderCalendar("#Calendar", 2017, this.state.column) }
                 />
+                <div>
+                <p> {this.state.column} </p>
+                </div>
 				<MapElement />
 				<div 
 					id="hexbin"
@@ -121,7 +160,8 @@ class Historical extends React.Component {
 		console.log("Historical is unmounting");
 	}
 	shouldComponentUpdate() {
-		return false;
+		console.log("it tried to update")
+		return true;
 	}
 }
 
@@ -163,6 +203,11 @@ ReactDOM.render(
 	<NavElem/>,
 	document.getElementById('navigation')
 );
+
+/*ReactDOM.render(
+	<DataWidgets/>,
+	document.getElementById('widgets')
+);*/
 ReactDOM.render(
 	<RealTime/>,
 	document.getElementById('container')
