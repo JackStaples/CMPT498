@@ -110,7 +110,7 @@ class Historical extends React.Component {
 
 	constructor(props) {
     	super(props);
-        this.state = {column: "speed"};
+        this.state = {column: "vol"};
         this.update = this.update.bind(this);
   	}
   	update(eventKey){
@@ -119,6 +119,7 @@ class Historical extends React.Component {
   		}, function () {
   			console.log("This is the event key" + `${eventKey}`)
   			console.log("this is the state column" + this.state.column)
+  			renderCalendar("#Calendar", 2017, this.state.column)
   		});
 
   	}
@@ -128,7 +129,7 @@ class Historical extends React.Component {
 			<DropdownButton bsStyle="default" id="column_selector" title="Columns" onSelect={this.update}>
 			<MenuItem eventKey="occ">Occupancy</MenuItem>
 			<MenuItem eventKey="speed">Speed</MenuItem>
-			<MenuItem eventKey="vol">Occupancy</MenuItem>
+			<MenuItem eventKey="vol">Volume	</MenuItem>
 		</DropdownButton>
 				<div
                     id="Calendar"
