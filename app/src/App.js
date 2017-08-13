@@ -8,7 +8,7 @@ import Linegraph, { renderLinegraph } from './linegraph.js';
 import Barchart, { renderBargraph } from './bargraph.js';
 import Google, { MapElement, RenderGoogleMap } from './googlemap.js';
 import Calendar, { renderCalendar } from './calendar.js';
-
+//import ReactWidgets, {DateTimePicker} from 'react-widgets';
 class NavElem extends React.Component{
 	anotherCall(){
 		console.log("hey it worked");
@@ -23,7 +23,7 @@ class NavElem extends React.Component{
 		}
 		else if (`${eventKey}` === "Historical"){
 			ReactDOM.render(
-				<Historical/>,
+				<Historical test='occ'/>,
 				document.getElementById('container')
 			);
 		}
@@ -59,15 +59,41 @@ class NavElem extends React.Component{
 
 class DataWidgets extends React.Component {
 
+	constructor(props) {
+    	super(props);
+    	this.state = {column: "vol"};
+    	this.update = this.update.bind(this);
+    	this.reRender = this.reRender.bind(this);
+  	}
 
+  	update(eventKey){
+  		this.setState({
+  			column: `${eventKey}`
+  		}, function () {
+  			this.reRender();
+  		});
+  	}
+
+  	reRender(){
+  		ReactDOM.render(
+				<Refresh/>,
+				document.getElementById('container')
+			);
+  		ReactDOM.render(
+				<Historical test={this.state.column}/>,
+				document.getElementById('container')
+			);
+  	}
 
 	render() {
 		return (
-		<DropdownButton bsStyle="default" id="column_selector">
-			<MenuItem eventKey="Occupancy">Occupancy</MenuItem>
-			<MenuItem eventKey="Speed">Speed</MenuItem>
-			<MenuItem eventKey="Volume">Occupancy</MenuItem>
+		<div>
+		<DropdownButton bsStyle="default" id="column_selector" title="Columns" onSelect={this.update}>
+			<MenuItem eventKey="occ">Occupancy</MenuItem>
+			<MenuItem eventKey="speed">Speed</MenuItem>
+			<MenuItem eventKey="vol">Volume	</MenuItem>
 		</DropdownButton>
+		</div>
 		);
 	}
 }
@@ -119,21 +145,22 @@ class Historical extends React.Component {
   		}, function () {
   			console.log("This is the event key" + `${eventKey}`)
   			console.log("this is the state column" + this.state.column)
-  			renderCalendar("#Calendar", 2017, this.state.column)
   		});
 
+  	}
+
+  	reRender(){
+  		ReactDOM.render(
+				<RealTime/>,
+				document.getElementById('container')
+			);
   	}
 	render(){
 		return (
 			<div>
-			<DropdownButton bsStyle="default" id="column_selector" title="Columns" onSelect={this.update}>
-			<MenuItem eventKey="occ">Occupancy</MenuItem>
-			<MenuItem eventKey="speed">Speed</MenuItem>
-			<MenuItem eventKey="vol">Volume	</MenuItem>
-		</DropdownButton>
 				<div
                     id="Calendar"
-                    ref={ renderCalendar("#Calendar", 2017, this.state.column) }
+                    ref={ renderCalendar("#Calendar", 2017, this.props.test) }
                 />
                 <div>
                 <p> {this.state.column} </p>
@@ -192,6 +219,15 @@ class Errors extends React.Component {
 	}
 }
 
+class Refresh extends React.Component {
+	render() {
+		return (
+		<div>
+		</div>
+		)
+	}
+}
+
 class Export extends React.Component {
 	render(){
 		return (
@@ -205,11 +241,12 @@ ReactDOM.render(
 	document.getElementById('navigation')
 );
 
-/*ReactDOM.render(
-	<DataWidgets/>,
-	document.getElementById('widgets')
-);*/
+
 ReactDOM.render(
 	<RealTime/>,
 	document.getElementById('container')
 );
+ReactDOM.render(
+			<DataWidgets/>,
+			document.getElementById('widgets')
+			);
