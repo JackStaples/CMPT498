@@ -131,20 +131,20 @@ class Errors extends React.Component {
 			<div>
 				<svg width="1366" height="700"
 					id="vdsidBargraph"
-					ref={ renderBargraph("correctness.csv", "#vdsidBargraph") }
+					ref={ renderBargraph(0, "#vdsidBargraph") }
 				/>
 				<svg width="1366" height="700"
 					id="lanesBargraph"
-					ref={ renderBargraph("laneCorrectness.csv", "#lanesBargraph") }
+					ref={ renderBargraph(1, "#lanesBargraph") }
 				/>
 			</div>
 		);	
 	}
 	componentDidMount() {
-		console.log("Historical was mounted");
+		console.log("Errors was mounted");
 	}
 	componentWillUnmount() {
-		console.log("Historical is unmounting");
+		console.log("Errors is unmounting");
 	}
 	shouldComponentUpdate() {
 		return false;
@@ -164,6 +164,6 @@ ReactDOM.render(
 	document.getElementById('navigation')
 );
 ReactDOM.render(
-	<RealTime/>,
+	<Errors/>,
 	document.getElementById('container')
 );

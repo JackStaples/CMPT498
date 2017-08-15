@@ -7,7 +7,6 @@ export function renderLinegraph(target){
 
 function handleLinegraph(target, response){
   var data = response.recordset;
-  var parseDate = d3.timeParse("%Y-%m-%d %H:%M:%S");
           var property = Object.keys(data[0]);
           var highVal = 0;
           var minVal = 0;
@@ -24,7 +23,7 @@ function handleLinegraph(target, response){
           
           // converts the csv strings to datetime and int, records the max and min values of speed
           for (var i in data){
-            data[i][property[0]] = parseDate(data[i][property[0]]);
+            data[i][property[0]] = new Date(data[i][property[0]]);
             data[i][property[1]] = parseInt(data[i][property[1]]);
             data[i][property[2]] = parseInt(data[i][property[2]]);
             

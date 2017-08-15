@@ -3,13 +3,13 @@ import get, { httpGet } from './getRequest.js';
 import * as d3 from 'd3';
 
 export function renderScatterplot(target){
+  console.log("render scatterplot was called");
   httpGet("http://localhost:3001/scatterplot?column=speed&vdsId=1011&lowdate=2016-09-01+00:00:00&highdate=2016-09-02+00:00:00&live=false", target, handleScatterplot);
 }
 
 function handleScatterplot(target, response){
+  console.log("The scatterplot is being rendered!");
   var data = response.recordset;
-  console.log(JSON.stringify(data));
-    var parseDate = d3.timeParse("%Y-%m-%d %H:%M:%S");
       var property = Object.keys(data[0]);
       var highVal = 0;
       var minVal = 0;
@@ -18,7 +18,7 @@ function handleScatterplot(target, response){
       var len = data.length;
       // converts the csv strings to datetime and int, records the max and min values of speed
       for (var i in data){
-        data[i][property[0]] = parseDate(data[i][property[0]])
+        data[i][property[0]] = new Date(data[i][property[0]])
         data[i][property[2]] = parseInt(data[i][property[2]])
         // track the minimum value for the x axis
         if (data[i][property[2]] > highVal){
@@ -30,6 +30,7 @@ function handleScatterplot(target, response){
         }
         // track the lowest time for the title
         if (data[i][property[0]] < data[lowestTime][property[0]] && data[i][property[0]] != null ){
+          console.log(data[i][property[0]]);
           lowestTime = i;
         }
         // track the highest time for the title
@@ -43,9 +44,10 @@ function handleScatterplot(target, response){
         , width = 1366 - margin.left - margin.right
         , height = 600 - margin.top - margin.bottom;
             
+      console.log([data[0][property[0]], data[data.length - 1][property[0]]]);
       // create the x-axis that will be used for the visualization, it uses a time scale
       var x = d3.scaleTime()
-        .domain([data[lowestTime][property[0]], data[highestTime][property[0]]])
+        .domain([new Date(data[0][property[0]]), new Date(data[data.length - 1][property[0]])])
         .range([0, width]);
       x.nice();
       

@@ -2,7 +2,7 @@
 var sql = require('mssql/msnodesqlv8');
 
 
-var table1 = "[both raw]";
+var table1 = "rawdata";
 var table2 = "warehouse";
 
 function callDB(query, res, callback, sql) {
@@ -12,8 +12,10 @@ function callDB(query, res, callback, sql) {
       if(err) {
         console.log(err);
       } else {
-        console.log(records);
+        console.log(records);    
+
         callback(res, records);
+        request.cancel();
       }
     });
 }
@@ -81,17 +83,17 @@ function calenderQuery(column) {
 }
 
 
-function barChartQuery() {
+exports.barChartQuery = function(res, callback, sql) {
   var query = "select vdsId, sum(correct) as correct, sum(incorrect) as incorrect" +
   " from " + table2 + " where vdsId is not null group by vdsId";
-  return callDB(query);
+  callDB(query, res, callback, sql);
 }
 
 
-function laneErrorQuery(vdsId) {
+exports.laneErrorQuery = function(vdsId, res, callback, sql) {
   var query = "select lane, sum(correct) as correct, sum(incorrect) as incorrect" +
   " from " + table2 + " where vdsId = " + vdsId + " group by lane";
-  return callDB(query);
+  callDB(query, res, callback, sql);
 }
 
 
