@@ -97,10 +97,10 @@ exports.laneErrorQuery = function(vdsId, res, callback, sql) {
 }
 
 
-function hexbinQuery(xAxis, yAxis, lowdate, highdate) {
+exports.hexbinQuery = function(xAxis, yAxis, lowdate, highdate, res, callback, sql) {
   var query = "select " + xAxis + ", " + yAxis + " from " + table2 +
   " where " + DateSplit(table2, lowdate, highdate, false) + " ;";
-  return callDB(query);
+  callDB(query, res, callback, sql);
 }
 
 

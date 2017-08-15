@@ -31,12 +31,18 @@ exports.bargraph = function(req, res){
   api.barChartQuery(res, apiReturn, sql);
 }
 
-
 exports.bargraphLanes = function(req, res){
   console.log(JSON.stringify(req.query));
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   api.laneErrorQuery(req.query.VDSID, res, apiReturn, sql);
+}
+
+exports.hexbin = function(req, res){
+  console.log(JSON.stringify(req.query));
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  api.hexbinQuery(req.query.xAxis, req.query.yAxis, req.query.lowdate, req.query.highdate, res, apiReturn, sql);
 }
 
 function apiReturn(res, results){

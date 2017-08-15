@@ -5,4 +5,5 @@ module.exports = function(app) {
   app.get('/scatterplot', db_controller.scatterplot);
   app.get('/bargraph', db_controller.bargraph);
   app.get('/bargraphLanes', db_controller.bargraphLanes);
+  app.get('/hexbin', db_controller.hexbin);
 }

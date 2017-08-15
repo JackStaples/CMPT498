@@ -2,9 +2,15 @@
 import React, { Component } from 'react';
 import * as d3 from 'd3';
 import * as d3hexbin from 'd3-hexbin';
+import get, { httpGet } from './getRequest.js';
 
-export function renderHexbin() {
-	d3.csv("./1011septspeedoccmonth.csv", function(data) {
+export function renderHexbin(target) {
+	 httpGet("http://localhost:3001/hexbin?xAxis=speed&yAxis=occ&lowdate=2016-09-01+00:00:00&highdate=2017-09-02+00:00:00", target, handleHexbin);
+}
+
+function handleHexbin(target, response) {
+        var data = response.recordset;
+        console.log(JSON.stringify(data));
         var property = Object.keys(data[0]);
         var highColumnOne = 0;
         var lowColumnOne = 0;
@@ -27,7 +33,6 @@ export function renderHexbin() {
           
           if (data[i][property[1]] > highColumnTwo){
             highColumnTwo = data[i][property[1]]
-            console.log(highColumnTwo);
           }
           if (data[i][property[1]] < lowColumnTwo){
             lowColumnTwo = data[i][property[1]]
@@ -132,5 +137,4 @@ export function renderHexbin() {
           .attr("transform", "translate(" + width/2 + "," + (margin.top-15) + ")")
           .text(property[0] + " vs." + property[1]);
         
-      });
-}
+      }

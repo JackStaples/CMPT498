@@ -6,7 +6,6 @@ export function renderBargraph(lanes, target) {
   if (lanes === 1){
     httpGet("http://localhost:3001/bargraphLanes?VDSID=1010", target, handleBargraph);
   } else {
-
     httpGet("http://localhost:3001/bargraph", target, handleBargraph);
   }
 }

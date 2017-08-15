@@ -101,7 +101,7 @@ class Historical extends React.Component {
 				<MapElement />
 				<div 
 					id="hexbin"
-					ref={ renderHexbin }
+					ref={ renderHexbin("#hexbin") }
 				/>
 				<div
 					id="historicalScatterplot"
@@ -164,6 +164,6 @@ ReactDOM.render(
 	document.getElementById('navigation')
 );
 ReactDOM.render(
-	<Errors/>,
+	<Historical/>,
 	document.getElementById('container')
 );
