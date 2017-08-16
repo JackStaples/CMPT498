@@ -99,7 +99,7 @@ exports.laneErrorQuery = function(vdsId, res, callback, sql) {
 
 exports.hexbinQuery = function(xAxis, yAxis, lowdate, highdate, res, callback, sql) {
   var query = "select " + xAxis + ", " + yAxis + " from " + table2 +
-  " where " + DateSplit(table2, lowdate, highdate, false) + " ;";
+  " where " + DateSplit(table2, lowdate, highdate, "false") + " ;";
   callDB(query, res, callback, sql);
 }
 
@@ -107,7 +107,7 @@ exports.hexbinQuery = function(xAxis, yAxis, lowdate, highdate, res, callback, s
 function completenessQuery(vdsId, lowdate, highdate) {
   var query = "select vdsId, sum(total) as total from " +
   table2 + " where vdsId = " + vdsId +
-  " and " + DateSplit(table2, lowdate, highdate, false) +
+  " and " + DateSplit(table2, lowdate, highdate, "false") +
   " group by vdsId;";
   return callDB(query);
 }
