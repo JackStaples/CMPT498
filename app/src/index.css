@@ -3,3 +3,7 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+#navigation { 
+	padding-top: 100px;
+	width: 500px;
+}

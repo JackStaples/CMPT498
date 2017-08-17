@@ -29,8 +29,8 @@
     <label><input type="checkbox" id="sortIncorrect"> Sort on incorrect</label>
     
     <script>
-        //d3.csv("./correctness.csv", function(data) {
-        d3.csv("./laneCorrectness.csv", function(data) {
+        d3.csv("./correctness.csv", function(data) {
+        //d3.csv("./laneCorrectness.csv", function(data) {
           var property = Object.keys(data[0]);
           var highVal = 0;
           var lowVal = 0;
@@ -75,14 +75,13 @@
             .range([ height, 0 ]);
           y.nice();
           
-          console.log(JSON.stringify(data));
-          
           var z = d3.scaleOrdinal()
             .range(["green", "crimson"]);
           var keys = data.columns.slice(1);
+          console.log(JSON.stringify(data.columns));
           x0.domain(data.map(function(d) { return d[property[0]]; }));
           x1.domain(keys).rangeRound([0, x0.bandwidth()]);
-          console.log(data.map(function(d) { return d[property[0]]; }));
+          data.map(function(d) { return d[property[0]]; });
           
           change();
           

@@ -1,0 +1,195 @@
+using System;
+using System.Data.SqlClient;
+using System.Collections;
+
+namespace ETLRough
+{
+    class Program
+    {
+        static private SqlConnection Connector;
+        static private SqlCommand Command;
+        static private SqlDataReader Reader;
+        
+        static private string database = "CMPT498";
+        static private string connect = "server=DESKTOP-TOSQMFB; database=" + database + "; trusted_connection=True;";
+        static private string table = "[both raw]";
+        static private string timespan = "15"; //minutes
+
+        static private ArrayList Timespan;
+        static private ArrayList resultList;
+
+        static private void setup()
+        {
+            resultList = new ArrayList();
+            Timespan = new ArrayList();
+            Connector = new SqlConnection();
+            Command = new SqlCommand();
+            Connector.ConnectionString = connect;
+            Command.Connection = Connector;
+        }
+
+
+        static void Main(string[] args)
+        {
+            setup();
+            createWarehouseTable();
+            createLocationTable();
+            getTimeSpan();
+            transfer();
+            System.Console.WriteLine("Now waiting, Press any key to exit.");
+            System.Console.Read();
+        }
+
+        static private void createWarehouseTable()
+        {
+            System.Console.WriteLine("Creating 'Warehouse' table with clustered index...");
+            string query = "create table Warehouse ( dt datetime NOT NULL, vdsId int NOT NULL, " +
+                            "lane int NOT NULL, rawSpeed int, speed int, " +
+                           "rawOcc int, occ int, vol int, correct int, incorrect int, total int " +
+                           " PRIMARY KEY CLUSTERED (dt, vdsId, lane) );";
+            GeneralQuery(query, false, "Table already present.", 0);
+
+        }
+
+        static private void createlocationTable()
+        {
+            string query = "create table VDSIDs ( vdsId int, location varchar(50), spdLimit int ) ";
+            GeneralQuery(query, false, "Table already present.", 0);
+            string[] lines = System.IO.File.ReadAllLines(@"C:\Users\Mark\Desktop\VDSIDdata.csv");//------Change this
+
+            query = "insert into VDSIDs ( vdsId, location, spdLimit) values ";
+            string[] splitted;
+            char[] param = { ',' };
+            foreach (string line in lines)
+            {
+                splitted = line.Split(param, StringSplitOptions.None);
+
+                query += "( " + splitted[0] + ", '" + splitted[1] + "', " + splitted[2] + " ), ";
+            }
+            char[] param2 = { ',' , ' ' };
+            query = query.TrimEnd(param2);
+
+            GeneralQuery(query, false, "Query rejected.", 0);
+        }
+        
+        // Eventually, this will first get the time span
+        // from the warehouse, as to not do a double insertion.
+        static private void getTimeSpan()
+        {
+            System.Console.WriteLine("Getting list of all dates...");
+            string query = "select distinct datetime from " + table +
+                                  " where datepart(mi, datetime) % " + timespan + " = 0 and " +
+                                  "datepart(ss, datetime) = 0 order by datetime";
+            GeneralQuery(query, true, "ERROR: Did not recieve list of datetimes.", 0);
+        }
+
+        // is in 2017-01-31 11:59:00 PM format.
+        // convert into '2016-09-01 00:00:00.00' format.
+        // . character just in case it's in regular format.
+        static string dateFormat(string time)
+        {
+            string date;
+
+            string[] sep = { " ", "-", ":", "." };
+            string[] splitted = time.Split(sep, StringSplitOptions.None);
+            int hour = Convert.ToInt32(splitted[3]);
+            if(splitted[6] == "PM" && hour != 12)
+            {
+                hour = hour + 12;
+            }
+            string sHour = Convert.ToString(hour);
+            date = splitted[0] + "-" + splitted[1] +
+                "-" + splitted[2] + " " + sHour +
+                ":" + splitted[4] + ":" +
+                splitted[5] + ".00";
+            return date;
+        }
+
+
+        static private void transfer()
+        {
+            string query;
+            for(int i = 0; i < Timespan.Count - 1; i++)
+            {
+                query = "exec DataBaseTransfer  @StartDate = '" + Timespan[i].ToString() + 
+                    "', @EndDate = '" + Timespan[i + 1].ToString() + "'; ";
+
+                GeneralQuery(query, true, "Transaction failure.", 1);
+                if(i % 10 == 0)
+                {
+                    System.Console.WriteLine("Transfering, currently have " + 
+                        resultList.Count + " transactions completed.");
+                }             
+            }
+            System.Console.WriteLine("Done.");
+        }
+
+        // uses class variable resultList
+        static private void GeneralQuery(string query, bool get, string err, int listNum)
+        {
+            Command.CommandText = query;        
+            Connector.Open();
+            if(get)
+            {
+                getData(err, listNum);
+            }
+            else
+            {
+                sendData(err);
+            }
+            Connector.Close();
+
+        }
+
+        static private void getData( string err, int listNum)
+        {
+            if(listNum == 0)
+            {
+                Timespan.Clear();
+                resultList.Clear();
+            }          
+            try
+            {          
+                Reader = Command.ExecuteReader();              
+                while (Reader.Read())
+                {
+                    string row = "";
+                    for (int i = 0; i < Reader.FieldCount; i++)
+                    {
+                        row += Reader[i].ToString();
+                        if(i < Reader.FieldCount - 1)
+                        {
+                            row += ",";
+                        }
+                    }
+                    if (listNum == 0)
+                    {
+                        Timespan.Add(row);
+                    }
+                    else
+                    {
+                        resultList.Add(row);
+                    }
+                }
+            }
+            catch
+            {
+                System.Console.WriteLine("No result");
+                Environment.Exit(0);
+            }
+        }
+
+
+        static private void sendData(string err)
+        {
+            try
+            {
+                Command.ExecuteNonQuery();
+            }
+            catch
+            {
+                System.Console.WriteLine(err);
+            }
+        }
+    }
+}
