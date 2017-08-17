@@ -1,7 +1,39 @@
 import * as d3 from 'd3';
+import get, { httpGet } from './getRequest.js';
 
-export function renderCalendar(target){
 
+
+export function renderCalendar(target, year, occ){
+  var stringYear = year.getFullYear()
+  var queryString = "http://localhost:3001/calendar?column=" + occ + "&year=" + stringYear;
+  httpGet(queryString, target, handleCalendar);
+}
+
+export function handleCalendar(target,response){
+  
+var data = response.recordset;
+//console.log("\n\n\nthis is the data:   " + data)
+var property = Object.keys(data[0]);
+//console.log("This is the property!!!!!!" + property)
+var max = 0;
+var min = 1000;
+for (var i in data){
+  data[i][property[0]] = data[i][property[0]].slice(0,10)
+}
+      for (var i in data){
+        console.log("This is the number         " + data[i][property[1]])
+        data[i][property[0]] = data[i][property[0]].slice(0,10)
+        data[i][property[1]] = parseInt(data[i][property[1]]);
+        if (data[i][property[1]] > max){
+          max = data[i][property[1]];
+        } 
+        if (data[i][property[1]] < min){
+          min = data[i][property[1]];
+        }
+        //console.log("These are the max and the min" +  max +  "    "  + min)
+        //console.log("\nThis is the timestamp     " + data[i][property[0]]);
+}
+var year = parseInt(data[0][property[0]].slice(0,4));
 var width = 1366,
     height = 136,
     cellSize = 17;
@@ -10,15 +42,13 @@ var formatPercent = d3.format(".1%");
 
 var months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"];
 
-
-
 var color = d3.scaleQuantize()
-    .domain([10, 40])
+    .domain([min, max])
     .range(["#a50026", "#d73027", "#f46d43", "#fdae61", "#fee08b", "#ffffbf", "#d9ef8b", "#a6d96a", "#66bd63", "#1a9850", "#006837"]);
 //Creates the number of
 var svg = d3.select(target)
   .selectAll("svg")
-  .data(d3.range(2016, 2018))
+  .data(d3.range(year, year+1))
   .enter().append("svg")
     .attr("width", width)
     .attr("height", height)
@@ -32,23 +62,23 @@ svg.append("text")
     .attr("text-anchor", "middle")
     .text(function(d) { return d; });
 
-//svg.append("text")
-  //.text("Jan")
-  //.attr("transform", "translate(20)");
+svg.append("text")
+  .text("Jan")
+  .attr("transform", "translate(20)");
 
-//svg.append("text")
-  //.text("Feb")
-  //.attr("transform", "translate(115)");
+svg.append("text")
+  .text("Dec")
+  .attr("transform", "translate(875)");
 
-//svg.append("text")
-  //.text("Su")
-  //.attr("font-size", 10)
-  //.attr("transform", "translate(-14, 12)");
+svg.append("text")
+  .text("Su")
+  .attr("font-size", 10)
+  .attr("transform", "translate(-14, 12)");
 
-//svg.append("text")
-  //.text("Sat")
-  //.attr("font-size", 10)
-  //.attr("transform", "translate(-15, 112)");
+svg.append("text")
+  .text("Sat")
+  .attr("font-size", 10)
+  .attr("transform", "translate(-15, 112)");
 
 var rect = svg.append("g")
     .attr("fill", "none")
@@ -70,24 +100,15 @@ svg.append("g")
   .enter().append("path")
     .attr("d", pathMonth);
 
-
-
-d3.csv("./occupancyCombined.csv", function(error, csv) {
-
-  console.log("This is the stuff " + JSON.stringify(csv));
-  var data = d3.nest()
+  var d3nest = d3.nest()
       .key(function(d) { return d.datetime; })
-      .rollup(function(d) { return d[0].occupancy; })
-    .object(csv);
- 
-
-  rect.filter(function(d) { return d in data; })
-      .attr("fill", function(d) { return color(data[d]); })
+      .rollup(function(d) { return d[0].aggregate; })
+    .object(data);
+  console.log(d3nest);
+  rect.filter(function(d) { return d in d3nest; })
+      .attr("fill", function(d) { return color(d3nest[d]); })
     .append("title")
-      .text(function(d) { return d + ": " + data[d] });
-
-  console.log(data);
-});
+      .text(function(d) { return d + ": " + d3nest[d] });
 }
 
 function pathMonth(t0) {
