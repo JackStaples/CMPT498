@@ -6,4 +6,5 @@ module.exports = function(app) {
   app.get('/bargraph', db_controller.bargraph);
   app.get('/bargraphLanes', db_controller.bargraphLanes);
   app.get('/hexbin', db_controller.hexbin);
+  app.get('/map', db_controller.map);
 }

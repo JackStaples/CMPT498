@@ -10,7 +10,6 @@ export function renderHexbin(target) {
 
 function handleHexbin(target, response) {
         var data = response.recordset;
-        console.log(JSON.stringify(data));
         var property = Object.keys(data[0]);
         var highColumnOne = 0;
         var lowColumnOne = 0;

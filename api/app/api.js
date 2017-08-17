@@ -12,8 +12,6 @@ function callDB(query, res, callback, sql) {
       if(err) {
         console.log(err);
       } else {
-        console.log(records);    
-
         callback(res, records);
         request.cancel();
       }
@@ -21,8 +19,7 @@ function callDB(query, res, callback, sql) {
 }
 
 
-exports.scatterPlotQuery = function(column, vdsId, lowdate, highdate, live, res, callback, sql) {
-  console.log("scatterplot is starting");
+exports.scatterPlotQuery = function(column, vdsId, lowdate, highdate, live, res, callback, sql) {;
   var table;
   var dt;
   if(live != "false") {
@@ -38,7 +35,6 @@ exports.scatterPlotQuery = function(column, vdsId, lowdate, highdate, live, res,
   query += DateSplit(table, lowdate, highdate, live);
   query += " and " + table + ".vdsId = " + vdsId  + " and " + table +
   ".vdsId = VDSIDs.vdsId order by " + dt + ", lane;";
-  console.log("Query: ");
   callDB(query, res, callback, sql);
   
   /*
@@ -53,7 +49,6 @@ exports.scatterPlotQuery = function(column, vdsId, lowdate, highdate, live, res,
 
 
 exports.lineGraphQuery = function(column, vdsId, hour, lowdate, highdate, live, res, callback, sql) {
-  console.log("linegraph is starting");
   var table;
   var dt;
   
@@ -114,7 +109,6 @@ function completenessQuery(vdsId, lowdate, highdate) {
 
 // Splits '2016-09-01 00:00:00.00' type datetimes.
 function DateSplit(table,lowdate, highdate, live) {
-  console.log(live);
   if(live != "false") {
     var today = new Date();
     return " datepart(yyyy, " + table + ".datetime) = " + today.getFullYear() +
@@ -136,7 +130,7 @@ function DateSplit(table,lowdate, highdate, live) {
       " and datepart(dd, " + table + ".dt) <= " + highdate[2] + " ";
 }
 
-function mapQuery() {
+exports.mapQuery = function(res, callback, sql) {
   console.log("map querying is running");
-  return callDB("select * from VDSIDs");
+  callDB("select * from VDSIDs", res, callback, sql);
 }

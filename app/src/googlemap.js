@@ -4,6 +4,7 @@ import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
 import _ from "lodash";
 
 import * as d3 from 'd3';
+import get, { httpGet } from './getRequest.js';
 
 // Wrap all `react-google-maps` components with `withGoogleMap` HOC
 // and name it GettingStartedGoogleMap
@@ -22,12 +23,20 @@ export const RenderGoogleMap = withGoogleMap(props => (
   </GoogleMap>
 ));
 
-export class MapElement extends Component {
+function getLocation(){
 
-
-  state = //function() {
-    //return(
-    { markers:
+  var xmlHTTP = new XMLHttpRequest();
+  xmlHTTP.onreadystatechange = function() {
+  if (xmlHTTP.readyState==4 && xmlHTTP.status==200) {
+    console.log("Response received! WE DID IT!");
+    var response = JSON.parse(xmlHTTP.responseText)
+    console.log(JSON.stringify(response));
+  }
+  };
+  xmlHTTP.open('GET', "http://localhost:3001/map", true );
+  xmlHTTP.send(null);
+  
+  var mark = { markers:
         [{
       position: {
         lat: 53.5444,
@@ -35,8 +44,14 @@ export class MapElement extends Component {
       },
       defaultAnimation: 2,
     }]}
-    //)
-  //};
+    
+  return mark;
+}
+
+export class MapElement extends Component {
+
+  state = getLocation();
+    
 
   handleMapLoad = this.handleMapLoad.bind(this);
 
