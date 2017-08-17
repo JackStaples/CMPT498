@@ -8,32 +8,40 @@ import Linegraph, { renderLinegraph } from './linegraph.js';
 import Barchart, { renderBargraph } from './bargraph.js';
 import Google, { MapElement, RenderGoogleMap } from './googlemap.js';
 import Calendar, { renderCalendar } from './calendar.js';
-//import ReactWidgets, {DateTimePicker} from 'react-widgets';
+import moment from 'moment'
+import ReactWidgets, {DateTimePicker} from 'react-widgets';
+import momentLocalizer from 'react-widgets/lib/localizers/moment';
+import 'react-widgets/dist/css/react-widgets.css';
+import DropdownList from 'react-widgets/lib/DropdownList';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+momentLocalizer(moment);
 class NavElem extends React.Component{
 	anotherCall(){
 		console.log("hey it worked");
 	}
 
 	handleSelect(eventKey){
-		if (`${eventKey}` === "Real-Time"){
+		console.log(eventKey);
+		if (eventKey === 0){
 			ReactDOM.render(
 				<RealTime/>,
 				document.getElementById('container')
 			);
 		}
-		else if (`${eventKey}` === "Historical"){
+		else if (eventKey === 1){
 			ReactDOM.render(
 				<Historical test='occ'/>,
 				document.getElementById('container')
 			);
 		}
-		else if (`${eventKey}` === "Errors"){
+		else if (eventKey === 2){
 			ReactDOM.render(
 				<Errors/>,
 				document.getElementById('container')
 			);
 		}
-		else if (`${eventKey}` === "Export"){
+		else if (eventKey === 3){
 			ReactDOM.render(
 				<Export/>,
 				document.getElementById('container')
@@ -43,12 +51,14 @@ class NavElem extends React.Component{
 
 	render(){
 		return (
-			<Nav bsStyle="tabs" onSelect={this.handleSelect}>
-				<NavItem eventKey="Real-Time" href="#">Real-Time</NavItem>
-				<NavItem eventKey="Historical" href="#">Historical</NavItem>
-				<NavItem eventKey="Errors" href="#">Errors</NavItem>
-				<NavItem eventKey="Export" href="#">Export</NavItem>
-			</Nav>
+			<Tabs onSelect={this.handleSelect}>
+    <TabList>
+      <Tab>RealTime</Tab>
+      <Tab>Historical</Tab>
+      <Tab>Errors</Tab>
+      <Tab>Export</Tab>
+    </TabList>
+  </Tabs>
 		);
 	}
 
@@ -62,8 +72,11 @@ class DataWidgets extends React.Component {
 	constructor(props) {
     	super(props);
     	this.state = {column: "vol"};
+    	this.state = {date: new Date()};
     	this.update = this.update.bind(this);
     	this.reRender = this.reRender.bind(this);
+    	this.dateUpdate = this.dateUpdate.bind(this);
+
   	}
 
   	update(eventKey){
@@ -71,16 +84,21 @@ class DataWidgets extends React.Component {
   			column: `${eventKey}`
   		}, function () {
   			this.reRender();
+  			console.log(this.state.date)
   		});
   	}
-
+  	dateUpdate(eventKey){
+  		this.setState({
+  			date: new Date(eventKey)
+  		});
+  	}
   	reRender(){
   		ReactDOM.render(
 				<Refresh/>,
 				document.getElementById('container')
 			);
   		ReactDOM.render(
-				<Historical test={this.state.column}/>,
+				<Historical test={this.state.column} date={this.state.date}/>,
 				document.getElementById('container')
 			);
   	}
@@ -93,6 +111,7 @@ class DataWidgets extends React.Component {
 			<MenuItem eventKey="speed">Speed</MenuItem>
 			<MenuItem eventKey="vol">Volume	</MenuItem>
 		</DropdownButton>
+		<DateTimePicker defaultValue={new Date()} onSelect={this.dateUpdate} parse={str => new Date(str)}/>
 		</div>
 		);
 	}
@@ -160,7 +179,7 @@ class Historical extends React.Component {
 			<div>
 				<div
                     id="Calendar"
-                    ref={ renderCalendar("#Calendar", 2017, this.props.test) }
+                    ref={ renderCalendar("#Calendar", this.props.date, this.props.test) }
                 />
                 <div>
                 <p> {this.state.column} </p>
@@ -241,7 +260,6 @@ ReactDOM.render(
 	document.getElementById('navigation')
 );
 
-
 ReactDOM.render(
 	<RealTime/>,
 	document.getElementById('container')
@@ -249,4 +267,4 @@ ReactDOM.render(
 ReactDOM.render(
 			<DataWidgets/>,
 			document.getElementById('widgets')
-			);
+);
