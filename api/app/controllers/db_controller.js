@@ -43,17 +43,15 @@ exports.hexbin = function(req, res){
 }
 
 exports.map = function(req, res){
-  console.log(JSON.stringify(req.query));
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   api.mapQuery(res, apiReturn, sql);
 }
 
 exports.calendar = function(req, res){
-  console.log(JSON.stringify(req.query));
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  api.calendarQuery(req.query.column,req.query.year,res,apiReturn);
+  api.calendarQuery(req.query.column,req.query.year,res,apiReturn, sql);
 }
 
 function apiReturn(res, results){

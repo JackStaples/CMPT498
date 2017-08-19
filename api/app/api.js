@@ -3,17 +3,16 @@ var sql = require('mssql/msnodesqlv8');
 
 
 var table1 = "rawdata";
-var table2 = "warehouse";
+var table2 = "Warehouse";
 
 function callDB(query, res, callback, sql) {
   console.log(query);
   var config = {
     driver: 'msnodesqlv8',
-    server: 'BRETT-LT-PC',
+    server: 'DESKTOP-L3U7II0',
     database: 'CMPT498',
     options: { trustedConnection: true, useUTC: true }
   };
-  sql.close();
   sql.connect(config, function (err) {
     if(err) { console.log(err); }
     var request = new sql.Request();
@@ -80,12 +79,13 @@ exports.lineGraphQuery = function(column, vdsId, hour, lowdate, highdate, live, 
 }
 
 
-exports.calendarQuery = function(column, year,res,callback) {
+exports.calendarQuery = function(column, year, res, callback, sql) {
+  
   var query = "select cast(dt as date) as datetime, avg(" + column +
   ") as aggregate from " + table2 + " where " +
   "dt is not null and datepart(yyyy, dt) = " + year +
   " group by cast(dt as date)";
-  callDB(query,res,callback);
+  callDB(query, res, callback, sql);
 }
 
 
@@ -142,6 +142,5 @@ function DateSplit(table,lowdate, highdate, live) {
 }
 
 exports.mapQuery = function(res, callback, sql) {
-  console.log("map querying is running");
   callDB("select * from VDSIDs", res, callback, sql);
 }

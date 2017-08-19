@@ -261,7 +261,7 @@ ReactDOM.render(
 );
 
 ReactDOM.render(
-	<Historical/>,
+	<RealTime/>,
 	document.getElementById('container')
 );
 ReactDOM.render(
