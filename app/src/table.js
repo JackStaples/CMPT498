@@ -45,9 +45,13 @@ TableElem.defaultProps = {
     Header: 'Friend Name',
     accessor: d => d.friend.name 
   }, {
-    Header: props => <span>Friend Age</span>,
-    accessor: 'friend.age'
+    Header: 
   }]
+
+}
+
+function getColumns(jsonObj) {
+  
 }
 
 export default TableElem;
