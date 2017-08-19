@@ -7,14 +7,6 @@ var table2 = "Warehouse";
 
 function callDB(query, res, callback, sql) {
   console.log(query);
-  var config = {
-    driver: 'msnodesqlv8',
-    server: 'DESKTOP-L3U7II0',
-    database: 'CMPT498',
-    options: { trustedConnection: true, useUTC: true }
-  };
-  sql.connect(config, function (err) {
-    if(err) { console.log(err); }
     var request = new sql.Request();
     request.query(query, function(err, records) {
       if(err) {
@@ -24,7 +16,6 @@ function callDB(query, res, callback, sql) {
         request.cancel();
       }
     });
-});
 }
 
 
