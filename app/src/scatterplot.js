@@ -3,12 +3,10 @@ import get, { httpGet } from './getRequest.js';
 import * as d3 from 'd3';
 
 export function renderScatterplot(target){
-  console.log("render scatterplot was called");
   httpGet("http://localhost:3001/scatterplot?column=speed&vdsId=1011&lowdate=2016-09-01+00:00:00&highdate=2016-09-02+00:00:00&live=false", target, handleScatterplot);
 }
 
 function handleScatterplot(target, response){
-  console.log("The scatterplot is being rendered!");
   var data = response.recordset;
       var property = Object.keys(data[0]);
       var highVal = 0;
@@ -30,7 +28,6 @@ function handleScatterplot(target, response){
         }
         // track the lowest time for the title
         if (data[i][property[0]] < data[lowestTime][property[0]] && data[i][property[0]] != null ){
-          console.log(data[i][property[0]]);
           lowestTime = i;
         }
         // track the highest time for the title
@@ -44,7 +41,6 @@ function handleScatterplot(target, response){
         , width = 1366 - margin.left - margin.right
         , height = 600 - margin.top - margin.bottom;
             
-      console.log([data[0][property[0]], data[data.length - 1][property[0]]]);
       // create the x-axis that will be used for the visualization, it uses a time scale
       var x = d3.scaleTime()
         .domain([new Date(data[0][property[0]]), new Date(data[data.length - 1][property[0]])])
@@ -126,5 +122,4 @@ function handleScatterplot(target, response){
           .attr("text-anchor", "middle")
           .attr("transform", "translate(" + width/2 + "," + (margin.top-15) + ")")
           .text(property[1] + " from " + data[lowestTime][property[0]].toLocaleString() + " to " + data[highestTime][property[0]].toLocaleString());
-  console.log("Scatterplot code has run");
 }

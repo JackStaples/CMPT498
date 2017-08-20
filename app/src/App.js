@@ -18,11 +18,10 @@ import 'react-tabs/style/react-tabs.css';
 momentLocalizer(moment);
 class NavElem extends React.Component{
 	anotherCall(){
-		console.log("hey it worked");
+		
 	}
 
 	handleSelect(eventKey){
-		console.log(eventKey);
 		if (eventKey === 0){
 			ReactDOM.render(
 				<RealTime/>,
@@ -63,7 +62,7 @@ class NavElem extends React.Component{
 	}
 
 	componentDidMount() {
-		console.log("Navigation is mounted");
+		
 	}
 }
 
@@ -84,7 +83,6 @@ class DataWidgets extends React.Component {
   			column: `${eventKey}`
   		}, function () {
   			this.reRender();
-  			console.log(this.state.date)
   		});
   	}
   	dateUpdate(eventKey){
@@ -139,11 +137,10 @@ class RealTime extends React.Component {
 	}
 
 	componentDidMount() {
-		console.log("Realtime was mounted");
+		
 
 	}
 	componentWillUnmount() {
-		console.log("Realtime is unmounting");
 	}
 	shouldComponentUpdate() {
 		return false;
@@ -162,8 +159,6 @@ class Historical extends React.Component {
   		this.setState({
   			column: `${eventKey}`
   		}, function () {
-  			console.log("This is the event key" + `${eventKey}`)
-  			console.log("this is the state column" + this.state.column)
   		});
 
   	}
@@ -201,13 +196,10 @@ class Historical extends React.Component {
 		);
 	}
 	componentDidMount() {
-		console.log("Historical was mounted");
 	}
 	componentWillUnmount() {
-		console.log("Historical is unmounting");
 	}
 	shouldComponentUpdate() {
-		console.log("it tried to update")
 		return true;
 	}
 }
@@ -228,10 +220,9 @@ class Errors extends React.Component {
 		);	
 	}
 	componentDidMount() {
-		console.log("Errors was mounted");
 	}
 	componentWillUnmount() {
-		console.log("Errors is unmounting");
+
 	}
 	shouldComponentUpdate() {
 		return false;
