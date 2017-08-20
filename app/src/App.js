@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './App.css';
-import { Nav, NavItem, DropdownButton, MenuItem } from 'react-bootstrap';
+import { Nav, NavItem, DropdownButton, MenuItem,Button } from 'react-bootstrap';
 import Scatter, { renderScatterplot } from './scatterplot.js';
 import Hexbin, { renderHexbin } from './hexbin.js';
 import Linegraph, { renderLinegraph } from './linegraph.js';
@@ -16,24 +16,33 @@ import DropdownList from 'react-widgets/lib/DropdownList';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 momentLocalizer(moment);
+
 class NavElem extends React.Component{
-	anotherCall(){
-		console.log("hey it worked");
-	}
+
+	constructor(props) {
+		super(props);
+    	this.state = {
+    		test : props.test2,
+    	};
+    }
 
 	handleSelect(eventKey){
 		console.log(eventKey);
 		if (eventKey === 0){
 			ReactDOM.render(
-				<RealTime/>,
+				<RealTime column={"vol"} dateFrom={new Date("2016-09-02")} dateTo={new Date("2016-09-03")}/>,
 				document.getElementById('container')
 			);
 		}
 		else if (eventKey === 1){
 			ReactDOM.render(
-				<Historical test='occ'/>,
+				<Historical test='occ' date={new Date()} dateFrom={new Date("2016-09-02")} dateTo={new Date("2016-09-03")} year='2017'/>,
 				document.getElementById('container')
 			);
+			ReactDOM.render(
+				<DataWidgetsCalendar/>,
+				document.getElementById('widgets')
+				);
 		}
 		else if (eventKey === 2){
 			ReactDOM.render(
@@ -50,15 +59,16 @@ class NavElem extends React.Component{
 	}
 
 	render(){
+		console.log("this is the test" + this.state.date);
 		return (
-			<Tabs onSelect={this.handleSelect}>
-    <TabList>
-      <Tab>RealTime</Tab>
-      <Tab>Historical</Tab>
-      <Tab>Errors</Tab>
-      <Tab>Export</Tab>
-    </TabList>
-  </Tabs>
+		<Tabs onSelect={this.handleSelect}>
+    	<TabList>
+      		<Tab>RealTime</Tab>
+      		<Tab>Historical</Tab>
+      		<Tab>Errors</Tab>
+     		<Tab>Export</Tab>
+    	</TabList>
+  		</Tabs>
 		);
 	}
 
@@ -67,29 +77,131 @@ class NavElem extends React.Component{
 	}
 }
 
-class DataWidgets extends React.Component {
+class DataWidgetsCalendar extends React.Component {
 
 	constructor(props) {
     	super(props);
-    	this.state = {column: "vol"};
-    	this.state = {date: new Date()};
     	this.update = this.update.bind(this);
     	this.reRender = this.reRender.bind(this);
     	this.dateUpdate = this.dateUpdate.bind(this);
+    	this.dateUpdate2 = this.dateUpdate2.bind(this);
+    	this.updateYear = this.updateYear.bind(this);
+    	this.updateColumn = this.updateColumn.bind(this);
+    	this.state = {year: 2017, 
+    				date: new Date(),
+    				dateFrom: new Date("2016-09-03"),
+    				dateTo: new Date("2016-09-04"),
+    				column: "vol",
+    				hexColumn: "occ"};
+    	console.log("The constructor has been run");
 
   	}
 
+  	update() {
+  			console.log(this.state.date)
+  			this.reRender();
+  		}
+
+  	updateColumn(eventKey){
+  		this.setState({
+  			column: `${eventKey}`
+  		});
+  	}
+  	updateColumnHexbin(eventKey){
+  		this.setState({
+  			hexColumn: `${eventKey}`
+  		});
+  	}
+  	dateUpdate(eventKey){
+  		this.setState({
+  			dateFrom: new Date(eventKey)
+  		});
+  	}
+  	dateUpdate2(eventKey){
+  		this.setState({
+  			dateTo: new Date(eventKey)
+  		});
+  	}
+  	updateYear(eventKey){
+  		this.setState({
+  			year: eventKey
+  		});
+  	}
+
+  	reRender(){
+  		ReactDOM.render(
+				<Refresh/>,
+				document.getElementById('container')
+			);
+  		ReactDOM.render(
+				<Historical test={this.state.column} date={this.state.date} dateTo={this.state.dateTo} dateFrom={this.state.dateFrom} year={this.state.year} 
+				hexColumn={this.state.hexColumn}/>,
+				document.getElementById('container')
+			);
+  	}
+
+	render() {
+		console.log(this.state.dateFrom);
+
+		return (
+		<div>
+		<Button onClick={this.update}> Submit </Button>
+		<DropdownButton bsStyle="default" id="column_selector" title="Columns" onSelect={this.updateColumn}>
+			<MenuItem eventKey="occ">Occupancy</MenuItem>
+			<MenuItem eventKey="speed">Speed</MenuItem>
+			<MenuItem eventKey="vol">Volume	</MenuItem>
+		</DropdownButton>
+		<DropdownButton bsStyle="default" id="column_selector" title="HexBinDropdown" onSelect={this.updateColumnHexbin}>
+			<MenuItem eventKey="occ">Occupancy</MenuItem>
+			<MenuItem eventKey="speed">Speed</MenuItem>
+			<MenuItem eventKey="vol">Volume	</MenuItem>
+		</DropdownButton>
+		<DropdownButton bsStyle="default" id="year_selector" title="Year" onSelect={this.updateYear}>
+			<MenuItem eventKey='2016'>2016</MenuItem>
+			<MenuItem eventKey='2017'>2017</MenuItem>
+		</DropdownButton>
+		<DateTimePicker id="test2" defaultValue={new Date("2016-09-03")} onSelect={this.dateUpdate}>
+		</DateTimePicker>
+
+		<DateTimePicker id="test" defaultValue={new Date("2016-09-04")} onSelect={this.dateUpdate2}>
+		</DateTimePicker>
+
+		</div>
+		);
+	}
+}
+
+
+class DataWidgetsRealTime extends React.Component {
+	constructor(props) {
+    	super(props);
+    	this.state = {column: "vol",
+    	dateFrom: new Date("2016-09-08"),
+        dateTo: new Date("2016-09-09")};
+    	this.update = this.update.bind(this);
+    	this.reRender = this.reRender.bind(this);
+    	this.dateUpdate = this.dateUpdate.bind(this);
+    	this.dateUpdate2 = this.dateUpdate2.bind(this);
+    	this.tabIndex = 5;
+
+  	}
   	update(eventKey){
   		this.setState({
   			column: `${eventKey}`
   		}, function () {
   			this.reRender();
-  			console.log(this.state.date)
+  			console.log(this.state.dateFrom);
+  			console.log(this.state.dateTo);
   		});
   	}
   	dateUpdate(eventKey){
   		this.setState({
-  			date: new Date(eventKey)
+  			dateFrom: new Date(eventKey)
+  		});
+  	}
+  	dateUpdate2(eventKey){
+  		this.setState({
+  			dateTo: new Date(eventKey)
   		});
   	}
   	reRender(){
@@ -98,7 +210,7 @@ class DataWidgets extends React.Component {
 				document.getElementById('container')
 			);
   		ReactDOM.render(
-				<Historical test={this.state.column} date={this.state.date}/>,
+				<RealTime column={this.state.column} dateTo={this.state.dateTo} dateFrom={this.state.dateFrom}/>,
 				document.getElementById('container')
 			);
   	}
@@ -111,14 +223,17 @@ class DataWidgets extends React.Component {
 			<MenuItem eventKey="speed">Speed</MenuItem>
 			<MenuItem eventKey="vol">Volume	</MenuItem>
 		</DropdownButton>
-		<DateTimePicker defaultValue={new Date()} onSelect={this.dateUpdate} parse={str => new Date(str)}/>
+		<DateTimePicker defaultValue={this.state.dateFrom} onSelect={this.dateUpdate}/>
+		<DateTimePicker defaultValue={this.state.dateTo} onSelect={this.dateUpdate2}/>
 		</div>
 		);
 	}
 }
-
 class RealTime extends React.Component {
 
+	constructor(props) {
+    	super(props);
+  	}
 	render() {
 		return (
 
@@ -128,7 +243,7 @@ class RealTime extends React.Component {
 				<div 
 					id="realTimeScatterplot"
 					margin="0 auto"
-					ref={ renderScatterplot("#realTimeScatterplot") }
+					ref={ renderScatterplot("#realTimeScatterplot", this.props.column, this.props.dateFrom, this.props.dateTo) }
 				/>
 				<div 
 					id="realTimeLinegraph"
@@ -179,7 +294,7 @@ class Historical extends React.Component {
 			<div>
 				<div
                     id="Calendar"
-                    ref={ renderCalendar("#Calendar", this.props.date, this.props.test) }
+                    ref={ renderCalendar("#Calendar", this.props.year, this.props.test) }
                 />
                 <div>
                 <p> {this.state.column} </p>
@@ -191,7 +306,7 @@ class Historical extends React.Component {
 				/>
 				<div
 					id="historicalScatterplot"
-					ref={ renderScatterplot("#historicalScatterplot") }
+					ref={ renderScatterplot("#historicalScatterplot", this.props.test, this.props.dateFrom, this.props.dateTo ) }
 				/>
 				<div
 					id="historicalLinegraph"
@@ -256,15 +371,15 @@ class Export extends React.Component {
 }
 
 ReactDOM.render(
-	<NavElem/>,
+	<NavElem test2="hi"/>,
 	document.getElementById('navigation')
 );
 
 ReactDOM.render(
-	<RealTime/>,
+	<RealTime column='occ' dateFrom={new Date("2016-09-02")} dateTo={new Date("2016-09-03")}/>,
 	document.getElementById('container')
 );
 ReactDOM.render(
-			<DataWidgets/>,
+			<DataWidgetsRealTime/>,
 			document.getElementById('widgets')
 );

@@ -2,9 +2,19 @@ import React, { Component } from 'react';
 import get, { httpGet } from './getRequest.js';
 import * as d3 from 'd3';
 
-export function renderScatterplot(target){
+export function renderScatterplot(target,column,lowDate,highDate){
   console.log("render scatterplot was called");
-  httpGet("http://localhost:3001/scatterplot?column=speed&vdsId=1011&lowdate=2016-09-01+00:00:00&highdate=2016-09-02+00:00:00&live=false", target, handleScatterplot);
+  console.log("This is the low date: " + lowDate);
+  console.log("this is the high date: " + highDate);
+  console.log("This is the passed in lowdate:" + lowDate.toTimeString().slice(0,8) )
+  var lowTime = lowDate.toTimeString().slice(0,8);
+  var lowD = lowDate.toISOString().slice(0,10);
+  var highTime = highDate.toTimeString().slice(0,8);
+  var highD = highDate.toISOString().slice(0,10);
+  console.log(highD);
+  //httpGet("http://localhost:3001/scatterplot?column=speed&vdsId=1011&lowdate=2016-09-01+00:00:00&highdate=2016-09-02+00:00:00&live=false", target, handleScatterplot);
+  console.log("http://localhost:3001/scatterplot?column=" + column + "&vdsId=1011&lowdate=" +lowD +"+" + lowTime + "&highdate="+highD+"+" + highTime + "&live=false")
+  httpGet("http://localhost:3001/scatterplot?column=" + column + "&vdsId=1011&lowdate=" +lowD +"+" + lowTime + "&highdate="+highD+"+" + highTime + "&live=false", target, handleScatterplot);
 }
 
 function handleScatterplot(target, response){
@@ -127,4 +137,8 @@ function handleScatterplot(target, response){
           .attr("transform", "translate(" + width/2 + "," + (margin.top-15) + ")")
           .text(property[1] + " from " + data[lowestTime][property[0]].toLocaleString() + " to " + data[highestTime][property[0]].toLocaleString());
   console.log("Scatterplot code has run");
+}
+
+function getDateString(date){
+  return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" +  (date.getDay() + 1);
 }
