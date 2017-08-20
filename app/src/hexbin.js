@@ -4,8 +4,14 @@ import * as d3 from 'd3';
 import * as d3hexbin from 'd3-hexbin';
 import get, { httpGet } from './getRequest.js';
 
-export function renderHexbin(target) {
-	 httpGet("http://localhost:3001/hexbin?xAxis=speed&yAxis=occ&lowdate=2016-09-01+00:00:00&highdate=2017-09-02+00:00:00", target, handleHexbin);
+export function renderHexbin(target, x, y, lowDate, highDate) {
+  var lowTime = lowDate.toTimeString().slice(0,8);
+  var lowD = lowDate.toISOString().slice(0,10);
+  var highTime = highDate.toTimeString().slice(0,8);
+  var highD = highDate.toISOString().slice(0,10);
+  var queryString = "http://localhost:3001/hexbin?xAxis=" + x + "&yAxis=" + y + "&lowdate="+lowD +"+" + lowTime + "&highdate="+highD+"+" + highTime;
+	 httpGet(queryString, target, handleHexbin);
+   console.log(queryString);
 }
 
 function handleHexbin(target, response) {

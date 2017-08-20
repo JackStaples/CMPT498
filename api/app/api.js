@@ -2,8 +2,8 @@
 var sql = require('mssql/msnodesqlv8');
 
 
-var table1 = "rawdata";
-var table2 = "Warehouse";
+var table1 = "CombinedDtFormat";
+var table2 = "warehouse";
 
 function callDB(query, res, callback, sql) {
   console.log(query);
