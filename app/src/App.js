@@ -33,10 +33,14 @@ class NavElem extends React.Component{
 				<RealTime column={"vol"} dateFrom={new Date("2016-09-02")} dateTo={new Date("2016-09-03")}/>,
 				document.getElementById('container')
 			);
+			ReactDOM.render(
+				<DataWidgetsRealTime/>,
+				document.getElementById('widgets')
+				);
 		}
 		else if (eventKey === 1){
 			ReactDOM.render(
-				<Historical test='occ' date={new Date()} dateFrom={new Date("2016-09-02")} dateTo={new Date("2016-09-03")} year='2017'/>,
+				<Historical test='occ' date={new Date()} hexColumn='speed' dateFrom={new Date("2016-09-02")} dateTo={new Date("2016-09-03")} year='2017'/>,
 				document.getElementById('container')
 			);
 			ReactDOM.render(
@@ -87,6 +91,7 @@ class DataWidgetsCalendar extends React.Component {
     	this.dateUpdate2 = this.dateUpdate2.bind(this);
     	this.updateYear = this.updateYear.bind(this);
     	this.updateColumn = this.updateColumn.bind(this);
+    	this.updateColumnHexbin = this.updateColumnHexbin.bind(this);
     	this.state = {year: 2017, 
     				date: new Date(),
     				dateFrom: new Date("2016-09-03"),
@@ -182,21 +187,22 @@ class DataWidgetsRealTime extends React.Component {
     	this.reRender = this.reRender.bind(this);
     	this.dateUpdate = this.dateUpdate.bind(this);
     	this.dateUpdate2 = this.dateUpdate2.bind(this);
+    	this.updateColumn = this.updateColumn.bind(this);
     	this.tabIndex = 5;
 
   	}
-  	update(eventKey){
-  		this.setState({
-  			column: `${eventKey}`
-  		}, function () {
+  	update(){
   			this.reRender();
-  			console.log(this.state.dateFrom);
-  			console.log(this.state.dateTo);
-  		});
   	}
+
   	dateUpdate(eventKey){
   		this.setState({
   			dateFrom: new Date(eventKey)
+  		});
+  	}
+  	updateColumn(eventKey){
+  		this.setState({
+  			column: `${eventKey}`
   		});
   	}
   	dateUpdate2(eventKey){
@@ -218,13 +224,13 @@ class DataWidgetsRealTime extends React.Component {
 	render() {
 		return (
 		<div>
-		<DropdownButton bsStyle="default" id="column_selector" title="Columns" onSelect={this.update}>
+		<Button onClick={this.update}> Submit </Button>
+		<DropdownButton bsStyle="default" id="column_selector" title="Columns" onSelect={this.updateColumn}>
 			<MenuItem eventKey="occ">Occupancy</MenuItem>
 			<MenuItem eventKey="speed">Speed</MenuItem>
 			<MenuItem eventKey="vol">Volume	</MenuItem>
 		</DropdownButton>
 		<DateTimePicker defaultValue={this.state.dateFrom} onSelect={this.dateUpdate}/>
-		<DateTimePicker defaultValue={this.state.dateTo} onSelect={this.dateUpdate2}/>
 		</div>
 		);
 	}
@@ -247,7 +253,7 @@ class RealTime extends React.Component {
 				/>
 				<div 
 					id="realTimeLinegraph"
-					ref={ renderLinegraph("#realTimeLinegraph") }
+					ref={ renderLinegraph("#realTimeLinegraph",this.props.column,this.props.dateFrom,this.props.dateTo) }
 				/>
       		</div>
 		);
@@ -302,7 +308,7 @@ class Historical extends React.Component {
 				<MapElement />
 				<div 
 					id="hexbin"
-					ref={ renderHexbin("#hexbin") }
+					ref={ renderHexbin("#hexbin", this.props.test, this.props.hexColumn, this.props.dateFrom, this.props.dateTo) }
 				/>
 				<div
 					id="historicalScatterplot"
@@ -310,7 +316,7 @@ class Historical extends React.Component {
 				/>
 				<div
 					id="historicalLinegraph"
-					ref={ renderLinegraph("#historicalLinegraph") }
+					ref={ renderLinegraph("#historicalLinegraph", this.props.test, this.props.dateFrom, this.props.dateTo) }
 				/>
 			</div>
 		);
