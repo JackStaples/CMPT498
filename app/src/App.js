@@ -15,10 +15,10 @@ import 'react-widgets/dist/css/react-widgets.css';
 import DropdownList from 'react-widgets/lib/DropdownList';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import tables, { TableElem } from './table.js';
 momentLocalizer(moment);
 
 class NavElem extends React.Component{
-
 	constructor(props) {
 		super(props);
     	this.state = {
@@ -27,7 +27,6 @@ class NavElem extends React.Component{
     }
 
 	handleSelect(eventKey){
-		console.log(eventKey);
 		if (eventKey === 0){
 			ReactDOM.render(
 				<RealTime column={"vol"} dateFrom={new Date("2016-09-02")} dateTo={new Date("2016-09-03")}/>,
@@ -77,7 +76,7 @@ class NavElem extends React.Component{
 	}
 
 	componentDidMount() {
-		console.log("Navigation is mounted");
+		
 	}
 }
 
@@ -244,14 +243,14 @@ class RealTime extends React.Component {
 		return (
 
 
-			<div name="Realtime">
-				<MapElement />
-				<div 
+			<div name="Realtime" id="Realtime">
+				<MapElement id="thebigmap" />
+				<div
 					id="realTimeScatterplot"
 					margin="0 auto"
 					ref={ renderScatterplot("#realTimeScatterplot", this.props.column, this.props.dateFrom, this.props.dateTo) }
 				/>
-				<div 
+				<div
 					id="realTimeLinegraph"
 					ref={ renderLinegraph("#realTimeLinegraph",this.props.column,this.props.dateFrom,this.props.dateTo) }
 				/>
@@ -260,11 +259,10 @@ class RealTime extends React.Component {
 	}
 
 	componentDidMount() {
-		console.log("Realtime was mounted");
+		
 
 	}
 	componentWillUnmount() {
-		console.log("Realtime is unmounting");
 	}
 	shouldComponentUpdate() {
 		return false;
@@ -283,8 +281,6 @@ class Historical extends React.Component {
   		this.setState({
   			column: `${eventKey}`
   		}, function () {
-  			console.log("This is the event key" + `${eventKey}`)
-  			console.log("this is the state column" + this.state.column)
   		});
 
   	}
@@ -306,7 +302,7 @@ class Historical extends React.Component {
                 <p> {this.state.column} </p>
                 </div>
 				<MapElement />
-				<div 
+				<div
 					id="hexbin"
 					ref={ renderHexbin("#hexbin", this.props.test, this.props.hexColumn, this.props.dateFrom, this.props.dateTo) }
 				/>
@@ -322,13 +318,10 @@ class Historical extends React.Component {
 		);
 	}
 	componentDidMount() {
-		console.log("Historical was mounted");
 	}
 	componentWillUnmount() {
-		console.log("Historical is unmounting");
 	}
 	shouldComponentUpdate() {
-		console.log("it tried to update")
 		return true;
 	}
 }
@@ -346,13 +339,12 @@ class Errors extends React.Component {
 					ref={ renderBargraph(1, "#lanesBargraph") }
 				/>
 			</div>
-		);	
+		);
 	}
 	componentDidMount() {
-		console.log("Errors was mounted");
 	}
 	componentWillUnmount() {
-		console.log("Errors is unmounting");
+
 	}
 	shouldComponentUpdate() {
 		return false;
@@ -388,4 +380,8 @@ ReactDOM.render(
 ReactDOM.render(
 			<DataWidgetsRealTime/>,
 			document.getElementById('widgets')
+);
+ReactDOM.render(
+  <TableElem />,
+  document.getElementById('locationstuff')
 );

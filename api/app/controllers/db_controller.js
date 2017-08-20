@@ -10,8 +10,8 @@ var config = {
 
 sql.connect(config);
 
-exports.linegraph = function(req, res){ 
-  
+exports.linegraph = function(req, res){
+
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   api.lineGraphQuery(req.query.column, req.query.vdsId, req.query.hour, req.query.lowdate, req.query.highdate, req.query.live, res, apiReturn, sql);

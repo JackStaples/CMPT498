@@ -12,9 +12,7 @@ export function renderCalendar(target, year, occ){
 export function handleCalendar(target,response){
   
 var data = response.recordset;
-//console.log("\n\n\nthis is the data:   " + data)
 var property = Object.keys(data[0]);
-//console.log("This is the property!!!!!!" + property)
 var max = 0;
 var min = 1000;
 for (var i in data){
@@ -30,8 +28,7 @@ for (var i in data){
         if (data[i][property[1]] < min){
           min = data[i][property[1]];
         }
-        //console.log("These are the max and the min" +  max +  "    "  + min)
-        //console.log("\nThis is the timestamp     " + data[i][property[0]]);
+
 }
 var year = parseInt(data[0][property[0]].slice(0,4));
 var width = 1366,
@@ -104,7 +101,6 @@ svg.append("g")
       .key(function(d) { return d.datetime; })
       .rollup(function(d) { return d[0].aggregate; })
     .object(data);
-  console.log(d3nest);
   rect.filter(function(d) { return d in d3nest; })
       .attr("fill", function(d) { return color(d3nest[d]); })
     .append("title")
