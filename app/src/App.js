@@ -15,6 +15,7 @@ import 'react-widgets/dist/css/react-widgets.css';
 import DropdownList from 'react-widgets/lib/DropdownList';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import tables, { TableElem } from './table.js';
 momentLocalizer(moment);
 class NavElem extends React.Component{
 	anotherCall(){
@@ -258,4 +259,8 @@ ReactDOM.render(
 ReactDOM.render(
 			<DataWidgets/>,
 			document.getElementById('widgets')
+);
+ReactDOM.render(
+  <TableElem />,
+  document.getElementById('locationstuff')
 );
