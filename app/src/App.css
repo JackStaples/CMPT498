@@ -12,7 +12,7 @@ html, body, #map {
   height: 30px;
   padding-right: 100px;
   font: 10px sans-serif;
-  scroll-behavior: 
+  scroll-behavior:
 }
 .stations circle {
   fill: white;
@@ -22,4 +22,27 @@ html, body, #map {
 }
 .navigation {
   padding-left: 100px;
+}
+
+#column_selector {
+  width: 200px;
+  float: left;
+}
+
+#Realtime {
+
+
+}
+
+#thebigmap {
+
+  width: 200px;
+}
+
+#realTimeScatterplot {
+
+}
+
+#realTimeLinegraph {
+
 }

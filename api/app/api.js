@@ -12,6 +12,7 @@ function callDB(query, res, callback, sql) {
       if(err) {
         console.log(err);
       } else {
+        console.log("this is the query results" + records[0]);
         callback(res, records);
         request.cancel();
       }
@@ -29,14 +30,15 @@ exports.scatterPlotQuery = function(column, vdsId, lowdate, highdate, live, res,
     table = table2;
     dt = "dt";
   }
-  
+
   var query = "select " + table + "."+ dt +", " + table + ".lane, " +
   table + "." + column + " from " + table + ", VDSIDs where ";
   query += DateSplit(table, lowdate, highdate, live);
   query += " and " + table + ".vdsId = " + vdsId  + " and " + table +
   ".vdsId = VDSIDs.vdsId order by " + dt + ", lane;";
+  console.log(query);
   callDB(query, res, callback, sql);
-  
+
   /*
   var query = "select " + table + "."+ dt +", " + table + ".lane, " +
   table + "." + column + " from " + table + ", VDSIDs where ";
@@ -51,7 +53,7 @@ exports.scatterPlotQuery = function(column, vdsId, lowdate, highdate, live, res,
 exports.lineGraphQuery = function(column, vdsId, hour, lowdate, highdate, live, res, callback, sql) {
   var table;
   var dt;
-  
+
   if( live != "false" ) {
     table = table1;
     dt = "datetime";
@@ -71,7 +73,7 @@ exports.lineGraphQuery = function(column, vdsId, hour, lowdate, highdate, live, 
 
 
 exports.calendarQuery = function(column, year, res, callback, sql) {
-  
+
   var query = "select cast(dt as date) as datetime, avg(" + column +
   ") as aggregate from " + table2 + " where " +
   "dt is not null and datepart(yyyy, dt) = " + year +
