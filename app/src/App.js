@@ -121,14 +121,14 @@ class RealTime extends React.Component {
 		return (
 
 
-			<div name="Realtime">
-				<MapElement />
-				<div 
+			<div name="Realtime" id="Realtime">
+				<MapElement id="thebigmap" />
+				<div
 					id="realTimeScatterplot"
 					margin="0 auto"
 					ref={ renderScatterplot("#realTimeScatterplot") }
 				/>
-				<div 
+				<div
 					id="realTimeLinegraph"
 					ref={ renderLinegraph("#realTimeLinegraph") }
 				/>
@@ -180,7 +180,7 @@ class Historical extends React.Component {
                 <p> {this.state.column} </p>
                 </div>
 				<MapElement />
-				<div 
+				<div
 					id="hexbin"
 					ref={ renderHexbin("#hexbin") }
 				/>
@@ -217,7 +217,7 @@ class Errors extends React.Component {
 					ref={ renderBargraph(1, "#lanesBargraph") }
 				/>
 			</div>
-		);	
+		);
 	}
 	componentDidMount() {
 	}
