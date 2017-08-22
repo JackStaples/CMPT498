@@ -136,7 +136,7 @@ function handleLinegraph(target, response){
           // Add the first line
           g.append("path")
             .attr("fill", "none")
-            .attr("stroke", "#800000")
+            .attr("stroke", "#FFA686")
             .attr("stroke-width", 2)
             .datum(lanesOne)
             .attr("d", line)
@@ -148,7 +148,7 @@ function handleLinegraph(target, response){
           // Add the second line
           g.append("path")
             .attr("fill", "none")
-            .attr("stroke", "#00eeee")
+            .attr("stroke", "#FF7A49")
             .attr("stroke-width", 2)
             .datum(lanesTwo)
             .attr("d", line)
@@ -159,7 +159,7 @@ function handleLinegraph(target, response){
           // Add the third line
           g.append("path")
             .attr("fill", "none")
-            .attr("stroke", "#00ee00")
+            .attr("stroke", "#8B2600")
             .attr("stroke-width", 2)
             .datum(lanesThree)
             .attr("d", line)
@@ -171,7 +171,7 @@ function handleLinegraph(target, response){
           // Add the fourth line
           g.append("path")
             .attr("fill", "none")
-            .attr("stroke", "#ffff00")
+            .attr("stroke", "#1F0800")
             .attr("stroke-width", 2)
             .datum(lanesFour)
             .attr("d", line)

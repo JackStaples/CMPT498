@@ -107,9 +107,7 @@ function handleScatterplot(target, response){
           return (len > 3500 ? 2 : 4); })
         .attr("cx", function(data) { return x(data[property[0]]); })
         .attr("cy", function(data) { return y(data[property[2]]); })
-        .attr("fill", function(data){
-          return (data[property[2]] >= 0 ? "LimeGreen" : "Crimson");
-        })
+        .attr("fill", "OrangeRed")
         // add the hover over on the circle that displays the time and speed
         .append("title")
           .text(function(data) { return "Time: " + data[property[0]].toString() + " "+ [property[2]] + ": " + data[property[2]] });

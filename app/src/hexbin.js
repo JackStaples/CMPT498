@@ -50,7 +50,7 @@ function handleHexbin(target, response) {
           , height = 600 - margin.top - margin.bottom;
         
         // could be 20 different colours between white and steelblue
-        var color = d3.scaleSequential(d3.interpolateLab("white", "#2c7fb8"))
+        var color = d3.scaleSequential(d3.interpolateLab("LightGray", "OrangeRed"))
           .domain([0, 150]);
           
         // defines the size of the hexagonal bins
