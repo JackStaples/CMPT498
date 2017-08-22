@@ -23,7 +23,9 @@ class NavElem extends React.Component{
 		super(props);
     	this.state = {
     		test : props.test2,
+    		selected : 1004
     	};
+    	this.setSelected = this.setSelected.bind(this);
     }
 
 	handleSelect(eventKey){
@@ -61,8 +63,19 @@ class NavElem extends React.Component{
 		}
 	}
 
+	setSelected(e) {
+		this.setState({
+			selected: e
+		});
+		console.log("this ran")
+	}
+
 	render(){
-		console.log("this is the test" + this.state.date);
+		ReactDOM.render(
+				<TableElem getID={this.setSelected}/>,
+				document.getElementById('locationstuff')
+		);
+		console.log(this.state.selected)
 		return (
 		<Tabs onSelect={this.handleSelect}>
     	<TabList>
@@ -76,7 +89,6 @@ class NavElem extends React.Component{
 	}
 
 	componentDidMount() {
-		
 	}
 }
 
@@ -381,7 +393,4 @@ ReactDOM.render(
 			<DataWidgetsRealTime/>,
 			document.getElementById('widgets')
 );
-ReactDOM.render(
-  <TableElem />,
-  document.getElementById('locationstuff')
-);
+
