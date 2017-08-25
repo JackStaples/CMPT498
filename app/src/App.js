@@ -90,7 +90,7 @@ class NavElem extends React.Component{
 				document.getElementById('container')
 			);
 			ReactDOM.render(
-				<RealTime selected={this.state.selected} column={"vol"} dateFrom={new Date("2016/09/02")} dateTo={new Date("2016/09/03")}/>,
+				<RealTime selected={this.state.selected} column={"vol"} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment()}/>,
 				document.getElementById('container')
 			);
 			ReactDOM.render(
