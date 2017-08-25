@@ -12,6 +12,10 @@ export function renderBargraph(lanes, target) {
 
 function handleBargraph(target, response){
   var data = response.recordset;
+  if (Object.keys(data).length === 0) {
+    console.log("Hey it worked")
+    return
+  }
   var property = Object.keys(data[0]);
         var highVal = 0;
         var lowVal = 0;

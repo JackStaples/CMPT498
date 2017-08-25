@@ -3,18 +3,21 @@ import get, { httpGet } from './getRequest.js';
 import * as d3 from 'd3';
 import moment from 'moment';
 
-export function renderScatterplot(target,column,lowDate,highDate, live){
+export function renderScatterplot(target,vdsID,column,lowDate,highDate, live){
   var lowTime = (lowDate._d.getHours()) + ":" + (lowDate._d.getMinutes()) + ":" + (lowDate._d.getSeconds());
   var lowD = lowDate._d.getFullYear() + "-" + (lowDate._d.getMonth() + 1) + "-" + lowDate._d.getDate();
   var highTime = (highDate._d.getHours() + 1) + ":" + (highDate._d.getMinutes() + 1) + ":" + (highDate._d.getSeconds() + 1);
   var highD = highDate._d.getFullYear() + "-" + (highDate._d.getMonth() + 1) + "-" + highDate._d.getDate();
-  console.log("http://localhost:3001/scatterplot?column=" + column + "&vdsId=1011&lowdate=" +lowD +"+" + lowTime + "&highdate="+highD+"+" + highTime + "&live=" + live);
-  httpGet("http://localhost:3001/scatterplot?column=" + column + "&vdsId=1011&lowdate=" +lowD +"+" + lowTime + "&highdate="+highD+"+" + highTime + "&live=" + live, target, handleScatterplot);
+  console.log("http://localhost:3001/scatterplot?column=" + column + "+&lowdate=" +lowD +"+" + lowTime + "&highdate="+highD+"+" + highTime + "&live=" + live);
+  httpGet("http://localhost:3001/scatterplot?column=" + column + "&vdsId=" + vdsID +" &lowdate=" +lowD +"+" + lowTime + "&highdate="+highD+"+" + highTime + "&live=" + live, target, handleScatterplot);
 }
 
 function handleScatterplot(target, response){
   var data = response.recordset;
-  console.log(JSON.stringify(data));
+  if (Object.keys(data).length === 0) {
+    console.log("Hey it worked")
+    return
+  }
       var property = Object.keys(data[0]);
       var highVal = 0;
       var minVal = 0;
@@ -131,5 +134,6 @@ function handleScatterplot(target, response){
 }
 
 function getDateString(date){
-  return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" +  (date.getDay() + 1);
+  var jsDate = new Date(date)
+  return jsDate.getFullYear() + "-" + (jsDate.getMonth() + 1) + "-" +  (jsDate.getDate());
 }
