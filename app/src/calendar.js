@@ -41,7 +41,7 @@ var months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", 
 
 var color = d3.scaleQuantize()
     .domain([min, max])
-    .range(["#a50026", "#d73027", "#f46d43", "#fdae61", "#fee08b", "#ffffbf", "#d9ef8b", "#a6d96a", "#66bd63", "#1a9850", "#006837"]);
+    .range(["#FF4500", "#FA5315", "#F6612A", "#F16F3F", "#ED7D54", "#E98C69", "#E49A7E", "#E0A893", "#DBB6A8", "#D7C4BD", "#D3D3D3"]);
 //Creates the number of
 var svg = d3.select(target)
   .selectAll("svg")
