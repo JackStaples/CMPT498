@@ -8,7 +8,8 @@ import Linegraph, { renderLinegraph } from './linegraph.js';
 import Barchart, { renderBargraph } from './bargraph.js';
 import Google, { MapElement, RenderGoogleMap } from './googlemap.js';
 import Calendar, { renderCalendar } from './calendar.js';
-import moment from 'moment'
+import moment from 'moment';
+import momenttz from 'moment-timezone';
 import ReactWidgets, {DateTimePicker} from 'react-widgets';
 import momentLocalizer from 'react-widgets/lib/localizers/moment';
 import 'react-widgets/dist/css/react-widgets.css';
@@ -29,7 +30,7 @@ class NavElem extends React.Component{
 	handleSelect(eventKey){
 		if (eventKey === 0){
 			ReactDOM.render(
-				<RealTime column={"vol"} dateFrom={new Date("2016-09-02")} dateTo={new Date("2016-09-03")}/>,
+				<RealTime column={"speed"} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment()}/>,
 				document.getElementById('container')
 			);
 			ReactDOM.render(
@@ -215,7 +216,7 @@ class DataWidgetsRealTime extends React.Component {
 				document.getElementById('container')
 			);
   		ReactDOM.render(
-				<RealTime column={this.state.column} dateTo={this.state.dateTo} dateFrom={this.state.dateFrom}/>,
+				<RealTime column={this.state.column} dateTo={moment(this.state.dateTo)} dateFrom={moment(this.state.dateFrom)}/>,
 				document.getElementById('container')
 			);
   	}
@@ -248,11 +249,11 @@ class RealTime extends React.Component {
 				<div
 					id="realTimeScatterplot"
 					margin="0 auto"
-					ref={ renderScatterplot("#realTimeScatterplot", this.props.column, this.props.dateFrom, this.props.dateTo) }
+					ref={ renderScatterplot("#realTimeScatterplot", this.props.column, this.props.dateFrom, this.props.dateTo, true) }
 				/>
 				<div
 					id="realTimeLinegraph"
-					ref={ renderLinegraph("#realTimeLinegraph",this.props.column,this.props.dateFrom,this.props.dateTo) }
+					ref={ renderLinegraph("#realTimeLinegraph",this.props.column,this.props.dateFrom,this.props.dateTo, true) }
 				/>
       		</div>
 		);
@@ -308,11 +309,11 @@ class Historical extends React.Component {
 				/>
 				<div
 					id="historicalScatterplot"
-					ref={ renderScatterplot("#historicalScatterplot", this.props.test, this.props.dateFrom, this.props.dateTo ) }
+					ref={ renderScatterplot("#historicalScatterplot", this.props.test, this.props.dateFrom, this.props.dateTo , false) }
 				/>
 				<div
 					id="historicalLinegraph"
-					ref={ renderLinegraph("#historicalLinegraph", this.props.test, this.props.dateFrom, this.props.dateTo) }
+					ref={ renderLinegraph("#historicalLinegraph", this.props.test, this.props.dateFrom, this.props.dateTo, false) }
 				/>
 			</div>
 		);
@@ -374,7 +375,7 @@ ReactDOM.render(
 );
 
 ReactDOM.render(
-	<RealTime column='occ' dateFrom={new Date("2016-09-02")} dateTo={new Date("2016-09-03")}/>,
+	<RealTime column='occ' dateFrom={ (moment().set({ "hour": 0, "minute" : 0, "second": 0}))} dateTo={ moment() }/>,
 	document.getElementById('container')
 );
 ReactDOM.render(

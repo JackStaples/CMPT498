@@ -1,24 +1,20 @@
 import React, { Component } from 'react';
 import get, { httpGet } from './getRequest.js';
 import * as d3 from 'd3';
+import moment from 'moment';
 
-export function renderScatterplot(target,column,lowDate,highDate){
-  console.log("render scatterplot was called");
-  console.log("This is the low date: " + lowDate);
-  console.log("this is the high date: " + highDate);
-  console.log("This is the passed in lowdate:" + lowDate.toTimeString().slice(0,8) )
-  var lowTime = lowDate.toTimeString().slice(0,8);
-  var lowD = lowDate.toISOString().slice(0,10);
-  var highTime = highDate.toTimeString().slice(0,8);
-  var highD = highDate.toISOString().slice(0,10);
-  console.log(highD);
-  //httpGet("http://localhost:3001/scatterplot?column=speed&vdsId=1011&lowdate=2016-09-01+00:00:00&highdate=2016-09-02+00:00:00&live=false", target, handleScatterplot);
-  console.log("http://localhost:3001/scatterplot?column=" + column + "&vdsId=1011&lowdate=" +lowD +"+" + lowTime + "&highdate="+highD+"+" + highTime + "&live=false")
-  httpGet("http://localhost:3001/scatterplot?column=" + column + "&vdsId=1011&lowdate=" +lowD +"+" + lowTime + "&highdate="+highD+"+" + highTime + "&live=false", target, handleScatterplot);
+export function renderScatterplot(target,column,lowDate,highDate, live){
+  var lowTime = (lowDate._d.getHours()) + ":" + (lowDate._d.getMinutes()) + ":" + (lowDate._d.getSeconds());
+  var lowD = lowDate._d.getFullYear() + "-" + (lowDate._d.getMonth() + 1) + "-" + lowDate._d.getDate();
+  var highTime = (highDate._d.getHours() + 1) + ":" + (highDate._d.getMinutes() + 1) + ":" + (highDate._d.getSeconds() + 1);
+  var highD = highDate._d.getFullYear() + "-" + (highDate._d.getMonth() + 1) + "-" + highDate._d.getDate();
+  console.log("http://localhost:3001/scatterplot?column=" + column + "&vdsId=1011&lowdate=" +lowD +"+" + lowTime + "&highdate="+highD+"+" + highTime + "&live=" + live);
+  httpGet("http://localhost:3001/scatterplot?column=" + column + "&vdsId=1011&lowdate=" +lowD +"+" + lowTime + "&highdate="+highD+"+" + highTime + "&live=" + live, target, handleScatterplot);
 }
 
 function handleScatterplot(target, response){
   var data = response.recordset;
+  console.log(JSON.stringify(data));
       var property = Object.keys(data[0]);
       var highVal = 0;
       var minVal = 0;

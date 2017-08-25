@@ -1,14 +1,16 @@
 import * as d3 from 'd3';
 import get, { httpGet } from './getRequest.js';
 
-export function renderLinegraph(target, column, lowDate, highDate){
+export function renderLinegraph(target, column, lowDate, highDate, live){
+  lowDate = new Date(lowDate);
+  highDate = new Date(highDate);
   var lowTime = lowDate.toTimeString().slice(0,8);
   var lowD = lowDate.toISOString().slice(0,10);
   var highTime = highDate.toTimeString().slice(0,8);
   var highD = highDate.toISOString().slice(0,10);
   var hour = highTime.slice(0,2)
   var queryString = "http://localhost:3001/linegraph?column=" + column + "&vdsId=1011&hour=" + hour + "&lowdate=";
-    httpGet("http://localhost:3001/linegraph?column=speed&vdsId=1011&hour=9&lowdate="+lowD +"+" + lowTime + "&highdate="+highD+"+" + highTime + "&live=false", target, handleLinegraph);
+    httpGet("http://localhost:3001/linegraph?column=speed&vdsId=1011&hour=9&lowdate="+lowD +"+" + lowTime + "&highdate="+highD+"+" + highTime + "&live="+live, target, handleLinegraph);
 }
 
 function handleLinegraph(target, response){
