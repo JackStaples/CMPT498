@@ -8,7 +8,8 @@ import Linegraph, { renderLinegraph } from './linegraph.js';
 import Barchart, { renderBargraph } from './bargraph.js';
 import Google, { MapElement, RenderGoogleMap } from './googlemap.js';
 import Calendar, { renderCalendar } from './calendar.js';
-import moment from 'moment'
+import moment from 'moment';
+import momenttz from 'moment-timezone';
 import ReactWidgets, {DateTimePicker} from 'react-widgets';
 import momentLocalizer from 'react-widgets/lib/localizers/moment';
 import 'react-widgets/dist/css/react-widgets.css';
@@ -35,7 +36,7 @@ class NavElem extends React.Component{
 	handleSelect(eventKey){
 		if (eventKey === 0){
 			ReactDOM.render(
-				<RealTime selected={this.state.selected} column={"vol"} dateFrom={new Date("2016/09/02")} dateTo={new Date("2016/09/03")}/>,
+				<RealTime selected={this.state.selected} column={"speed"} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment()}/>,
 				document.getElementById('container')
 			);
 			ReactDOM.render(
@@ -46,7 +47,7 @@ class NavElem extends React.Component{
 		}
 		else if (eventKey === 1){
 			ReactDOM.render(
-				<Historical selected={this.state.selected} test='occ' date={new Date()} hexColumn='speed' dateFrom={new Date("2016/09/02")} dateTo={new Date("2016/09/03")} year='2017'/>,
+				<Historical test='occ' selected={this.state.selected} date={new Date()} hexColumn='speed' dateFrom={moment(new Date("2016-09-02"))} dateTo={moment(new Date("2016-09-03"))} year='2017'/>,
 				document.getElementById('container')
 			);
 			ReactDOM.render(
@@ -210,7 +211,7 @@ class DataWidgetsCalendar extends React.Component {
 				document.getElementById('container')
 			);
   		ReactDOM.render(
-				<Historical test={this.state.column} selected={this.state.selected} date={this.state.date} dateTo={this.state.dateTo} dateFrom={this.state.dateFrom} year={this.state.year} 
+				<Historical test={this.state.column} selected={this.state.selected} date={moment(this.state.date)} dateTo={moment(this.state.dateTo)} dateFrom={moment(this.state.dateFrom)} year={this.state.year} 
 				hexColumn={this.state.hexColumn}/>,
 				document.getElementById('container')
 			);
@@ -294,7 +295,7 @@ class DataWidgetsRealTime extends React.Component {
 				document.getElementById('container')
 			);
   		ReactDOM.render(
-				<RealTime selected={this.state.selected} column={this.state.column} dateTo={this.state.dateTo} dateFrom={this.state.dateFrom}/>,
+				<RealTime selected={this.state.selected} column={this.state.column} dateTo={moment(this.state.dateTo)} dateFrom={moment(this.state.dateFrom)}/>,
 				document.getElementById('container')
 			);
   	}
@@ -327,11 +328,12 @@ class RealTime extends React.Component {
 				<div
 					id="realTimeScatterplot"
 					margin="0 auto"
-					ref={ renderScatterplot("#realTimeScatterplot",this.props.selected, this.props.column, this.props.dateFrom, this.props.dateTo) }
+
+					ref={ renderScatterplot("#realTimeScatterplot", this.props.selected,this.props.column, this.props.dateFrom, this.props.dateTo, true) }
 				/>
 				<div
 					id="realTimeLinegraph"
-					ref={ renderLinegraph("#realTimeLinegraph",this.props.selected, this.props.column,this.props.dateFrom,this.props.dateTo) }
+					ref={ renderLinegraph("#realTimeLinegraph",this.props.selected,this.props.column,this.props.dateFrom,this.props.dateTo, true) }
 				/>
       		</div>
 		);
@@ -387,11 +389,11 @@ class Historical extends React.Component {
 				/>
 				<div
 					id="historicalScatterplot"
-					ref={ renderScatterplot("#historicalScatterplot", this.props.selected,this.props.test, this.props.dateFrom, this.props.dateTo ) }
+					ref={ renderScatterplot("#historicalScatterplot", this.props.selected, this.props.test, this.props.dateFrom, this.props.dateTo , false) }
 				/>
 				<div
 					id="historicalLinegraph"
-					ref={ renderLinegraph("#historicalLinegraph",this.props.selected, this.props.test, this.props.dateFrom, this.props.dateTo) }
+					ref={ renderLinegraph("#historicalLinegraph", this.props.selected, this.props.test, this.props.dateFrom, this.props.dateTo, false) }
 				/>
 			</div>
 		);
@@ -453,7 +455,8 @@ ReactDOM.render(
 );
 
 ReactDOM.render(
-	<RealTime selected='1004' column='occ' dateFrom={new Date("2016-09-02")} dateTo={new Date("2016-09-03")}/>,
+
+	<RealTime selected='1004' column='occ' dateFrom={ (moment().set({ "hour": 0, "minute" : 0, "second": 0}))} dateTo={ moment() }/>,
 	document.getElementById('container')
 );
 ReactDOM.render(
