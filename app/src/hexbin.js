@@ -16,7 +16,12 @@ export function renderHexbin(target, x, y, lowDate, highDate) {
 
 function handleHexbin(target, response) {
         var data = response.recordset;
+          if (Object.keys(data).length === 0) {
+    console.log("Hey it worked")
+    return
+  }
         var property = Object.keys(data[0]);
+        console.log("This is the property" + property);
         var highColumnOne = 0;
         var lowColumnOne = 0;
         var highColumnTwo = 0;

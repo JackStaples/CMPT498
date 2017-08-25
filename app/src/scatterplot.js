@@ -2,23 +2,28 @@ import React, { Component } from 'react';
 import get, { httpGet } from './getRequest.js';
 import * as d3 from 'd3';
 
-export function renderScatterplot(target,column,lowDate,highDate){
+export function renderScatterplot(target,vdsID,column,lowDate,highDate){
   console.log("render scatterplot was called");
   console.log("This is the low date: " + lowDate);
   console.log("this is the high date: " + highDate);
   console.log("This is the passed in lowdate:" + lowDate.toTimeString().slice(0,8) )
   var lowTime = lowDate.toTimeString().slice(0,8);
-  var lowD = lowDate.toISOString().slice(0,10);
+  var lowD = getDateString(lowDate)
   var highTime = highDate.toTimeString().slice(0,8);
-  var highD = highDate.toISOString().slice(0,10);
-  console.log(highD);
+  var highD = getDateString(highDate)
+  console.log("This is the high date" + new Date("2016/09/02"));
+  console.log("This is the date" + getDateString(lowDate));
   //httpGet("http://localhost:3001/scatterplot?column=speed&vdsId=1011&lowdate=2016-09-01+00:00:00&highdate=2016-09-02+00:00:00&live=false", target, handleScatterplot);
-  console.log("http://localhost:3001/scatterplot?column=" + column + "&vdsId=1011&lowdate=" +lowD +"+" + lowTime + "&highdate="+highD+"+" + highTime + "&live=false")
-  httpGet("http://localhost:3001/scatterplot?column=" + column + "&vdsId=1011&lowdate=" +lowD +"+" + lowTime + "&highdate="+highD+"+" + highTime + "&live=false", target, handleScatterplot);
+  console.log("http://localhost:3001/scatterplot?column=" + column + "&vdsId=" + vdsID + "&lowdate=" +lowD +"+" + lowTime + "&highdate="+highD+"+" + highTime + "&live=false")
+  httpGet("http://localhost:3001/scatterplot?column=" + column + "&vdsId=" + vdsID + "&lowdate=" +lowD +"+" + lowTime + "&highdate="+highD+"+" + highTime + "&live=false", target, handleScatterplot);
 }
 
 function handleScatterplot(target, response){
   var data = response.recordset;
+  if (Object.keys(data).length === 0) {
+    console.log("Hey it worked")
+    return
+  }
       var property = Object.keys(data[0]);
       var highVal = 0;
       var minVal = 0;
@@ -137,5 +142,6 @@ function handleScatterplot(target, response){
 }
 
 function getDateString(date){
-  return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" +  (date.getDay() + 1);
+  var jsDate = new Date(date)
+  return jsDate.getFullYear() + "-" + (jsDate.getMonth() + 1) + "-" +  (jsDate.getDate());
 }
