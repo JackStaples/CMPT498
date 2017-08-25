@@ -40,7 +40,7 @@ class NavElem extends React.Component{
 		}
 		else if (eventKey === 1){
 			ReactDOM.render(
-				<Historical test='occ' date={new Date()} hexColumn='speed' dateFrom={new Date("2016-09-02")} dateTo={new Date("2016-09-03")} year='2017'/>,
+				<Historical test='occ' date={new Date()} hexColumn='speed' dateFrom={moment(new Date("2016-09-02"))} dateTo={moment(new Date("2016-09-03"))} year='2017'/>,
 				document.getElementById('container')
 			);
 			ReactDOM.render(
@@ -139,7 +139,7 @@ class DataWidgetsCalendar extends React.Component {
 				document.getElementById('container')
 			);
   		ReactDOM.render(
-				<Historical test={this.state.column} date={this.state.date} dateTo={this.state.dateTo} dateFrom={this.state.dateFrom} year={this.state.year} 
+				<Historical test={this.state.column} date={moment(this.state.date)} dateTo={moment(this.state.dateTo)} dateFrom={moment(this.state.dateFrom)} year={this.state.year} 
 				hexColumn={this.state.hexColumn}/>,
 				document.getElementById('container')
 			);
