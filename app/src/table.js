@@ -10,7 +10,7 @@ export class TableElem extends Component {
   super(props);
   this.state = {
     columns: getColumns(this.props.data),
-    selected: 1003
+    selected: this.props.ID
   };
 }
 
@@ -20,13 +20,18 @@ export class TableElem extends Component {
   render() {
   	return (
   		<div>
-  <ReactTable
+  <ReactTable className="-highlight"
     data={this.props.data}
     columns={this.state.columns}
   	 getTdProps={(state, rowInfo, column, instance) => {
+
     return {
+      style: {
+        background: rowInfo.row.VDSID ==  this.props.ID ? 'orange' : 'light-grey'
+      },
       onClick: (e) => {
         console.log('It was in this row:', rowInfo.row.VDSID)
+
         this.setState({
         selected: rowInfo.row.VDSID
         });

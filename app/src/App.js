@@ -83,6 +83,15 @@ class NavElem extends React.Component{
 			selected: e
 		},function() {
 
+		ReactDOM.render(
+		<Refresh/>,
+		document.getElementById('locationstuff')
+		);
+		ReactDOM.render(
+			<TableElem ID={this.state.selected} getID={this.setSelected}/>,
+			document.getElementById('locationstuff')
+		);
+
 		if (this.state.currentTab === 0) {
 			console.log("this is the state" + this.state.selected);
 			ReactDOM.render(
@@ -120,7 +129,7 @@ class NavElem extends React.Component{
 
 	render(){
 		ReactDOM.render(
-				<TableElem getID={this.setSelected}/>,
+				<TableElem ID={this.state.selected} getID={this.setSelected}/>,
 				document.getElementById('locationstuff')
 		);
 		console.log(this.state.selected)
