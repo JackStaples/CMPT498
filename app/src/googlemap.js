@@ -19,6 +19,7 @@ export const RenderGoogleMap = withGoogleMap(props => (
   {props.markers.map(marker => (
       <Marker
         {...marker}
+        onClick={() => props.onMarkerClick(marker)}
       />
     ))}
   </GoogleMap>
@@ -33,10 +34,15 @@ export class MapElement extends Component {
     this._mapComponent = map;
   }
   
+  handleMarkerClick(targetMarker) {
+    console.log("something happened", targetMarker.VDSID);
+  }
+  
   render() {
     return (
       <div style={{height: `500px`, width: `1366px`}}>
         <RenderGoogleMap
+          onMarkerClick={this.handleMarkerClick.bind(this)}
           containerElement={
             <div style={{ height: `100%` }} />
           }
