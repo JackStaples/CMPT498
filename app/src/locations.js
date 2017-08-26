@@ -1,45 +1,51 @@
 module.exports = { markers : [
-  {
-    position: {
-      lat: 53.56104,
-      lng: -113.4442,
-    },
-    defaultAnimation: 2,
-  },
-  {
-    position: {
-      lat: 53.56104,
-      lng: -113.4443,
-    },
-    defaultAnimation: 2,
-  },
-  {
-    position: {
-      lat: 53.55383,
-      lng: -113.4379,
-    },
-    defaultAnimation: 2,
-  },
-  {
-    position: {
-      lat: 53.55388,
-      lng: -113.4391,
-    },
-    defaultAnimation: 2,
-  },
-  {
-    position: {
-      lat: 53.51207,
-      lng: -113.6052,
-    },
-    defaultAnimation: 2,
-  },
-  {
+{
 	position: {
-		lat: 53.5117,
+		lat: 53.56104,
+		lng: -113.4462,
+	},
+	defaultAnimation: 2,
+	VDSID: 1001,
+},
+{
+	position: {
+		lat: 53.56104,
+		lng: -113.4442,
+	},
+	defaultAnimation: 2,
+	VDSID: 1002,
+},
+{
+	position: {
+		lat: 53.55383,
+		lng: -113.4379,
+	},
+	defaultAnimation: 2,
+	VDSID: 1003,
+},
+{
+	position: {
+		lat: 53.55388,
+		lng: -113.4391,
+	},
+	defaultAnimation: 2,
+	VDSID: 1004,
+},
+{
+	position: {
+		lat: 53.51207,
 		lng: -113.6052,
 	},
 	defaultAnimation: 2,
+	VDSID: 1007,
+},
+{
+	position: {
+		lat: 53.51179,
+		lng: -113.6052,
+	},
+	defaultAnimation: 2,
+	VDSID: 1008,
 },
 {
 	position: {
@@ -47,6 +53,7 @@ module.exports = { markers : [
 		lng: -113.6299,
 	},
 	defaultAnimation: 2,
+	VDSID: 1009,
 },
 {
 	position: {
@@ -54,6 +61,7 @@ module.exports = { markers : [
 		lng: -113.6298,
 	},
 	defaultAnimation: 2,
+	VDSID: 1010,
 },
 {
 	position: {
@@ -61,6 +69,7 @@ module.exports = { markers : [
 		lng: -113.4885,
 	},
 	defaultAnimation: 2,
+	VDSID: 1011,
 },
 {
 	position: {
@@ -68,6 +77,7 @@ module.exports = { markers : [
 		lng: -113.4882,
 	},
 	defaultAnimation: 2,
+	VDSID: 1012,
 },
 {
 	position: {
@@ -75,6 +85,7 @@ module.exports = { markers : [
 		lng: -113.4857,
 	},
 	defaultAnimation: 2,
+	VDSID: 1013,
 },
 {
 	position: {
@@ -82,6 +93,7 @@ module.exports = { markers : [
 		lng: -113.499,
 	},
 	defaultAnimation: 2,
+	VDSID: 1014,
 },
 {
 	position: {
@@ -89,6 +101,7 @@ module.exports = { markers : [
 		lng: -113.5012,
 	},
 	defaultAnimation: 2,
+	VDSID: 1015,
 },
 {
 	position: {
@@ -96,6 +109,7 @@ module.exports = { markers : [
 		lng: -113.5905,
 	},
 	defaultAnimation: 2,
+	VDSID: 1016,
 },
 {
 	position: {
@@ -103,6 +117,7 @@ module.exports = { markers : [
 		lng: -113.5904,
 	},
 	defaultAnimation: 2,
+	VDSID: 1017,
 },
 {
 	position: {
@@ -110,6 +125,7 @@ module.exports = { markers : [
 		lng: -113.5411,
 	},
 	defaultAnimation: 2,
+	VDSID: 1018,
 },
 {
 	position: {
@@ -117,6 +133,7 @@ module.exports = { markers : [
 		lng: -113.5411,
 	},
 	defaultAnimation: 2,
+	VDSID: 1019,
 },
 {
 	position: {
@@ -124,6 +141,7 @@ module.exports = { markers : [
 		lng: -113.5014,
 	},
 	defaultAnimation: 2,
+	VDSID: 1020,
 },
 {
 	position: {
@@ -131,6 +149,7 @@ module.exports = { markers : [
 		lng: -113.5012,
 	},
 	defaultAnimation: 2,
+	VDSID: 1021,
 },
 {
 	position: {
@@ -138,6 +157,7 @@ module.exports = { markers : [
 		lng: -113.5256,
 	},
 	defaultAnimation: 2,
+	VDSID: 1022,
 },
 {
 	position: {
@@ -145,6 +165,7 @@ module.exports = { markers : [
 		lng: -113.5513,
 	},
 	defaultAnimation: 2,
+	VDSID: 1023,
 },
 {
 	position: {
@@ -152,6 +173,7 @@ module.exports = { markers : [
 		lng: -113.6027,
 	},
 	defaultAnimation: 2,
+	VDSID: 1024,
 },
 {
 	position: {
@@ -159,6 +181,7 @@ module.exports = { markers : [
 		lng: -113.604,
 	},
 	defaultAnimation: 2,
+	VDSID: 1025,
 },
 {
 	position: {
@@ -166,6 +189,7 @@ module.exports = { markers : [
 		lng: -113.59,
 	},
 	defaultAnimation: 2,
+	VDSID: 1026,
 },
 {
 	position: {
@@ -173,6 +197,7 @@ module.exports = { markers : [
 		lng: -113.5898,
 	},
 	defaultAnimation: 2,
+	VDSID: 1027,
 },
 {
 	position: {
@@ -180,6 +205,7 @@ module.exports = { markers : [
 		lng: -113.4922,
 	},
 	defaultAnimation: 2,
+	VDSID: 1028,
 },
 {
 	position: {
@@ -187,6 +213,7 @@ module.exports = { markers : [
 		lng: -113.492,
 	},
 	defaultAnimation: 2,
+	VDSID: 1029,
 },
 {
 	position: {
@@ -194,6 +221,7 @@ module.exports = { markers : [
 		lng: -113.5717,
 	},
 	defaultAnimation: 2,
+	VDSID: 1030,
 },
 {
 	position: {
@@ -201,6 +229,7 @@ module.exports = { markers : [
 		lng: -113.5722,
 	},
 	defaultAnimation: 2,
+	VDSID: 1031,
 },
 {
 	position: {
@@ -208,6 +237,7 @@ module.exports = { markers : [
 		lng: -113.5731,
 	},
 	defaultAnimation: 2,
+	VDSID: 1032,
 },
 {
 	position: {
@@ -215,6 +245,7 @@ module.exports = { markers : [
 		lng: -113.5729,
 	},
 	defaultAnimation: 2,
+	VDSID: 1033,
 },
 {
 	position: {
@@ -222,6 +253,7 @@ module.exports = { markers : [
 		lng: -113.5821,
 	},
 	defaultAnimation: 2,
+	VDSID: 1034,
 },
 {
 	position: {
@@ -229,6 +261,7 @@ module.exports = { markers : [
 		lng: -113.5819,
 	},
 	defaultAnimation: 2,
+	VDSID: 1035,
 },
 {
 	position: {
@@ -236,6 +269,7 @@ module.exports = { markers : [
 		lng: -113.576,
 	},
 	defaultAnimation: 2,
+	VDSID: 1036,
 },
 {
 	position: {
@@ -243,6 +277,7 @@ module.exports = { markers : [
 		lng: -113.5758,
 	},
 	defaultAnimation: 2,
+	VDSID: 1037,
 },
 {
 	position: {
@@ -250,6 +285,7 @@ module.exports = { markers : [
 		lng: -113.5182,
 	},
 	defaultAnimation: 2,
+	VDSID: 1038,
 },
 {
 	position: {
@@ -257,6 +293,7 @@ module.exports = { markers : [
 		lng: -113.5688,
 	},
 	defaultAnimation: 2,
+	VDSID: 1039,
 },
 {
 	position: {
@@ -264,6 +301,7 @@ module.exports = { markers : [
 		lng: -113.5736,
 	},
 	defaultAnimation: 2,
+	VDSID: 1040,
 },
 {
 	position: {
@@ -271,6 +309,7 @@ module.exports = { markers : [
 		lng: -113.5648,
 	},
 	defaultAnimation: 2,
+	VDSID: 1041,
 },
 {
 	position: {
@@ -278,6 +317,7 @@ module.exports = { markers : [
 		lng: -113.5648,
 	},
 	defaultAnimation: 2,
+	VDSID: 1042,
 },
 {
 	position: {
@@ -285,6 +325,7 @@ module.exports = { markers : [
 		lng: -113.5782,
 	},
 	defaultAnimation: 2,
+	VDSID: 1043,
 },
 {
 	position: {
@@ -292,6 +333,7 @@ module.exports = { markers : [
 		lng: -113.5795,
 	},
 	defaultAnimation: 2,
+	VDSID: 1044,
 },
 {
 	position: {
@@ -299,6 +341,7 @@ module.exports = { markers : [
 		lng: -113.5978,
 	},
 	defaultAnimation: 2,
+	VDSID: 1045,
 },
 {
 	position: {
@@ -306,7 +349,9 @@ module.exports = { markers : [
 		lng: -113.5983,
 	},
 	defaultAnimation: 2,
-}
+	VDSID: 1046,
+},
+
 ]};
 
 /*
