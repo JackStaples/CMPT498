@@ -8,8 +8,8 @@ export function renderScatterplot(target,vdsID,column,lowDate,highDate, live){
   var lowD = lowDate._d.getFullYear() + "-" + (lowDate._d.getMonth() + 1) + "-" + lowDate._d.getDate();
   var highTime = (highDate._d.getHours() + 1) + ":" + (highDate._d.getMinutes() + 1) + ":" + (highDate._d.getSeconds() + 1);
   var highD = highDate._d.getFullYear() + "-" + (highDate._d.getMonth() + 1) + "-" + highDate._d.getDate();
-  console.log("http://localhost:3001/scatterplot?column=" + column + "+&lowdate=" +lowD +"+" + lowTime + "&highdate="+highD+"+" + highTime + "&live=" + live);
-  httpGet("http://localhost:3001/scatterplot?column=" + column + "&vdsId=" + vdsID +" &lowdate=" +lowD +"+" + lowTime + "&highdate="+highD+"+" + highTime + "&live=" + live, target, handleScatterplot);
+  console.log("http://localhost:3001/scatterplot?column=" + column + "&vdsId=" + vdsID + "&lowdate=" +lowD +"+" + lowTime + "&highdate="+highD+"+" + highTime + "&live=" + live);
+  httpGet("http://localhost:3001/scatterplot?column=" + column + "&vdsId=" + vdsID +"&lowdate=" +lowD +"+" + lowTime + "&highdate="+highD+"+" + highTime + "&live=" + live, target, handleScatterplot);
 }
 
 function handleScatterplot(target, response){

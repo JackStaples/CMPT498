@@ -24,9 +24,13 @@ html, body, #map {
   padding-left: 100px;
 }
 
-#column_selector {
+#column_div{
+  position:relative;
   width: 200px;
   float: left;
+  left: 10px;
+  top: 500px;
+  z-index: 20;
 }
 
 #Realtime {
