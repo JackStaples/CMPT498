@@ -1,3 +1,8 @@
+:root {
+  --radius:1px;
+  --visborder: 2px;
+  --viscolor: #d8d8d8;
+}
 html, body, #map {
   width: 100%;
   height: 1000px;
@@ -24,25 +29,118 @@ html, body, #map {
   padding-left: 100px;
 }
 
+#submitButton {
+  float: left;
+}
+
+
+#SubmitButton {
+  float: left;
+  display: inline-block;
+}
+#realTimeSubBttn {
+  float: left;
+}
+
 #column_selector {
-  width: 200px;
+  float: left;
+  display: inline-block;
+}
+#realTimecolumn_selector {
+  float: left;
+}
+
+#lowdatetimepicker {
+  float: left;
+}
+#highdatetimepicker {
+  float: left;
+}
+#realTimedatepicker {
+    float: left;
+}
+
+#hexcolumn_selector {
+
+  float: left;
+    display: inline-block;
+}
+#year_selector {
+    float: left;
+}
+#realTimecolumn_selector {
   float: left;
 }
 
 #Realtime {
+  float: left;
 
+  padding-left: 0px;
+  border-radius: 5px;
+}
+#Realtime h2 {
+  text-align: center;
+}
 
+#historical {
+    padding-top: 0px;
+}
+
+#historical h2 {
+  text-align: center;
+  padding-top: -10px;
+}
+
+#Errors h2 {
+    text-align: center;
 }
 
 #thebigmap {
+border-radius: var(--radius);
+border: var(--visborder) solid var(--viscolor);
+}
 
-  width: 200px;
+#Calendar {
+
+}
+
+#historicalmap {
+  border-radius: var(--radius);
+  border: var(--visborder) solid var(--viscolor);
+
+}
+
+#historicalhexbin {
+  border-radius: var(--radius);
+  border: var(--visborder) solid var(--viscolor);
+}
+
+#historicalScatterplot {
+  border-radius: var(--radius);
+  border: var(--visborder) solid var(--viscolor);
+}
+
+#historicalLinegraph {
+  border-radius: var(--radius);
+  border: var(--visborder) solid var(--viscolor);
 }
 
 #realTimeScatterplot {
-
+  border-radius: var(--radius);
+  border: var(--visborder) solid var(--viscolor);
 }
 
 #realTimeLinegraph {
+  border-radius: var(--radius);
+  border: var(--visborder) solid var(--viscolor);
+}
 
+#vdsidBargraph {
+  border-radius: var(--radius);
+  border: var(--visborder) solid var(--viscolor);
+}
+
+#lanesBargraph {
+  border-radius: var(--radius);
+  border: var(--visborder) solid var(--viscolor);
 }

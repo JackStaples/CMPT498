@@ -1,7 +1,6 @@
 
 var sql = require('mssql/msnodesqlv8');
 
-
 var table1 = "fauxWareHouse";
 var table2 = "Warehouse";
 
