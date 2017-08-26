@@ -21,7 +21,6 @@ function handleLinegraph(target, response){
     console.log("Hey it worked")
     return
   }
-  console.log("this is the data" + data);
           var property = Object.keys(data[0]);
           var highVal = 0;
           var minVal = 0;

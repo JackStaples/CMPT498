@@ -36,7 +36,7 @@ class NavElem extends React.Component{
 	handleSelect(eventKey){
 		if (eventKey === 0){
 			ReactDOM.render(
-				<RealTime selected={this.state.selected} column={"speed"} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment()}/>,
+				<RealTime selected={this.state.selected} column={"speed"} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment(new Date())}/>,
 				document.getElementById('container')
 			);
 			ReactDOM.render(
@@ -465,7 +465,7 @@ ReactDOM.render(
 
 ReactDOM.render(
 
-	<RealTime selected='1004' column='occ' dateFrom={ (moment().set({ "hour": 0, "minute" : 0, "second": 0}))} dateTo={ moment() }/>,
+	<RealTime selected='1004' column='occ' dateFrom={ (moment().set({ "hour": 0, "minute" : 0, "second": 0}))} dateTo={ moment().utc() }/>,
 	document.getElementById('container')
 );
 ReactDOM.render(
