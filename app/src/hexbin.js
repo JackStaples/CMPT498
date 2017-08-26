@@ -5,10 +5,10 @@ import * as d3hexbin from 'd3-hexbin';
 import get, { httpGet } from './getRequest.js';
 
 export function renderHexbin(target, x, y, lowDate, highDate) {
-  var lowTime = lowDate.toTimeString().slice(0,8);
-  var lowD = lowDate.toISOString().slice(0,10);
-  var highTime = highDate.toTimeString().slice(0,8);
-  var highD = highDate.toISOString().slice(0,10);
+var lowTime = (lowDate._d.getHours()) + ":" + (lowDate._d.getMinutes()) + ":" + (lowDate._d.getSeconds());
+  var lowD = lowDate._d.getFullYear() + "-" + (lowDate._d.getMonth() + 1) + "-" + lowDate._d.getDate();
+  var highTime = (highDate._d.getHours() + 1) + ":" + (highDate._d.getMinutes() + 1) + ":" + (highDate._d.getSeconds() + 1);
+  var highD = highDate._d.getFullYear() + "-" + (highDate._d.getMonth() + 1) + "-" + highDate._d.getDate();
   var queryString = "http://localhost:3001/hexbin?xAxis=" + x + "&yAxis=" + y + "&lowdate="+lowD +"+" + lowTime + "&highdate="+highD+"+" + highTime;
 	 httpGet(queryString, target, handleHexbin);
    console.log(queryString);
@@ -16,7 +16,12 @@ export function renderHexbin(target, x, y, lowDate, highDate) {
 
 function handleHexbin(target, response) {
         var data = response.recordset;
+          if (Object.keys(data).length === 0) {
+    console.log("Hey it worked")
+    return
+  }
         var property = Object.keys(data[0]);
+        console.log("This is the property" + property);
         var highColumnOne = 0;
         var lowColumnOne = 0;
         var highColumnTwo = 0;
@@ -50,7 +55,7 @@ function handleHexbin(target, response) {
           , height = 600 - margin.top - margin.bottom;
         
         // could be 20 different colours between white and steelblue
-        var color = d3.scaleSequential(d3.interpolateLab("white", "#2c7fb8"))
+        var color = d3.scaleSequential(d3.interpolateLab("LightGray", "OrangeRed"))
           .domain([0, 150]);
           
         // defines the size of the hexagonal bins
@@ -75,7 +80,7 @@ function handleHexbin(target, response) {
         y.nice();
         
         // select the body of the DOM and add the svg to it
-        var chart = d3.select('#hexbin')
+        var chart = d3.select(target)
           .append('svg:svg')
           .attr('width', width + margin.right + margin.left)
           .attr('height', height + margin.top + margin.bottom)

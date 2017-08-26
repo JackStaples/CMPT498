@@ -1,19 +1,26 @@
 import * as d3 from 'd3';
 import get, { httpGet } from './getRequest.js';
 
-export function renderLinegraph(target, column, lowDate, highDate){
+
+export function renderLinegraph(target, vdsID,column, lowDate, highDate, live){
+  lowDate = new Date(lowDate);
+  highDate = new Date(highDate);
   var lowTime = lowDate.toTimeString().slice(0,8);
   var lowD = lowDate.toISOString().slice(0,10);
   var highTime = highDate.toTimeString().slice(0,8);
   var highD = highDate.toISOString().slice(0,10);
   var hour = highTime.slice(0,2)
-  var queryString = "http://localhost:3001/linegraph?column=" + column + "&vdsId=1011&hour=" + hour + "&lowdate=";
-    httpGet("http://localhost:3001/linegraph?column=speed&vdsId=1011&hour=9&lowdate="+lowD +"+" + lowTime + "&highdate="+highD+"+" + highTime + "&live=false", target, handleLinegraph);
+  var queryString = "http://localhost:3001/linegraph?column=" + column + "&vdsId=" + vdsID + "&hour=" + hour + "&lowdate=";
+    httpGet("http://localhost:3001/linegraph?column=" + column + "&vdsId=" + vdsID + "&hour=" + hour + "&lowdate="+lowD +"+" + lowTime + "&highdate="+highD+"+" + highTime + "&live="+live, target, handleLinegraph);
+
 }
 
 function handleLinegraph(target, response){
   var data = response.recordset;
-  console.log("this is the data" + data);
+  if (Object.keys(data).length === 0) {
+    console.log("Hey it worked")
+    return
+  }
           var property = Object.keys(data[0]);
           var highVal = 0;
           var minVal = 0;
@@ -136,7 +143,7 @@ function handleLinegraph(target, response){
           // Add the first line
           g.append("path")
             .attr("fill", "none")
-            .attr("stroke", "#800000")
+            .attr("stroke", "#FFA686")
             .attr("stroke-width", 2)
             .datum(lanesOne)
             .attr("d", line)
@@ -148,7 +155,7 @@ function handleLinegraph(target, response){
           // Add the second line
           g.append("path")
             .attr("fill", "none")
-            .attr("stroke", "#00eeee")
+            .attr("stroke", "#FF7A49")
             .attr("stroke-width", 2)
             .datum(lanesTwo)
             .attr("d", line)
@@ -159,7 +166,7 @@ function handleLinegraph(target, response){
           // Add the third line
           g.append("path")
             .attr("fill", "none")
-            .attr("stroke", "#00ee00")
+            .attr("stroke", "#8B2600")
             .attr("stroke-width", 2)
             .datum(lanesThree)
             .attr("d", line)
@@ -171,7 +178,7 @@ function handleLinegraph(target, response){
           // Add the fourth line
           g.append("path")
             .attr("fill", "none")
-            .attr("stroke", "#ffff00")
+            .attr("stroke", "#1F0800")
             .attr("stroke-width", 2)
             .datum(lanesFour)
             .attr("d", line)
