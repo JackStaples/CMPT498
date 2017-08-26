@@ -263,8 +263,6 @@ class DataWidgetsCalendar extends React.Component {
     				column: this.props.column,
     				hexColumn: this.props.hexColumn,
     				selected: this.props.selected};
-    	console.log("The constructor has been run");
-    	console.log("This is the selected property" + this.props.selected)
 
   	}
 
@@ -274,8 +272,6 @@ class DataWidgetsCalendar extends React.Component {
   				alert("Please check the dates");
   			}
   			else {
-  			console.log("This is the dateTo motherfucker" + this.state.dateTo)
-  			console.log("This is the selcted ID" + this.state.selected)
   			this.reRender();
   		}
   		}
@@ -490,6 +486,7 @@ class RealTime extends React.Component {
 					id="realTimeLinegraph"
 					ref={ renderLinegraph("#realTimeLinegraph",this.props.selected,this.props.column,this.props.dateFrom,this.props.dateTo, true) }
 				/>
+        <TableElemGen/>
       		</div>
 		);
 	}

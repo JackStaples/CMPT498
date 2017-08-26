@@ -11,32 +11,35 @@ export class TableElemGen extends Component {
   super(props);
   this.getJSONObj = this.getJSONObj.bind(this);
   this.setJSONState = this.setJSONState.bind(this);
-  this.setJSONState();
-
-}
-getJSONObj() {
-      httpGet("http://localhost:3001/scatterplot?column=speed&vdsId=1011&lowdate=2016-09-01+00:00:00&highdate=2016-09-02+00:00:00&live=false", null, this.setJSONState);
+  this.getJSONObj();
+  this.state = {columns : [{loading: "This was a loading error"}],
+    obj : [{loading: "There was a loading error"}],
+  }
+  }
+  getJSONObj() {
+    httpGet("http://localhost:3001/scatterplot?column=speed&vdsId=1011&lowdate=2016-09-01+00:00:00&highdate=2016-09-02+00:00:00&live=false", null, this.setJSONState);
   }
 
   setJSONState(target, response) {
   var data = response.recordset;
+  console.log(data, "THIS IS THE DATA YAH COOOOONT")
   this.setState( {
-    obj: data
+    obj: data,
+    columns: getColumns(data),
   });
-}
-
-
-
+  }
 
   render() {
     console.log(this.state)
   	return (
   		<div>
+      <ReactTable className="-highlight"
+    data={this.state.obj}
+    columns={this.state.columns}
+    />
     </div>
     );
   }
-
-  
 }
 
 function getColumns(jsonObj) {

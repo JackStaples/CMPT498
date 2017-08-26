@@ -35,7 +35,6 @@ export class MapElement extends Component {
   }
   
   handleMarkerClick(targetMarker) {
-    console.log("something happened", targetMarker.VDSID);
     this.props.getID(targetMarker.VDSID);
   }
   

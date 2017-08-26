@@ -5,7 +5,6 @@ import get, { httpGet } from './getRequest.js';
 
 export function renderCalendar(target, year, occ){
   var queryString = "http://localhost:3001/calendar?column=" + occ + "&year=" + year;
-  console.log(queryString)
   httpGet(queryString, target, handleCalendar);
 }
 
