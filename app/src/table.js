@@ -9,19 +9,37 @@ export class TableElem extends Component {
   constructor(props) {
   super(props);
   this.state = {
-    columns: getColumns(this.props.data)
+    columns: getColumns(this.props.data),
+    selected: this.props.ID
   };
 }
 
 
+
+
   render() {
-    console.log(this.state.columns);
   	return (
   		<div>
-  <ReactTable
+  <ReactTable className="-highlight"
     data={this.props.data}
     columns={this.state.columns}
-  	/>
+  	 getTdProps={(state, rowInfo, column, instance) => {
+
+    return {
+      style: {
+        background: rowInfo.row.VDSID ==  this.props.ID ? 'darkgrey' : 'lightgrey'
+      },
+      onClick: (e) => {
+        console.log('It was in this row:', rowInfo.row.VDSID)
+
+        this.setState({
+        selected: rowInfo.row.VDSID
+        });
+        this.props.getID(rowInfo.row.VDSID)
+      }
+    }
+  }}
+/>
   	</div>
 	);
   }
@@ -46,6 +64,7 @@ function getColumns(jsonObj) {
     console.log(column)
     return column;
 }
+
 
 export default TableElem;
 

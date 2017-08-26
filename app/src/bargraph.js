@@ -12,6 +12,10 @@ export function renderBargraph(lanes, target) {
 
 function handleBargraph(target, response){
   var data = response.recordset;
+  if (Object.keys(data).length === 0) {
+    console.log("Hey it worked")
+    return
+  }
   var property = Object.keys(data[0]);
         var highVal = 0;
         var lowVal = 0;
@@ -22,7 +26,7 @@ function handleBargraph(target, response){
         }
         
         // sort it so 1003 is at the top
-        //data.sort(function(a, b) { return a[property[2]] - b[property[2]]; });
+        data.sort(function(a, b) { return a[property[2]] - b[property[2]]; });
         
         var svg = d3.select(target),
           margin = {top: 20, right: 20, bottom: 30, left: 40},

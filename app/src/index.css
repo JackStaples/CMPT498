@@ -1,3 +1,10 @@
+:root {
+  --radius:1px;
+  --visborder: 2px;
+  --viscolor: #d8d8d8;
+
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -5,20 +12,22 @@ body {
 }
 
 #appheader {
-  /*background-color: #7c795d; /*rgb(235,258,255); #63bdce */
-  background: linear-gradient(to bottom right, rgba(0,0,255,1), rgba(0,0,0,1));
-  padding: 0;
+  /*background-color: #44d9e6; rgb(235,258,255); #63bdce;*/
+  background: linear-gradient(to bottom , #44d9e6, #00828d);
+  padding-top: 0px;
+  height: 200px;
 }
 
 
 #maintitle {
-  /*padding-left: 36%; */
-  font-size-adjust: 0.58;
-  text-align: center;
-  font-size: 110;
-  font-family: "Times New Roman", Times, serif;
-  color: #3D9970; /*rgb(23,128,128); */
+  font-size: 200;
+  font: "Ariel";
 }
+#title {
+  font-size: 200;
+  font: "Ariel";
+}
+
 
 #subtitle {
   /*  padding-left: 34%; */
@@ -28,21 +37,25 @@ body {
 }
 
 #locationstuff {
-  background-color: #63bdce;
+  background-color: #ddd;
   float: left;
   width: 25%;
-  height: 1900px;
+  height: 2072px;
 }
-
+#frame {
+  border-radius: var(--radius);
+  border: var(--visborder) solid var(--viscolor);
+}
 #well {
 
   float: right;
   width: 75%;
-  background-color: rgb(255,255,255);
+  background-color: #f9f3f3 !important;
+
 }
 
 #navigation {
-  float: middle;
+
   color: #3D9970;
   font-size: 180%;
 	padding-top: 0px;
@@ -54,10 +67,12 @@ body {
 
 
 #widgets {
-  width: 200px;
+
 }
 
 #container {
-
-  paddin-left: 20px;
+  float: left;
+	padding-top: 10px;
+  padding-left: 0px;
+  background-color: #fdfcfc !important;
 }

@@ -10,28 +10,33 @@ export function renderCalendar(target, year, occ){
 }
 
 export function handleCalendar(target,response){
-  
+
 var data = response.recordset;
+  if (Object.keys(data).length === 0) {
+    console.log("Hey it worked")
+    return
+  }
 var property = Object.keys(data[0]);
 var max = 0;
 var min = 1000;
+//console.log("This is the property" + property)
 for (var i in data){
   data[i][property[0]] = data[i][property[0]].slice(0,10)
 }
       for (var i in data){
-        console.log("This is the number         " + data[i][property[1]])
+        //console.log("This is the number         " + data[i][property[1]])
         data[i][property[0]] = data[i][property[0]].slice(0,10)
         data[i][property[1]] = parseInt(data[i][property[1]]);
         if (data[i][property[1]] > max){
           max = data[i][property[1]];
-        } 
+        }
         if (data[i][property[1]] < min){
           min = data[i][property[1]];
         }
 
 }
 var year = parseInt(data[0][property[0]].slice(0,4));
-var width = 1366,
+var width = 1006,
     height = 136,
     cellSize = 17;
 
@@ -55,7 +60,7 @@ var svg = d3.select(target)
 svg.append("text")
     .attr("transform", "translate(-6," + cellSize * 3.5 + ")rotate(-90)")
     .attr("font-family", "sans-serif")
-    .attr("font-size", 10)
+    .attr("font-size", 14)
     .attr("text-anchor", "middle")
     .text(function(d) { return d; });
 
@@ -68,14 +73,14 @@ svg.append("text")
   .attr("transform", "translate(875)");
 
 svg.append("text")
-  .text("Su")
-  .attr("font-size", 10)
-  .attr("transform", "translate(-14, 12)");
+  .text("Sun")
+  .attr("font-size", 14)
+  .attr("transform", "translate(-25, 12)");
 
 svg.append("text")
   .text("Sat")
-  .attr("font-size", 10)
-  .attr("transform", "translate(-15, 112)");
+  .attr("font-size", 14)
+  .attr("transform", "translate(-25, 112)");
 
 var rect = svg.append("g")
     .attr("fill", "none")
