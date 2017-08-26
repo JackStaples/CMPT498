@@ -36,11 +36,12 @@ export class MapElement extends Component {
   
   handleMarkerClick(targetMarker) {
     console.log("something happened", targetMarker.VDSID);
+    this.props.getID(targetMarker.VDSID);
   }
   
   render() {
     return (
-      <div style={{height: `500px`, width: `1366px`}}>
+      <div id="GoogleMap" style={{height: `500px`, width: `1366px`}}>
         <RenderGoogleMap
           onMarkerClick={this.handleMarkerClick.bind(this)}
           containerElement={

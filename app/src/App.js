@@ -135,6 +135,13 @@ class NavElem extends React.Component{
 			<DataWidgetsRealTime updateColumnNav={this.updateColumnNav} selected='1004'/>,
 			document.getElementById('widgets')
 		);
+    ReactDOM.render(
+        <div>
+          <h2>Big ass map</h2>
+          <MapElement getID={this.setSelected}/>
+        </div>,
+        document.getElementById('thebigmap')
+      );
 	}
 	
 	setSelected(e) {
@@ -469,10 +476,6 @@ class RealTime extends React.Component {
 
 
 			<div name="Realtime" id="Realtime">
-				<h2>Big ass map</h2>
-				<div id="thebigmap">
-					<MapElement />
-				</div>
 				<h2>Scatterplot</h2>
 				<div
 					id="realTimeScatterplot"
@@ -529,10 +532,6 @@ class Historical extends React.Component {
 				<div  id="Calendar">
 					<div ref={ renderCalendar("#Calendar", this.props.year, this.props.test) } />
         </div>
-				<h2>Big ass map2</h2>
-				<div id="historicalmap">
-					<MapElement />
-				</div>
 				<h2>Hexbin</h2>
 				<div id="historicalhexbin">
 				<div
