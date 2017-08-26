@@ -10,7 +10,7 @@ export function renderCalendar(target, year, occ){
 }
 
 export function handleCalendar(target,response){
-  
+
 var data = response.recordset;
 var property = Object.keys(data[0]);
 var max = 0;
@@ -24,14 +24,14 @@ for (var i in data){
         data[i][property[1]] = parseInt(data[i][property[1]]);
         if (data[i][property[1]] > max){
           max = data[i][property[1]];
-        } 
+        }
         if (data[i][property[1]] < min){
           min = data[i][property[1]];
         }
 
 }
 var year = parseInt(data[0][property[0]].slice(0,4));
-var width = 1366,
+var width = 1006,
     height = 136,
     cellSize = 17;
 

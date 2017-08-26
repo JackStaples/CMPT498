@@ -3,7 +3,7 @@ var sql = require('mssql/msnodesqlv8');
 
 var config = {
   driver: 'msnodesqlv8',
-  server: 'BRETT-LT-PC',
+  server: 'DESKTOP-TOSQMFB',
   database: 'CMPT498',
   options: { trustedConnection: true, useUTC: true }
 };

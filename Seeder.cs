@@ -10,13 +10,13 @@ namespace Seeder
         static private SqlCommand Command;
         static private SqlDataReader Reader;
         static private string database = "CMPT498";
-        static private string table = "[both raw]";
-        static private string temp = "fauxWareHouse";// or daytable
+        static private string table = "rawdata";
+        static private string temp = "fauxWareHouse2";// or daytable
         static private string connect = "server=DESKTOP-TOSQMFB; database=" + database + "; trusted_connection=True;";
         static private int[] startDate = { 2017, 01, 01, 00, 00, 00};
-        static private int iterations = 35041;//Number of 15min intervals in a year.
-        static private int time = 15;//minutes
-        static private int seconds = 0;// adjust for "raw" table.
+        static private int iterations = 94608000;//Number of 15min intervals in a year.
+        static private int timespan = 0;//minutes
+        static private int seconds = 20;// adjust for "raw" table.
         static private int[] vdsIds;
         static private int[] Lanes;
         static private int[] avgSpeed;
@@ -30,9 +30,7 @@ namespace Seeder
             Command = new SqlCommand();
             Connector.ConnectionString = connect;
             Command.Connection = Connector;
-            vdsIds = new int[110];
-            Lanes = new int[110];
-            avgSpeed = new int[110];
+
             General = new ArrayList();
         }
 
@@ -55,6 +53,9 @@ namespace Seeder
                 " (case when abs(speed) = 0 then 0 else 30 end)) from " + table +
                 " where vdsId is not null group by vdsId, lane order by vdsId, lane";
             GeneralQuery(query, true);
+            vdsIds = new int[General.Count];
+            Lanes = new int[General.Count];
+            avgSpeed = new int[General.Count];
             int i = 0;
             string[] sep = { "," };
             string[] tokens = new string[3];
@@ -93,7 +94,7 @@ namespace Seeder
             }
             else
             {
-                sendData();
+                Command.ExecuteNonQuery();
             }
             Connector.Close();
         }
@@ -102,8 +103,6 @@ namespace Seeder
         static void getData()
         {
 
-            try
-            {
                 Reader = Command.ExecuteReader();
                 while (Reader.Read())
                 {
@@ -115,32 +114,14 @@ namespace Seeder
                         {
                             row += ",";
                         }
-                        
+
                     }
                     General.Add(row);
                 }
-            }
-            catch
-            {
-                System.Console.WriteLine("No result");
-                Environment.Exit(0);
-            }
+
         }
 
 
-        static void sendData()
-        {
-            try
-            {
-                Command.ExecuteNonQuery();
-            }
-            catch
-            {
-
-                System.Console.WriteLine("Something went wrong at " + datecheck);
-                wait();
-            }
-        }
         static private void wait()
         {
             System.Console.WriteLine("Press Enter To exit.");
@@ -158,7 +139,7 @@ namespace Seeder
                 GeneralQuery(rows, false);
                 if((i != 0) && (i % 96 == 0))
                 {
-                    System.Console.WriteLine("Inserted another day, or " + 
+                    System.Console.WriteLine("Inserted another day, or " +
                     Convert.ToString(i * 110) + " batches into database...");
                 }
             }
@@ -167,7 +148,7 @@ namespace Seeder
 
         static private void makeRows(Random rnd)
         {
-            rows =  "insert into " + temp + " (dt, vdsId, lane, rawSpeed, speed, " + 
+            rows =  "insert into " + temp + " (dt, vdsId, lane, rawSpeed, speed, " +
                 "rawOcc, occ, vol, correct, incorrect, total) values ";
             string dt = makeDate();
             datecheck = dt;
@@ -179,9 +160,9 @@ namespace Seeder
                 incorrect = Convert.ToInt32(randNum(rnd, 0, 80, 0, true, 50));
                 correct = correct - incorrect;
                 rows += " ( '" + dt + "', " + Convert.ToString(vdsIds[i]) + ", " + Convert.ToString(Lanes[i]) +
-                    ", " + randNum(rnd, 0, 80, 10, false, 86) + ", " + randNum(rnd, avgSpeed[i], 10, 18, true, 75) + 
+                    ", " + randNum(rnd, 0, 80, 10, false, 86) + ", " + randNum(rnd, avgSpeed[i], 10, 18, true, 75) +
                     ", " + randNum(rnd, 0, 100, 3, false, 30) + ", " + randNum(rnd, 0, 100, 0, true, 30) +
-                    ", " + randNum(rnd, 0, 3500, 0, true, 15) + ", " + Convert.ToString(correct) + ", " + 
+                    ", " + randNum(rnd, 0, 3500, 0, true, 15) + ", " + Convert.ToString(correct) + ", " +
                     Convert.ToString(incorrect) + ", 45),";
             }
 
@@ -192,14 +173,14 @@ namespace Seeder
 
         static private string makeDate()
         {
-            // startDate = { 2017, 01, 01, 00, 00, 00 }           
+            // startDate = { 2017, 01, 01, 00, 00, 00 }
             string[] sep = { "-", "-", " ", ":", ":", "" };
             string dt = "";
 
             int i = 0;
             foreach (int num in startDate)
             {
-                
+
                 dt += dayMonth(num, i) + sep[i];
                 i++;
             }
@@ -223,13 +204,13 @@ namespace Seeder
         static private void incDate()
         {
             int maxMonth = getMaxMonth();
-            startDate[startDate.Length - 1] += seconds;           
+            startDate[startDate.Length - 1] += seconds;
             if (startDate[startDate.Length - 1] == 60)
             {
                 startDate[startDate.Length - 1] = 0;
                 startDate[startDate.Length - 2]++;
             }
-            startDate[startDate.Length - 2] += time;
+            startDate[startDate.Length - 2] += timespan;
             if (startDate[startDate.Length - 2] >= 60)
             {
                 startDate[startDate.Length - 2] %= 60;
@@ -250,7 +231,7 @@ namespace Seeder
                 startDate[startDate.Length - 5] = 1;
                 startDate[startDate.Length - 6]++;
             }
-            
+
         }
 
 
@@ -276,10 +257,10 @@ namespace Seeder
             return maxMonth;
         }
 
-        static private string randNum(Random rnd, int input, 
+        static private string randNum(Random rnd, int input,
             int range, int bias, bool positive, int chanceof0)
         {
-                   
+
             int half = range / 2;
             int rand = rnd.Next((-1 * half), half + 1);
             half = half / 2;

@@ -64,7 +64,7 @@ class NavElem extends React.Component{
 	render(){
 		console.log("this is the test" + this.state.date);
 		return (
-		<Tabs onSelect={this.handleSelect}>
+		<Tabs onSelect={this.handleSelect} id="selectTabs">
     	<TabList>
       		<Tab>RealTime</Tab>
       		<Tab>Historical</Tab>
@@ -76,7 +76,7 @@ class NavElem extends React.Component{
 	}
 
 	componentDidMount() {
-		
+
 	}
 }
 
@@ -91,7 +91,7 @@ class DataWidgetsCalendar extends React.Component {
     	this.updateYear = this.updateYear.bind(this);
     	this.updateColumn = this.updateColumn.bind(this);
     	this.updateColumnHexbin = this.updateColumnHexbin.bind(this);
-    	this.state = {year: 2017, 
+    	this.state = {year: 2017,
     				date: new Date(),
     				dateFrom: new Date("2016-09-03"),
     				dateTo: new Date("2016-09-04"),
@@ -138,7 +138,7 @@ class DataWidgetsCalendar extends React.Component {
 				document.getElementById('container')
 			);
   		ReactDOM.render(
-				<Historical test={this.state.column} date={this.state.date} dateTo={this.state.dateTo} dateFrom={this.state.dateFrom} year={this.state.year} 
+				<Historical test={this.state.column} date={this.state.date} dateTo={this.state.dateTo} dateFrom={this.state.dateFrom} year={this.state.year}
 				hexColumn={this.state.hexColumn}/>,
 				document.getElementById('container')
 			);
@@ -149,26 +149,42 @@ class DataWidgetsCalendar extends React.Component {
 
 		return (
 		<div>
-		<Button onClick={this.update}> Submit </Button>
-		<DropdownButton bsStyle="default" id="column_selector" title="Columns" onSelect={this.updateColumn}>
+		<div id="SubmitButton">
+			<Button onClick={this.update} > Submit </Button>
+		</div>
+
+		<div id="column_selector">
+		<DropdownButton bsStyle="default"  title="Columns" onSelect={this.updateColumn}>
 			<MenuItem eventKey="occ">Occupancy</MenuItem>
 			<MenuItem eventKey="speed">Speed</MenuItem>
 			<MenuItem eventKey="vol">Volume	</MenuItem>
 		</DropdownButton>
-		<DropdownButton bsStyle="default" id="column_selector" title="HexBinDropdown" onSelect={this.updateColumnHexbin}>
+		</div>
+
+		<div id="hexcolumn_selector">
+		<DropdownButton bsStyle="default"  title="HexBinDropdown" onSelect={this.updateColumnHexbin}>
 			<MenuItem eventKey="occ">Occupancy</MenuItem>
 			<MenuItem eventKey="speed">Speed</MenuItem>
 			<MenuItem eventKey="vol">Volume	</MenuItem>
 		</DropdownButton>
-		<DropdownButton bsStyle="default" id="year_selector" title="Year" onSelect={this.updateYear}>
+		</div>
+
+		<div id="year_selector">
+		<DropdownButton bsStyle="default"  title="Year" onSelect={this.updateYear}>
 			<MenuItem eventKey='2016'>2016</MenuItem>
 			<MenuItem eventKey='2017'>2017</MenuItem>
 		</DropdownButton>
+		</div>
+
+		<div id="lowdatetimepicker">
 		<DateTimePicker id="test2" defaultValue={new Date("2016-09-03")} onSelect={this.dateUpdate}>
 		</DateTimePicker>
+		</div>
 
+		<div id="highdatetimepicker">
 		<DateTimePicker id="test" defaultValue={new Date("2016-09-04")} onSelect={this.dateUpdate2}>
 		</DateTimePicker>
+		</div>
 
 		</div>
 		);
@@ -223,13 +239,23 @@ class DataWidgetsRealTime extends React.Component {
 	render() {
 		return (
 		<div>
+
+		<div id="realTimeSubBttn" >
 		<Button onClick={this.update}> Submit </Button>
-		<DropdownButton bsStyle="default" id="column_selector" title="Columns" onSelect={this.updateColumn}>
+		</div>
+
+		<div id="realTimecolumn_selector">
+		<DropdownButton bsStyle="default"  title="Columns" onSelect={this.updateColumn}>
 			<MenuItem eventKey="occ">Occupancy</MenuItem>
 			<MenuItem eventKey="speed">Speed</MenuItem>
 			<MenuItem eventKey="vol">Volume	</MenuItem>
 		</DropdownButton>
-		<DateTimePicker defaultValue={this.state.dateFrom} onSelect={this.dateUpdate}/>
+		</div>
+
+		<div id="realTimedatepicker">
+		<DateTimePicker id="getAdate" defaultValue={this.state.dateFrom} onSelect={this.dateUpdate}/>
+		</div>
+
 		</div>
 		);
 	}
@@ -244,12 +270,17 @@ class RealTime extends React.Component {
 
 
 			<div name="Realtime" id="Realtime">
-				<MapElement id="thebigmap" />
+				<h2>Big ass map</h2>
+				<div id="thebigmap">
+					<MapElement />
+				</div>
+				<h2>Scatterplot</h2>
 				<div
 					id="realTimeScatterplot"
 					margin="0 auto"
 					ref={ renderScatterplot("#realTimeScatterplot", this.props.column, this.props.dateFrom, this.props.dateTo) }
 				/>
+				<h2>Linegraph</h2>
 				<div
 					id="realTimeLinegraph"
 					ref={ renderLinegraph("#realTimeLinegraph",this.props.column,this.props.dateFrom,this.props.dateTo) }
@@ -259,7 +290,7 @@ class RealTime extends React.Component {
 	}
 
 	componentDidMount() {
-		
+
 
 	}
 	componentWillUnmount() {
@@ -293,23 +324,28 @@ class Historical extends React.Component {
   	}
 	render(){
 		return (
-			<div>
-				<div
-                    id="Calendar"
-                    ref={ renderCalendar("#Calendar", this.props.year, this.props.test) }
-                />
-                <div>
-                <p> {this.state.column} </p>
-                </div>
-				<MapElement />
+			<div id="historical">
+			<h2>Calendar</h2>
+				<div  id="Calendar">
+					<div ref={ renderCalendar("#Calendar", this.props.year, this.props.test) } />
+        </div>
+				<h2>Big ass map2</h2>
+				<div id="historicalmap">
+					<MapElement />
+				</div>
+				<h2>Hexbin</h2>
+				<div id="historicalhexbin">
 				<div
 					id="hexbin"
 					ref={ renderHexbin("#hexbin", this.props.test, this.props.hexColumn, this.props.dateFrom, this.props.dateTo) }
 				/>
+				</div>
+				<h2>Scatterplot2</h2>
 				<div
 					id="historicalScatterplot"
 					ref={ renderScatterplot("#historicalScatterplot", this.props.test, this.props.dateFrom, this.props.dateTo ) }
 				/>
+				<h2>Linegraph</h2>
 				<div
 					id="historicalLinegraph"
 					ref={ renderLinegraph("#historicalLinegraph", this.props.test, this.props.dateFrom, this.props.dateTo) }
@@ -329,11 +365,13 @@ class Historical extends React.Component {
 class Errors extends React.Component {
 	render(){
 		return (
-			<div>
+			<div id="Errors">
+				<h2>Errors by vdsId</h2>
 				<svg width="1366" height="700"
 					id="vdsidBargraph"
 					ref={ renderBargraph(0, "#vdsidBargraph") }
 				/>
+				<h2>Errors by lane</h2>
 				<svg width="1366" height="700"
 					id="lanesBargraph"
 					ref={ renderBargraph(1, "#lanesBargraph") }
@@ -354,7 +392,7 @@ class Errors extends React.Component {
 class Refresh extends React.Component {
 	render() {
 		return (
-		<div>
+		<div id="unseen">
 		</div>
 		)
 	}
