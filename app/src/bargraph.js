@@ -1,10 +1,13 @@
 import * as d3 from 'd3';
 import get, { httpGet } from './getRequest.js';
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import Errors from './App.js';
 
-export function renderBargraph(lanes, target) {
+export function renderBargraph(lanes, target, vdsid) {
+  console.log(vdsid, "this is the vdsid, fuck my ass")
   if (lanes === 1){
-    httpGet("http://localhost:3001/bargraphLanes?VDSID=1010", target, handleBargraph);
+    httpGet("http://localhost:3001/bargraphLanes?VDSID=" + vdsid, target, handleBargraph);
   } else {
     httpGet("http://localhost:3001/bargraph", target, handleBargraph);
   }
@@ -65,7 +68,8 @@ function handleBargraph(target, response){
             .attr("y", function(d) { return y(d.data[property[0]])})
             .attr("height", (y.bandwidth()))
             .attr("width", function(d) {return x(d[1]) - x(d[0]);})
-            .attr("fill", function(d) {   if(d[0] === 0){return "OrangeRed"} else {return "LightGray"}; });
+            .attr("fill", function(d) {   if(d[0] === 0){return "OrangeRed"} else {return "LightGray"}; })
+            .on("click", function(d){ replacer(d.data[property[0]],'container')});
 
         var xAxis = d3.axisBottom(x).ticks(null, "s");
         
@@ -84,7 +88,7 @@ function handleBargraph(target, response){
           .attr('class', 'axis')
           .call(yAxis);
 
-          d3.select("#sortIncorrect").on("change", change);
+          d3.select("#sortIncorrect").on("click", change);
           
           
             function change() {
@@ -119,3 +123,16 @@ function handleBargraph(target, response){
               };          
         console.log("done");
       }
+      
+function replacer(vdsid, target){
+  console.log(target, "this is the target");
+  	ReactDOM.render(
+        <div id="unseen">
+        </div>,
+      document.getElementById(target)
+		);
+    ReactDOM.render(
+<Errors target={vdsid}/>,
+      document.getElementById(target)
+    );
+}

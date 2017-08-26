@@ -73,7 +73,7 @@ class NavElem extends React.Component{
 		
 		else if (eventKey === 2){
 			ReactDOM.render(
-				<Errors/>,
+				<Errors target={this.state.selected}/>,
 				document.getElementById('container')
 			);
 			ReactDOM.render(
@@ -208,7 +208,7 @@ class NavElem extends React.Component{
 			);
 
 			ReactDOM.render(
-				<Errors/>,
+				<Errors target={this.state.selected}/>,
 				document.getElementById('container')
 			);
 
@@ -226,6 +226,7 @@ class NavElem extends React.Component{
 
 	render(){
 		console.log("oh shit this ran god damn")
+    console.log(this.state.year)
 		ReactDOM.render(
 				<TableElem ID={this.state.selected} getID={this.setSelected}/>,
 				document.getElementById('locationstuff')
@@ -454,7 +455,8 @@ class DataWidgetsError extends React.Component {
 		<div>
 
 		
-		<Button> Sort by Errors </Button>
+		<Button id="sortIncorrect"> Sort by Errors 
+    </Button>
 		<p> From Date </p>
 		<DateTimePicker id="test2" defaultValue={new Date("2016/09/03")}>
 		</DateTimePicker>
@@ -561,19 +563,23 @@ class Historical extends React.Component {
 	}
 }
 
-class Errors extends React.Component {
+export default class Errors extends React.Component {
+  constructor(props){
+    super(props);
+  }
 	render(){
+    console.log(this.props.target, "This is the state in the render")
 		return (
 			<div id="Errors">
 				<h2>Errors by vdsId</h2>
 				<svg width="1366" height="700"
 					id="vdsidBargraph"
-					ref={ renderBargraph(0, "#vdsidBargraph") }
+					ref={ renderBargraph(0, "#vdsidBargraph", this.props.target) }
 				/>
 				<h2>Errors by lane</h2>
 				<svg width="1366" height="700"
 					id="lanesBargraph"
-					ref={ renderBargraph(1, "#lanesBargraph") }
+					ref={ renderBargraph(1, "#lanesBargraph", this.props.target) }
 				/>
 			</div>
 		);
@@ -584,7 +590,7 @@ class Errors extends React.Component {
 
 	}
 	shouldComponentUpdate() {
-		return false;
+		return true;
 	}
 }
 
