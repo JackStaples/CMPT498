@@ -6,7 +6,7 @@ var table1 = "rawdata";
 var table2 = "Warehouse";
 
 function callDB(query, res, callback, sql) {
-  console.log(query);
+  console.log("QUERY:     " + query);
     var request = new sql.Request();
     request.query(query, function(err, records) {
       if(err) {
@@ -119,19 +119,25 @@ function DateSplit(table,lowdate, highdate, live) {
     " and datepart(mm, " + table + ".datetime) = " + (today.getMonth()+1) +
     " and datepart(dd, " + table + ".datetime) = " + today.getDate();
   }
-    var lowdate = lowdate.split(" ");
-    var highdate = highdate.split(" ");
-    lowdate = lowdate[0];
-    highdate = highdate[0];
-    lowdate = lowdate.split("-");
-    highdate = highdate.split("-");
 
-    return " datepart(yyyy, " + table + ".dt) >= " + lowdate[0] +
-      " and datepart(yyyy, " + table + ".dt) <= " + highdate[0] +
-      " and datepart(mm, " + table + ".dt) >= " + lowdate[1] +
-      " and datepart(mm, " + table + ".dt) <= " + highdate[1] +
-      " and datepart(dd, " + table + ".dt) >= " + lowdate[2] +
-      " and datepart(dd, " + table + ".dt) <= " + highdate[2] + " ";
+    return " " + table + ".dt >= '" + lowdate + "' and " + table + ".dt <= '" + highdate + "' ";
+
+
+/*
+
+var lowdate = lowdate.split(" ");
+var highdate = highdate.split(" ");
+lowdate = lowdate[0];
+highdate = highdate[0];
+lowdate = lowdate.split("-");
+highdate = highdate.split("-");
+return " datepart(yyyy, " + table + ".dt) >= " + lowdate[0] +
+  " and datepart(yyyy, " + table + ".dt) <= " + highdate[0] +
+  " and datepart(mm, " + table + ".dt) >= " + lowdate[1] +
+  " and datepart(mm, " + table + ".dt) <= " + highdate[1] +
+  " and datepart(dd, " + table + ".dt) >= " + lowdate[2] +
+  " and datepart(dd, " + table + ".dt) <= " + highdate[2] + " ";
+*/
 }
 
 exports.mapQuery = function(res, callback, sql) {
