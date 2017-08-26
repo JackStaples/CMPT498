@@ -27,7 +27,7 @@ export class TableElem extends Component {
 
     return {
       style: {
-        background: rowInfo.row.VDSID ==  this.props.ID ? 'orange' : 'light-grey'
+        background: rowInfo.row.VDSID ==  this.props.ID ? 'darkgrey' : 'lightgrey'
       },
       onClick: (e) => {
         console.log('It was in this row:', rowInfo.row.VDSID)
