@@ -3,7 +3,13 @@ import get, { httpGet } from './getRequest.js';
 import * as d3 from 'd3';
 import moment from 'moment';
 
+var startTime;
+var endTime;
+
 export function renderScatterplot(target,vdsID,column,lowDate,highDate, live){
+  
+  startTime = lowDate._d;
+  endTime = highDate._d;
   var lowTime = (lowDate._d.getHours()) + ":" + (lowDate._d.getMinutes()) + ":" + (lowDate._d.getSeconds());
   var lowD = lowDate._d.getFullYear() + "-" + (lowDate._d.getMonth() + 1) + "-" + lowDate._d.getDate();
   var highTime = (highDate._d.getHours() + 1) + ":" + (highDate._d.getMinutes() + 1) + ":" + (highDate._d.getSeconds() + 1);
@@ -51,9 +57,10 @@ function handleScatterplot(target, response){
         , width = 1366 - margin.left - margin.right
         , height = 600 - margin.top - margin.bottom;
             
+      console.log(startTime, endTime);
       // create the x-axis that will be used for the visualization, it uses a time scale
       var x = d3.scaleTime()
-        .domain([new Date(data[0][property[0]]), new Date(data[data.length - 1][property[0]])])
+        .domain([startTime, endTime])
         .range([0, width]);
       x.nice();
       
