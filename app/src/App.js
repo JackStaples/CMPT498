@@ -56,6 +56,14 @@ class NavElem extends React.Component{
 				document.getElementById('widgets')
 				);
 			this.setCurrentTab(0);
+			ReactDOM.render(
+        <div>
+          <h2>Big ass map</h2>
+          <MapElement getID={this.setSelected}/>
+        </div>,
+        document.getElementById('thebigmap')
+      );
+
 		}
 		else if (eventKey === 1){
 			ReactDOM.render(
@@ -69,17 +77,30 @@ class NavElem extends React.Component{
 				document.getElementById('widgets')
 				);
 			this.setCurrentTab(1);
+			ReactDOM.render(
+        <div>
+          <h2>Big ass map</h2>
+          <MapElement getID={this.setSelected}/>
+        </div>,
+        document.getElementById('thebigmap')
+      );
+
 		}
 		
 		else if (eventKey === 2){
 			ReactDOM.render(
-				<Errors target={this.state.selected} sort={true} setSelected={this.setSelected}/>,
+				<Errors target={this.state.selected} sort={true} setSelected={this.setSelected} dateFrom={this.state.dateFrom} dateTo={this.state.dateTo}/>,
 				document.getElementById('container')
 			);
 			ReactDOM.render(
 				<DataWidgetsError selected={this.state.selected} setSelected={this.setSelected}/>,
 				document.getElementById('widgets')
 			);
+		ReactDOM.render(
+        	<Refresh/>,
+        	document.getElementById('thebigmap')
+      	);
+
 			this.setCurrentTab(2);
 		}
 		else if (eventKey === 3){
@@ -195,7 +216,7 @@ class NavElem extends React.Component{
 			);
 			ReactDOM.render(
 				<DataWidgetsCalendar updateFromDateNav={this.updateFromDateNav} updateToDateNav={this.updateToDateNav} hexColumn={this.state.hexColumn} 
-				updateYearNav={this.updateYearNav} updateColumnNav={this.updateColumnNav} 
+				updateYearNav={this.updateYearNav} updateColumnNav={this.updateColumnNav}  updateHexColumn={this.updateHexColumn}
 				selected={this.state.selected} dateFrom={this.state.dateFrom} dateTo={this.state.dateTo} column={this.state.column} year={this.state.year}/>,
 				document.getElementById('widgets')
 				);
@@ -444,6 +465,10 @@ class DataWidgetsRealTime extends React.Component {
 class DataWidgetsError extends React.Component {
 	constructor(props) {
 		super(props);
+    this.state = {
+			dateTo: this.props.dateTo,
+			dateFrom: this.props.dateFrom
+		}
     this.swapCheck = {
       sort: this.props.sort
     }
@@ -482,15 +507,13 @@ class DataWidgetsError extends React.Component {
 	render() {
 		return (
 		<div>
-
-		
 		<Button onClick={this.update}> Sort </Button>
-		<p> From Date </p>/
-		<DateTimePicker id="test2" defaultValue={new Date("2016/09/03")}>
+		<p> From Date </p>
+		<DateTimePicker id="test2" defaultValue={new Date(this.props.dateFrom)}>
 		</DateTimePicker>
 
 		<p> To Date </p>
-		<DateTimePicker id="test" defaultValue={new Date("2016/09/04")}>
+		<DateTimePicker id="test" defaultValue={new Date(this.props.dateTo)}>
 		</DateTimePicker>
 		</div>
 		);
@@ -518,6 +541,7 @@ class RealTime extends React.Component {
 					id="realTimeLinegraph"
 					ref={ renderLinegraph("#realTimeLinegraph",this.props.selected,this.props.column,this.props.dateFrom,this.props.dateTo, true) }
 				/>
+        <TableElemGen vdsID={this.props.selected} column={this.props.column} lowDate={this.props.dateFrom} highDate={this.props.dateTo} live={true}/>
       		</div>
 		);
 	}
@@ -579,6 +603,7 @@ class Historical extends React.Component {
 					id="historicalLinegraph"
 					ref={ renderLinegraph("#historicalLinegraph", this.props.selected, this.props.test, this.props.dateFrom, this.props.dateTo, false) }
 				/>
+				<TableElemGen vdsID={this.props.selected} column={this.props.test} lowDate={this.props.dateFrom} highDate={this.props.dateTo} live={false}/>
 			</div>
 		);
 	}
@@ -594,6 +619,11 @@ class Historical extends React.Component {
 export default class Errors extends React.Component {
   constructor(props){
     super(props);
+    this.state = {
+    	dateTo: this.props.dateTo,
+    	dateFrom: this.props.dateFrom
+    }
+    console.log("This is the state of things", this.state)
   }
 	render(){
     console.log(this.props.target, "This is the state in the render")
@@ -602,12 +632,12 @@ export default class Errors extends React.Component {
 				<h2>Errors by vdsId</h2>
 				<svg width="1366" height="700"
 					id="vdsidBargraph"
-					ref={ renderBargraph(0, "#vdsidBargraph", this.props.target, this.props.sort, this.props.setSelected) }
+					ref={ renderBargraph(0, "#vdsidBargraph", this.props.target, this.props.sort, moment("2016/09/15"), moment("2016/09/18"), this.props.setSelected) }
 				/>
 				<h2>Errors by lane</h2>
 				<svg width="1366" height="700"
 					id="lanesBargraph"
-					ref={ renderBargraph(1, "#lanesBargraph", this.props.target, this.props.sort, this.props.setSelected) }
+					ref={ renderBargraph(1, "#lanesBargraph", this.props.target, this.props.sort, moment("2016/09/15"), moment("2016/09/18"), this.props.setSelected) }
 				/>
 			</div>
 		);

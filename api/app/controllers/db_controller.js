@@ -27,13 +27,13 @@ exports.scatterplot = function(req, res){
 exports.bargraph = function(req, res){
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  api.barChartQuery(res, apiReturn, sql);
+  api.barChartQuery(res, apiReturn, sql, req.query.lowdate, req.query.highdate);
 }
 
 exports.bargraphLanes = function(req, res){
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  api.laneErrorQuery(req.query.VDSID, res, apiReturn, sql);
+  api.laneErrorQuery(req.query.VDSID, res, apiReturn, sql, req.query.lowdate, req.query.highdate);
 }
 
 exports.hexbin = function(req, res){

@@ -92,16 +92,18 @@ exports.calendarQuery = function(column, year, res, callback, sql) {
 }
 
 
-exports.barChartQuery = function(res, callback, sql) {
+exports.barChartQuery = function(res, callback, sql, lowdate, highdate) {
   var query = "select vdsId, sum(correct) as correct, sum(incorrect) as incorrect" +
-  " from " + table2 + " where vdsId is not null group by vdsId";
+  " from " + table2 + " where vdsId is not null and datetime >= '" +
+  lowdate + "' and datetime <= '" + highdate + "' group by vdsId";
   callDB(query, res, callback, sql);
 }
 
 
-exports.laneErrorQuery = function(vdsId, res, callback, sql) {
+exports.laneErrorQuery = function(vdsId, res, callback, sql, lowdate, highdate) {
   var query = "select lane, sum(correct) as correct, sum(incorrect) as incorrect" +
-  " from " + table2 + " where vdsId = " + vdsId + " group by lane";
+  " from " + table2 + " where vdsId = " + vdsId + " and datetime >= '" + 
+  lowdate + "' and datetime <= '" + highdate + "' group by lane";
   callDB(query, res, callback, sql);
 }
 
