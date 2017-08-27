@@ -58,7 +58,7 @@ class NavElem extends React.Component{
 			this.setCurrentTab(0);
 			ReactDOM.render(
         <div>
-          <h2>Big ass map</h2>
+          <h2>Map</h2>
           <MapElement getID={this.setSelected}/>
         </div>,
         document.getElementById('thebigmap')
@@ -79,7 +79,7 @@ class NavElem extends React.Component{
 			this.setCurrentTab(1);
 			ReactDOM.render(
         <div>
-          <h2>Big ass map</h2>
+          <h2>Map</h2>
           <MapElement getID={this.setSelected}/>
         </div>,
         document.getElementById('thebigmap')
@@ -93,7 +93,7 @@ class NavElem extends React.Component{
 				document.getElementById('container')
 			);
 			ReactDOM.render(
-				<DataWidgetsError selected={this.state.selected} setSelected={this.setSelected}/>,
+				<DataWidgetsError selected={this.state.selected} setSelected={this.setSelected} dateFrom={this.state.dateFrom} dateTo={this.state.dateTo}/>,
 				document.getElementById('widgets')
 			);
 		ReactDOM.render(
@@ -152,7 +152,7 @@ class NavElem extends React.Component{
 		);
     ReactDOM.render(
         <div>
-          <h2>Big ass map</h2>
+          <h2>Map</h2>
           <MapElement getID={this.setSelected}/>
         </div>,
         document.getElementById('thebigmap')
@@ -223,12 +223,12 @@ class NavElem extends React.Component{
 			);
 
 			ReactDOM.render(
-				<Errors target={this.state.selected} sort={true} setSelected={this.setSelected}/>,
+				<Errors target={this.state.selected} sort={true} setSelected={this.setSelected} dateFrom={this.state.dateFrom} dateTo={this.state.dateTo}/>,
 				document.getElementById('container')
 			);
 
 			ReactDOM.render(
-				<DataWidgetsError selected={this.state.selected} setSelected={this.setSelected}/>,
+				<DataWidgetsError selected={this.state.selected} setSelected={this.setSelected} dateFrom={this.state.dateFrom} dateTo={this.state.dateTo}/>,
 				document.getElementById('widgets')
 			);
 		}
@@ -371,14 +371,14 @@ class DataWidgetsCalendar extends React.Component {
 			<div id="lowdate_label"><p> From Date </p></div>
       <div id="lowdatetimepicker">
 
-        <DateTimePicker id="test2" defaultValue={new Date("2016/09/03")} onSelect={this.dateUpdate}>
+        <DateTimePicker id="test2" defaultValue={new Date(this.props.dateFrom)} onSelect={this.dateUpdate}>
         </DateTimePicker>
       </div>
 
 			<div id="highdate_label"><p> To Date </p></div>
       <div id="highdatetimepicker">
 
-        <DateTimePicker id="test" defaultValue={new Date("2016/09/04")} onSelect={this.dateUpdate2}>
+        <DateTimePicker id="test" defaultValue={new Date(this.props.dateTo)} onSelect={this.dateUpdate2}>
         </DateTimePicker>
       </div>
 			<div id="SubmitButton">
@@ -494,7 +494,7 @@ class DataWidgetsError extends React.Component {
       document.getElementById('container')
 		);
     ReactDOM.render(
-      <Errors target={this.props.selected} sort={this.sortBoolean()} setSelected={this.props.setSelected}/>,
+      <Errors target={this.props.selected} sort={this.sortBoolean()} setSelected={this.props.setSelected} dateFrom={this.props.dateFrom} dateTo={this.props.dateTo}/>,
       document.getElementById('container')
     );
   }
@@ -542,14 +542,15 @@ class RealTime extends React.Component {
 
 
 			<div name="Realtime" id="Realtime">
-				<h2>Scatterplot</h2>
+				<h2>{"Scatterplot from this location " + this.props.selected + " on " +  this.props.column + " from " + new Date(this.props.dateFrom).toLocaleString() + " to " + new Date(this.props.dateTo).toLocaleString()}</h2>
+
 				<div
 					id="realTimeScatterplot"
 					margin="0 auto"
 
 					ref={ renderScatterplot("#realTimeScatterplot", this.props.selected,this.props.column, this.props.dateFrom, this.props.dateTo, true) }
 				/>
-				<h2>Linegraph</h2>
+				<h2>{"Linegraph from this location " + this.props.selected + " on " +  this.props.column + " from " + new Date(this.props.dateFrom).toLocaleString() + " to " + new Date(this.props.dateTo).toLocaleString()} </h2>
 				<div
 					id="realTimeLinegraph"
 					ref={ renderLinegraph("#realTimeLinegraph",this.props.selected,this.props.column,this.props.dateFrom,this.props.dateTo, true) }
@@ -595,25 +596,25 @@ class Historical extends React.Component {
 	render(){
 		return (
 			<div id="historical">
-			<h2>Calendar</h2>
+			<h2>{"Calendar from this location " + this.props.selected + " on " +  this.props.test + " from " + this.props.year}</h2>
 				<div  id="Calendar">
 					<div ref={ renderCalendar("#Calendar", this.props.year, this.props.test) } />
        		 </div>
 
-				<div id="hexbin_label"><h2>Hexbin</h2></div>
+				<div id="hexbin_label"><h2>{"Hexbin from this location " + this.props.selected + " on " +  this.props.test + " and " + this.props.hexColumn +  " from " + moment(this.props.dateFrom)._d.toLocaleString() + " to " + moment(this.props.dateTo)._d.toLocaleString()}</h2></div>
 				<div
 					id="hexbin"
 					ref={ renderHexbin("#hexbin", this.props.test, this.props.hexColumn, this.props.dateFrom, this.props.dateTo) }
 				/>
 
 				<div id="abNormal_label"><h2>S</h2></div>
-
+				<h2>{"Scatterplot from this location " + this.props.selected + " on " +  this.props.column + " from " + new Date(this.props.dateFrom).toLocaleString() + " to " + new Date(this.props.dateTo).toLocaleString()}</h2>
 				<div
 					id="historicalScatterplot"
 					ref={ renderScatterplot("#historicalScatterplot", this.props.selected, this.props.test, this.props.dateFrom, this.props.dateTo , false) }
 				/>
 				<div id="HistLineGraph_label">
-					<h2>Linegraph</h2>
+					<h2>{"Linegraph from this location " + this.props.selected + " on " +  this.props.column + " from " + new Date(this.props.dateFrom).toLocaleString() + " to " + new Date(this.props.dateTo).toLocaleString()}</h2>
 				</div>
 				<div
 					id="historicalLinegraph"
@@ -648,12 +649,12 @@ export default class Errors extends React.Component {
     console.log(this.props.target, "This is the state in the render")
 		return (
 			<div id="Errors">
-				<h2>Errors by vdsId</h2>
+				<h2>{"Errors by vdsId from " + new Date(this.props.dateFrom).toLocaleString() + " to " + new Date(this.props.dateTo).toLocaleString()}</h2>
 				<svg width="1366" height="700"
 					id="vdsidBargraph"
 					ref={ renderBargraph(0, "#vdsidBargraph", this.props.target, this.props.sort, moment("2016/09/15"), moment("2016/09/18"), this.props.setSelected) }
 				/>
-					<h2>Errors by lane</h2>
+					<h2>{"Errors by lane for vdsID " + this.props.target + " from " + new Date(this.props.dateFrom).toLocaleString() + " to " + new Date(this.props.dateTo).toLocaleString()}</h2>
 				<svg width="1366" height="700"
 					id="lanesBargraph"
 					ref={ renderBargraph(1, "#lanesBargraph", this.props.target, this.props.sort, moment("2016/09/15"), moment("2016/09/18"), this.props.setSelected) }
