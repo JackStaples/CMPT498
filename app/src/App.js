@@ -103,12 +103,6 @@ class NavElem extends React.Component{
 
 			this.setCurrentTab(2);
 		}
-		else if (eventKey === 3){
-			ReactDOM.render(
-				<Export/>,
-				document.getElementById('container')
-			);
-		}
 	}
 
 	setCurrentTab(t) {
@@ -259,7 +253,6 @@ class NavElem extends React.Component{
       		<Tab>RealTime</Tab>
       		<Tab>Historical</Tab>
       		<Tab>Errors</Tab>
-     		<Tab>Export</Tab>
     	</TabList>
   		</Tabs>
 		);
@@ -689,13 +682,6 @@ class Refresh extends React.Component {
 	}
 }
 
-class Export extends React.Component {
-	render(){
-		return (
-			<div>Hello, I am the Export Module</div>
-		);
-	}
-}
 
 ReactDOM.render(
 	<NavElem/>,
