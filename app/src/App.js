@@ -289,6 +289,7 @@ class DataWidgetsCalendar extends React.Component {
 
   	update() {
   			console.log(this.state.date)
+        console.log(this.state.dateFrom, this.state.dateTo)
   			if (this.state.dateFrom > this.state.dateTo){
   				alert("Please check the dates");
   			}
