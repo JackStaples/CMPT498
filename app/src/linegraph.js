@@ -1,8 +1,11 @@
 import * as d3 from 'd3';
 import get, { httpGet } from './getRequest.js';
 
+var startTime;
+var endTime;
 
 export function renderLinegraph(target, vdsID,column, lowDate, highDate, live){
+  
   lowDate = new Date(lowDate);
   highDate = new Date(highDate);
   var lowTime = lowDate.toTimeString().slice(0,8);

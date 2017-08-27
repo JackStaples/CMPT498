@@ -73,11 +73,11 @@ class NavElem extends React.Component{
 		
 		else if (eventKey === 2){
 			ReactDOM.render(
-				<Errors target={this.state.selected}/>,
+				<Errors target={this.state.selected} sort={true} setSelected={this.setSelected}/>,
 				document.getElementById('container')
 			);
 			ReactDOM.render(
-				<DataWidgetsError/>,
+				<DataWidgetsError selected={this.state.selected} setSelected={this.setSelected}/>,
 				document.getElementById('widgets')
 			);
 			this.setCurrentTab(2);
@@ -208,12 +208,12 @@ class NavElem extends React.Component{
 			);
 
 			ReactDOM.render(
-				<Errors target={this.state.selected}/>,
+				<Errors target={this.state.selected} sort={true} setSelected={this.setSelected}/>,
 				document.getElementById('container')
 			);
 
 			ReactDOM.render(
-				<DataWidgetsError/>,
+				<DataWidgetsError selected={this.state.selected} setSelected={this.setSelected}/>,
 				document.getElementById('widgets')
 			);
 		}
@@ -444,16 +444,48 @@ class DataWidgetsRealTime extends React.Component {
 class DataWidgetsError extends React.Component {
 	constructor(props) {
 		super(props);
+    this.swapCheck = {
+      sort: this.props.sort
+    }
+    this.update = this.update.bind(this);
+    this.sortBoolean = this.sortBoolean.bind(this);
+    this.rerenderSorted = this.rerenderSorted.bind(this);
 	}
 
+  sortBoolean(){
+    if (this.swapCheck.sort === true){ 
+      this.swapCheck.sort = false;
+      return this.swapCheck.sort;
+    } else {
+      this.swapCheck.sort = true;
+      return this.swapCheck.sort;
+    }
+  }
+  
+  rerenderSorted(){
+  	ReactDOM.render(
+        <div id="unseen">
+        </div>,
+      document.getElementById('container')
+		);
+    ReactDOM.render(
+      <Errors target={this.props.selected} sort={this.sortBoolean()} setSelected={this.props.setSelected}/>,
+      document.getElementById('container')
+    );
+  }
+  
+  update(){
+    console.log("This update ran for some unknown goddamn reason")
+    this.rerenderSorted();
+  }
+  
 	render() {
 		return (
 		<div>
 
 		
-		<Button id="sortIncorrect"> Sort by Errors 
-    </Button>
-		<p> From Date </p>
+		<Button onClick={this.update}> Sort </Button>
+		<p> From Date </p>/
 		<DateTimePicker id="test2" defaultValue={new Date("2016/09/03")}>
 		</DateTimePicker>
 
@@ -486,7 +518,6 @@ class RealTime extends React.Component {
 					id="realTimeLinegraph"
 					ref={ renderLinegraph("#realTimeLinegraph",this.props.selected,this.props.column,this.props.dateFrom,this.props.dateTo, true) }
 				/>
-        <TableElemGen/>
       		</div>
 		);
 	}
@@ -571,12 +602,12 @@ export default class Errors extends React.Component {
 				<h2>Errors by vdsId</h2>
 				<svg width="1366" height="700"
 					id="vdsidBargraph"
-					ref={ renderBargraph(0, "#vdsidBargraph", this.props.target) }
+					ref={ renderBargraph(0, "#vdsidBargraph", this.props.target, this.props.sort, this.props.setSelected) }
 				/>
 				<h2>Errors by lane</h2>
 				<svg width="1366" height="700"
 					id="lanesBargraph"
-					ref={ renderBargraph(1, "#lanesBargraph", this.props.target) }
+					ref={ renderBargraph(1, "#lanesBargraph", this.props.target, this.props.sort, this.props.setSelected) }
 				/>
 			</div>
 		);
