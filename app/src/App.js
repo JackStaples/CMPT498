@@ -604,11 +604,7 @@ class Historical extends React.Component {
 			<h2>Calendar</h2>
 				<div  id="Calendar">
 					<div ref={ renderCalendar("#Calendar", this.props.year, this.props.test) } />
-        </div>
-				<h2>Edmonton map</h2>
-				<div id="historicalmap">
-					<MapElement />
-				</div>
+       		 </div>
 
 				<div id="hexbin_label"><h2>Hexbin</h2></div>
 				<div
