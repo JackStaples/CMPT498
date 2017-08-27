@@ -19,7 +19,7 @@ export class TableElem extends Component {
 
   render() {
   	return (
-  		<div>
+  		<div id="tablestuff">
   <ReactTable className="-highlight"
     data={this.props.data}
     columns={this.state.columns}

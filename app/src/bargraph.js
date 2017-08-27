@@ -4,12 +4,18 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Errors from './App.js';
 
-export function renderBargraph(lanes, target, vdsid) {
+export function renderBargraph(lanes, target, vdsid, lowDate, highDate) {
   console.log(vdsid, "this is the vdsid, fuck my ass")
+  var lowTime = (lowDate._d.getUTCHours()) + ":" + (lowDate._d.getUTCMinutes()) + ":" + (lowDate._d.getUTCSeconds());
+  var lowD = lowDate._d.getFullYear() + "-" + (lowDate._d.getMonth() + 1) + "-" + lowDate._d.getUTCDate();
+  var highTime = (highDate._d.getUTCHours() + 1) + ":" + (highDate._d.getUTCMinutes() + 1) + ":" + (highDate._d.getUTCSeconds() + 1);
+  var highD = highDate._d.getFullYear() + "-" + (highDate._d.getMonth() + 1) + "-" + highDate._d.getUTCDate();
+  console.log("This is the high and lowdate", lowDate, highDate);
   if (lanes === 1){
-    httpGet("http://localhost:3001/bargraphLanes?VDSID=" + vdsid, target, handleBargraph);
+    httpGet("http://localhost:3001/bargraphLanes?VDSID=" + vdsid + "&lowdate=" + lowD + "&highdate=" + highD, target, handleBargraph);
   } else {
-    httpGet("http://localhost:3001/bargraph", target, handleBargraph);
+    httpGet("http://localhost:3001/bargraph?lowdate=" + lowD + "&highdate=" + highD, target, handleBargraph);
+    console.log("http://localhost:3001/bargraph?lowdate=" + lowD + "&highdate=" + highD)
   }
 }
 

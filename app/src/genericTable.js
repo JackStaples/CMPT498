@@ -17,16 +17,25 @@ export class TableElemGen extends Component {
   }
   }
   getJSONObj() {
-    httpGet("http://localhost:3001/scatterplot?column=speed&vdsId=1011&lowdate=2016-09-01+00:00:00&highdate=2016-09-02+00:00:00&live=false", null, this.setJSONState);
+    var lowTime = (this.props.lowDate._d.getUTCHours()) + ":" + (this.props.lowDate._d.getUTCMinutes()) + ":" + (this.props.lowDate._d.getUTCSeconds());
+    var lowD = this.props.lowDate._d.getFullYear() + "-" + (this.props.lowDate._d.getMonth() + 1) + "-" + this.props.lowDate._d.getUTCDate();
+    var highTime = (this.props.highDate._d.getUTCHours() + 1) + ":" + (this.props.highDate._d.getUTCMinutes() + 1) + ":" + (this.props.highDate._d.getUTCSeconds() + 1);
+    var highD = this.props.highDate._d.getFullYear() + "-" + (this.props.highDate._d.getMonth() + 1) + "-" + this.props.highDate._d.getUTCDate();
+    var querystring = "http://localhost:3001/scatterplot?column=" + this.props.column + "&vdsId=" + this.props.vdsID +" &lowdate=" +lowD +"+" + lowTime + "&highdate="+highD+"+" + highTime + "&live=" + this.props.live;
+    httpGet(querystring, null, this.setJSONState);
   }
 
   setJSONState(target, response) {
   var data = response.recordset;
   console.log(data, "THIS IS THE DATA YAH COOOOONT")
+  if (Object.keys(data).length === 0) {
+    return
+  }
+  else {
   this.setState( {
     obj: data,
     columns: getColumns(data),
-  });
+  });}
   }
 
   render() {
