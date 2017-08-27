@@ -653,9 +653,7 @@ export default class Errors extends React.Component {
 					id="vdsidBargraph"
 					ref={ renderBargraph(0, "#vdsidBargraph", this.props.target, this.props.sort, moment("2016/09/15"), moment("2016/09/18"), this.props.setSelected) }
 				/>
-				<div id="errbylane_label">
 					<h2>Errors by lane</h2>
-				</div>
 				<svg width="1366" height="700"
 					id="lanesBargraph"
 					ref={ renderBargraph(1, "#lanesBargraph", this.props.target, this.props.sort, moment("2016/09/15"), moment("2016/09/18"), this.props.setSelected) }
