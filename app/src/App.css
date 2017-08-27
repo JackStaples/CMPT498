@@ -29,105 +29,195 @@ html, body, #map {
   padding-left: 100px;
 }
 
+#lowdate_label {
+  position:relative;
+  float: left;
+  top: 10px;
+  right: 400px;
+  z-index: 20;
+}
+
+#lowdatetimepicker {
+  position:relative;
+  float: left;
+  top: 3px;
+  right: 395px;
+  z-index: 20;
+}
+
+#highdate_label {
+  position:relative;
+  float: left;
+  top: 10px;
+  right: 350px;
+  z-index: 20;
+}
+
+#highdatetimepicker {
+  position:relative;
+  float: left;
+  top: 3px;
+  right: 345px;
+  z-index: 20;
+}
+
 #submitButton {
   float: left;
 }
 
-
 #SubmitButton {
+  position:relative;
   float: left;
-  display: inline-block;
+  top: 40px;
+  right: 961px;
+  z-index: 20;
 }
+
 #realTimeSubBttn {
   float: left;
 }
 
 #column_selector {
+  position:relative;
+  float: left;
+  top: 1505px;
+  left: 20px;
+  z-index: 20;
+}
+
+#colselect_label {
+  position:relative;
+  float: left;
+  top: 1512px;
+  z-index: 20;
+}
+
+#hexselector_label {
+  position:relative;
+  float: left;
+  top: 850px;
+  right: 160px;
+  z-index: 20;
+}
+
+#hexcolumn_selector {
+  position:relative;
+  float: left;
+  top: 843px;
+  right: 150px;
+  z-index: 20;
+}
+
+#year_selector {
+  position:relative;
+  float: left;
+  top: 168px;
+  left: 720px;
+  z-index: 20;
+}
+
+#year_label {
+  position:relative;
+  float: left;
+  top: 175px;
+  left: 700px;
+  z-index: 20;
+}
+
+#realTimecolumn_selector {
   float: left;
   display: inline-block;
 }
-#realTimecolumn_selector {
-  float: left;
-}
 
-#lowdatetimepicker {
-  float: left;
-}
-#highdatetimepicker {
-  float: left;
-}
 #realTimedatepicker {
     float: left;
 }
 
-#hexcolumn_selector {
-
-  float: left;
-    display: inline-block;
-}
-#year_selector {
-    float: left;
-}
-#realTimecolumn_selector {
-  position:relative;
-  width: 200px;
-  float: left;
-  left: 10px;
-  top: 500px;
-  z-index: 20;
-}
-
 #Realtime {
   float: left;
-
   padding-left: 0px;
   border-radius: 5px;
 }
+
 #Realtime h2 {
   text-align: center;
 }
 
 #historical {
-    padding-top: 0px;
+  padding-top: 0px;
 }
 
 #historical h2 {
   text-align: center;
-  padding-top: -10px;
-}
 
-#Errors h2 {
-    text-align: center;
 }
 
 #thebigmap {
-border-radius: var(--radius);
-border: var(--visborder) solid var(--viscolor);
-}
-
-#Calendar {
-
+  border-radius: var(--radius);
+  border: var(--visborder) solid var(--viscolor);
 }
 
 #historicalmap {
   border-radius: var(--radius);
   border: var(--visborder) solid var(--viscolor);
-
+  float: left;
 }
 
-#historicalhexbin {
+#hexbin {
+  float: left;
   border-radius: var(--radius);
   border: var(--visborder) solid var(--viscolor);
+}
+
+#hexbin_label {
+  padding-bottom: 20px;
+}
+
+#hexbin_label h2 {
+  position:relative;
+  top: 20px;
+  right: 0px;
+  z-index: 20;
 }
 
 #historicalScatterplot {
+  padding-top: 10px;
   border-radius: var(--radius);
   border: var(--visborder) solid var(--viscolor);
+  float: left;
+}
+
+#abNormal_label {
+  height: 640px;
+}
+
+#abNormal_label h2 {
+  color: white;
+}
+
+#historicalScatterplot_label {
+  position:relative;
+  bottom: 1320px;
+  right: 0px;
+  z-index: 20;
 }
 
 #historicalLinegraph {
   border-radius: var(--radius);
   border: var(--visborder) solid var(--viscolor);
+  float: left;
+}
+
+#HistLineGraph_label {
+  padding-bottom: 10px;
+}
+
+#HistLineGraph_label h2 {
+  position:relative;
+  top: 10px;
+  right: 0px;
+  z-index: 20;
+
 }
 
 #realTimeScatterplot {
@@ -140,12 +230,73 @@ border: var(--visborder) solid var(--viscolor);
   border: var(--visborder) solid var(--viscolor);
 }
 
+/*
+  Error screen css
+*/
+
+#Errors {
+  padding-top: 0px;
+}
+
+#Errors h2 {
+  text-align: center;
+}
+
+#sort_button {
+  position:relative;
+  top: 50px;
+  left: 34px;
+  z-index: 20;
+}
+
+#error_fromdate {
+  position:relative;
+  float: left;
+  bottom: 24px;
+  left: 34px;
+  z-index: 20;
+}
+
+#error_fromdatepicker {
+  position:relative;
+  float: left;
+  bottom: 31px;
+  left: 39px;
+  z-index: 20;
+}
+
+#error_todate {
+  position:relative;
+  float: left;
+  bottom: 24px;
+  left: 84px;
+  z-index: 20;
+}
+
+#error_todatepicker {
+  position:relative;
+  float: left;
+  bottom: 31px;
+  left: 89px;
+  z-index: 20;
+}
+
 #vdsidBargraph {
+  float: left;
   border-radius: var(--radius);
   border: var(--visborder) solid var(--viscolor);
 }
 
+#errbylane_label h2 {
+  position:relative;
+  top: 5px;
+  left: 0px;
+  z-index: 20;
+}
+
 #lanesBargraph {
+  padding-top: 10px;
+  float: left;
   border-radius: var(--radius);
   border: var(--visborder) solid var(--viscolor);
 }

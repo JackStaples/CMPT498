@@ -1,7 +1,7 @@
 
 var sql = require('mssql/msnodesqlv8');
 
-var table1 = "fauxWareHouse";
+var table1 = "rawdata";
 var table2 = "Warehouse";
 
 function callDB(query, res, callback, sql) {
