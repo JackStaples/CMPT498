@@ -17,7 +17,7 @@ export class TableElemGen extends Component {
   }
   }
   getJSONObj() {
-    httpGet("http://localhost:3001/scatterplot?column=speed&vdsId=1011&lowdate=2016-09-01+00:00:00&highdate=2016-09-02+00:00:00&live=false", null, this.setJSONState);
+    httpGet("http://localhost:3001/scatterplot?column=speed&vdsId=1011&lowdate=2017-08-26+00:00:00&highdate=2017-08-27+00:00:00&live=false", null, this.setJSONState);
   }
 
   setJSONState(target, response) {

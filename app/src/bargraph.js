@@ -4,8 +4,14 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Errors from './App.js';
 
-export function renderBargraph(lanes, target, vdsid) {
-  console.log(vdsid, "this is the vdsid, fuck my ass")
+var sortBool;
+var setSelectedGlobal;
+
+export function renderBargraph(lanes, target, vdsid, sort, setSelected) {
+  console.log(sort, "HERE WE GO");
+  console.log(setSelected, "This is the function being passed in");
+  sortBool = sort;
+  setSelectedGlobal = setSelected;
   if (lanes === 1){
     httpGet("http://localhost:3001/bargraphLanes?VDSID=" + vdsid, target, handleBargraph);
   } else {
@@ -13,7 +19,7 @@ export function renderBargraph(lanes, target, vdsid) {
   }
 }
 
-function handleBargraph(target, response){
+function handleBargraph(target, response, sort){
   var data = response.recordset;
   if (Object.keys(data).length === 0) {
     console.log("Hey it worked")
@@ -28,8 +34,9 @@ function handleBargraph(target, response){
           data[i][property[2]] = parseInt(data[i][property[2]]);
         }
         
-        // sort it so 1003 is at the top
-        data.sort(function(a, b) { return a[property[2]] - b[property[2]]; });
+        if (sortBool === true){
+          data.sort(function(a, b) { return a[property[2]] - b[property[2]]; });
+        };
         
         var svg = d3.select(target),
           margin = {top: 20, right: 20, bottom: 30, left: 40},
@@ -69,7 +76,7 @@ function handleBargraph(target, response){
             .attr("height", (y.bandwidth()))
             .attr("width", function(d) {return x(d[1]) - x(d[0]);})
             .attr("fill", function(d) {   if(d[0] === 0){return "OrangeRed"} else {return "LightGray"}; })
-            .on("click", function(d){ replacer(d.data[property[0]],'container')});
+            .on("click", function(d){ setSelectedGlobal(d.data[property[0]])});
 
         var xAxis = d3.axisBottom(x).ticks(null, "s");
         
@@ -88,7 +95,7 @@ function handleBargraph(target, response){
           .attr('class', 'axis')
           .call(yAxis);
 
-          d3.select("#sortIncorrect").on("click", change);
+          //d3.select("#sortIncorrect").on("click", change);
           
           
             function change() {
@@ -102,10 +109,10 @@ function handleBargraph(target, response){
                 : function(a, b) { return b[property[1]] - a[property[1]];; })
                 .map(function(d) { return d[property[0]]; }))
                 .copy();
-                
+                console.log("changing!1");
               svg.selectAll(".group")
                 .sort(function(a, b) { return ysort(a[property[0]]) - ysort(b[property[0]]); });
-
+console.log("changing!2");
               var transition = svg.transition().duration(750),
                 delay = function(d, i) { return i * 50; };
               
@@ -115,16 +122,19 @@ function handleBargraph(target, response){
                 .attr("y", function(d) { return ysort(d[property[0]]); });
                 
                 
-              console.log();
+              console.log("changing!3");
               transition.select(".y.axis")
                 .call(d3.axisLeft(y))
                 .selectAll("g")
                 .delay(delay);
+                
+                
+              console.log("changing!4");
               };          
         console.log("done");
       }
       
-function replacer(vdsid, target){
+export function replacer(vdsid, target, sortCheck){
   console.log(target, "this is the target");
   	ReactDOM.render(
         <div id="unseen">
@@ -132,7 +142,7 @@ function replacer(vdsid, target){
       document.getElementById(target)
 		);
     ReactDOM.render(
-<Errors target={vdsid}/>,
+<Errors target={vdsid} sort={sortCheck}/>,
       document.getElementById(target)
     );
 }
