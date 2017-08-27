@@ -5,7 +5,7 @@ var table1 = "fauxWareHouse";
 var table2 = "Warehouse";
 
 function callDB(query, res, callback, sql) {
-  console.log(query);
+  console.log("QUERY:     " + query);
     var request = new sql.Request();
     request.query(query, function(err, records) {
       if(err) {
@@ -42,15 +42,6 @@ exports.scatterPlotQuery = function(column, vdsId, lowdate, highdate, live, res,
   ".vdsId = VDSIDs.vdsId order by " + datetime + ", lane;";
   
   callDB(query, res, callback, sql);
-
-  /*
-  var query = "select " + table + "."+ datetime +", " + table + ".lane, " +
-  table + "." + column + " from " + table + ", VDSIDs where ";
-  query += DateSplit(table, lowdate, highdate, live);
-  query += " and " + table+ ".vdsId = " + vdsId + " and " + table +
-  ".vdsId = VDSIDs.vdsId order by " + datetime + ", lane;";
-  return callDB(query);
-  */
 }
 
 
@@ -127,7 +118,7 @@ function completenessQuery(vdsId, lowdate, highdate) {
 function DateSplit(table,lowdate, highdate, live) {
   if(live === true) {
      return " " + table + ".datetime >= '" + lowdate + "' and " + table + ".datetime <= '" + highdate + "' ";
-  } else{;
+  } else{
       return " " + table + ".datetime >= '" + lowdate + "' and " + table + ".datetime <= '" + highdate + "' ";
   }
 }

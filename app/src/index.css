@@ -1,8 +1,7 @@
 :root {
   --radius:1px;
-  --visborder: 2px;
+  --visborder: 1px;
   --viscolor: #d8d8d8;
-
 }
 
 body {
@@ -12,67 +11,92 @@ body {
 }
 
 #appheader {
-  /*background-color: #44d9e6; rgb(235,258,255); #63bdce;*/
-  background: linear-gradient(to bottom , #44d9e6, #00828d);
   padding-top: 0px;
-  height: 200px;
+  height: 270px;
 }
 
-
-#maintitle {
-  font-size: 200;
-  font: "Ariel";
-}
-#title {
-  font-size: 200;
+#maintitle h1 {
+  padding-bottom: 10px;
+  font-size: 50px;
   font: "Ariel";
 }
 
-
-#subtitle {
-  /*  padding-left: 34%; */
+#subtitle h2 {
+    padding-top: 100px;
     text-align: center;
-    font-family: "Times New Roman", Times, serif;
-    color: #7FDBFF;
+    font: "Ariel";
+    font-size: 30px;
+}
+
+.main_container {
+  padding-top: 0px;
 }
 
 #locationstuff {
-  background-color: #ddd;
-  float: left;
-  width: 25%;
-  height: 2072px;
-}
-#frame {
   border-radius: var(--radius);
   border: var(--visborder) solid var(--viscolor);
+  padding-top: 10px;
+  padding-right: 10px;
+  padding-left: 10px;
+  float: left;
+  width: 25%;
+  height: 840px;
 }
-#well {
 
+#well {
+  padding-left: 10px;
+  padding-top: 0px;
   float: right;
   width: 75%;
-  background-color: #f9f3f3 !important;
 
+}
+
+#wellContainer {
+  width: 98%;
+  padding-top: -1px;
+  padding-left: 0px;
+  height: 2850px;
+  border-radius: var(--radius);
+  border-left: var(--visborder) solid var(--viscolor);
+  border-radius: var(--radius);
+  border-right: var(--visborder) solid var(--viscolor);
+  border-radius: var(--radius);
+  border-bottom: var(--visborder) solid var(--viscolor);
 }
 
 #navigation {
-
-  color: #3D9970;
   font-size: 180%;
 	padding-top: 0px;
-  padding-right: 0px;
-	width: 500px;
-  font-family: "Times New Roman", Times, serif;
+  padding-left: 0px;
+	width: 98%;
+  font: "Ariel";
+  position:relative;
+  top: 10px;
+  color: var(--viscolor);
 }
 
-
-
 #widgets {
+padding-top: 5px;
+padding-left: 10px;
+height: 50px;
+}
 
+#realTimeSubBttn {
+  padding-left: 0px;
+}
+
+#realTimecolumn_selector {
+  /*position:relative;
+  width: 200px;
+  float: left;
+  left: 10px;
+  top: 500px;
+  z-index: 20;*/
 }
 
 #container {
   float: left;
 	padding-top: 10px;
-  padding-left: 0px;
-  background-color: #fdfcfc !important;
+  padding-left: 10px;
+  /*background-color: #fdfcfc !important;*/
 }
