@@ -61,7 +61,7 @@ function handleScatterplot(target, response){
       var x = d3.scaleTime()
         .domain([startTime, endTime])
         .range([0, width]);
-      x.nice();
+     
 
       // create the y-axis that will be used for the visualization, it uses a number scale.
       // nice formats it so there is space above the upper bounds

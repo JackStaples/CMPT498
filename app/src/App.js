@@ -149,7 +149,7 @@ class NavElem extends React.Component{
 
 	setup() {
 		ReactDOM.render(
-			<RealTime selected='1004' column='occ' dateFrom={ (moment().set({ "hour": 0, "minute" : 0, "second": 0}))} dateTo={ moment() }/>,
+			<RealTime selected='1004' column='occ' dateFrom={ (moment().set({ "hour": 0, "minute" : 0, "second": 0}))} dateTo={ (moment().set({ "hour": 0, "minute" : 0, "second": 0}).add(1,'d'))}/>,
 			document.getElementById('container')
 		);
 		ReactDOM.render(
@@ -186,7 +186,7 @@ class NavElem extends React.Component{
 				document.getElementById('container')
 			);
 			ReactDOM.render(
-				<RealTime selected={this.state.selected} column={"vol"} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment()}/>,
+				<RealTime selected={this.state.selected} column={"vol"} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment().set({ "hour": 0, "minute" : 0, "second": 0}).add(1,'d')}/>,
 				document.getElementById('container')
 			);
 			ReactDOM.render(
