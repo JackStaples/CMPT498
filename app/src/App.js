@@ -48,7 +48,7 @@ class NavElem extends React.Component{
 	handleSelect(eventKey){
 		if (eventKey === 0){
 			ReactDOM.render(
-				<RealTime selected={this.state.selected} column={this.state.column} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment()}/>,
+				<RealTime selected={this.state.selected} column={this.state.column} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment().set({ "hour": 0, "minute" : 0, "second": 0}).add(1,'d')}/>,
 				document.getElementById('container')
 			);
 			ReactDOM.render(
@@ -58,7 +58,7 @@ class NavElem extends React.Component{
 			this.setCurrentTab(0);
 			ReactDOM.render(
         <div>
-          <h2>Big ass map</h2>
+          <h2>Map</h2>
           <MapElement getID={this.setSelected}/>
         </div>,
         document.getElementById('thebigmap')
@@ -79,7 +79,7 @@ class NavElem extends React.Component{
 			this.setCurrentTab(1);
 			ReactDOM.render(
         <div>
-          <h2>Big ass map</h2>
+          <h2>Map</h2>
           <MapElement getID={this.setSelected}/>
         </div>,
         document.getElementById('thebigmap')
@@ -105,12 +105,6 @@ class NavElem extends React.Component{
       );
 
 			this.setCurrentTab(2);
-		}
-		else if (eventKey === 3){
-			ReactDOM.render(
-				<Export/>,
-				document.getElementById('container')
-			);
 		}
 	}
 
@@ -152,7 +146,7 @@ class NavElem extends React.Component{
 
 	setup() {
 		ReactDOM.render(
-			<RealTime selected='1004' column='occ' dateFrom={ (moment().set({ "hour": 0, "minute" : 0, "second": 0}))} dateTo={ moment() }/>,
+			<RealTime selected='1004' column='occ' dateFrom={ (moment().set({ "hour": 0, "minute" : 0, "second": 0}))} dateTo={ (moment().set({ "hour": 0, "minute" : 0, "second": 0}).add(1,'d'))}/>,
 			document.getElementById('container')
 		);
 		ReactDOM.render(
@@ -161,7 +155,7 @@ class NavElem extends React.Component{
 		);
     ReactDOM.render(
         <div>
-          <h2>Big ass map</h2>
+          <h2>Map</h2>
           <MapElement getID={this.setSelected}/>
         </div>,
         document.getElementById('thebigmap')
@@ -189,7 +183,7 @@ class NavElem extends React.Component{
 				document.getElementById('container')
 			);
 			ReactDOM.render(
-				<RealTime selected={this.state.selected} column={"vol"} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment()}/>,
+				<RealTime selected={this.state.selected} column={"vol"} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment().set({ "hour": 0, "minute" : 0, "second": 0}).add(1,'d')}/>,
 				document.getElementById('container')
 			);
 			ReactDOM.render(
@@ -262,7 +256,6 @@ class NavElem extends React.Component{
       		<Tab>RealTime</Tab>
       		<Tab>Historical</Tab>
       		<Tab>Errors</Tab>
-     		<Tab>Export</Tab>
     	</TabList>
   		</Tabs>
 		);
@@ -292,7 +285,8 @@ class DataWidgetsCalendar extends React.Component {
 
   	update() {
   			console.log(this.state.date)
-  			if (this.state.dateFrom > this.state.dateTo){ 
+        console.log(this.state.dateFrom, this.state.dateTo)
+  			if (this.state.dateFrom > this.state.dateTo){
   				alert("Please check the dates");
   			}
   			else {
@@ -609,7 +603,7 @@ export default class Errors extends React.Component {
 					id="vdsidBargraph"
 					ref={ renderBargraph(0, "#vdsidBargraph", this.props.target, moment("2016/09/15"), moment("2016/09/18")) }
 				/>
-				<h2>Errors by lane</h2>
+					<h2>{"Errors by lane for vdsID " + this.props.target + " from " + new Date(this.props.dateFrom).toLocaleString() + " to " + new Date(this.props.dateTo).toLocaleString()}</h2>
 				<svg width="1366" height="700"
 					id="lanesBargraph"
 					ref={ renderBargraph(1, "#lanesBargraph", this.props.target, moment("2016/09/15"), moment("2016/09/18")) }
@@ -636,13 +630,6 @@ class Refresh extends React.Component {
 	}
 }
 
-class Export extends React.Component {
-	render(){
-		return (
-			<div>Hello, I am the Export Module</div>
-		);
-	}
-}
 
 ReactDOM.render(
 	<NavElem/>,

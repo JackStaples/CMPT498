@@ -25,7 +25,7 @@ export function renderBargraph(lanes, target, vdsid, sort, lowDate, highDate, se
 function handleBargraph(target, response, sort){
   var data = response.recordset;
   if (Object.keys(data).length === 0) {
-    console.log("Hey it worked")
+    console.log("No data was returned")
     return
   }
   var property = Object.keys(data[0]);
