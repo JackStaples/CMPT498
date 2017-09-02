@@ -6,22 +6,22 @@ var startTime;
 var lane;
 var endTime;
 
-export function renderLinegraphv2(target, vdsID,column, lowDate, highDate, hour, tarLane, live){
+export function renderLinegraphv2(target, vdsID, column, lowDate, highDate, hour, tarLane, live){
   lane = tarLane;
   startTime = moment(lowDate).add(hour,'hours')._d;
   endTime = moment(startTime).add(1,'hours')._d;
   hour = hour + 6;
-  console.log(hour);
   var lowTime = lowDate._d.toTimeString().slice(0,8);
   var lowD = lowDate._d.toISOString().slice(0,10);
   var highTime = highDate._d.toTimeString().slice(0,8);
   var highD = highDate._d.toISOString().slice(0,10);
-  console.log("http://localhost:3001/linegraph?column=" + column + "&vdsId=" + vdsID + "&hour=" + hour + "&lowdate="+lowD +"+" + lowTime + "&highdate="+highD+"+" + highTime + "&live="+live);
-    httpGet("http://localhost:3001/linegraph?column=" + column + "&vdsId=" + vdsID + "&hour=" + hour + "&lowdate="+lowD +"+" + lowTime + "&highdate="+highD+"+" + highTime + "&live="+live, target, handleLinegraphV2);
+  console.log(live)
+  console.log("http://localhost:3001/linegraph?column=" + column + "&vdsId=" + vdsID + "&hour=" + hour + "&lowdate="+ lowD +"+" + lowTime + "&highdate="+ highD +"+" + highTime + "&live=" + live);
+  httpGet("http://localhost:3001/linegraph?column=" + column + "&vdsId=" + vdsID + "&hour=" + hour + "&lowdate="+ lowD +"+" + lowTime + "&highdate="+ highD +"+" + highTime + "&live=" + live, target, handleLinegraphv2);
 
 }
 
-function handleLinegraphV2(target, response){
+function handleLinegraphv2(target, response){
   var data = response.recordset;
   if (Object.keys(data).length === 0) {
     console.log("Returned object was empty")
@@ -36,7 +36,7 @@ function handleLinegraphV2(target, response){
 
           // will contain the data for each line
           var lanes = [[], [], [], []];
-          console.log(JSON.stringify(data));
+          console.log("THIS IS THE LINEGRAPH DATA:",JSON.stringify(data));
           // converts the csv strings to datetime and int, records the max and min values of speed
           for (var i in data){
             data[i][property[0]] = new Date(data[i][property[0]]);
@@ -128,15 +128,12 @@ function handleLinegraphV2(target, response){
             .attr('class', 'main axis date')
             .call(yAxis);
           var g = main.append("svg:g");
-          console.log(lanes[lane-1]);
           var swap = lanes[lane-1];
           lanes[lane-1] = lanes[lanes.length -1];
           lanes[lanes.length -1] = swap;
 
           for (var i = 0; i < 4; i++){
             if (lanes[i].length > 0){
-              console.log("RENDERING LANE:",lanes[i][0][property[1]]);
-            console.log(lanes[i]);
             g.append("path")
             .datum(lanes[i])
             .attr("fill", "none")
@@ -238,4 +235,5 @@ function handleLinegraphV2(target, response){
             .attr("y", 9.5)
             .attr("dy", "0.32em")
             .text(function(d) { return d; });*/
+    d3.select(target+ " .spinner").html("");
 }

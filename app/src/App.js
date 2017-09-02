@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import './App.css';
 import { Nav, NavItem, DropdownButton, MenuItem,Button } from 'react-bootstrap';
-import Scatter, { renderScatterplot } from './scatterplot.js';
+import Scatter, { renderScatterplotv2 } from './scatterplotv2.js';
 import Hexbin, { renderHexbin } from './hexbin.js';
-import Linegraph, { renderLinegraph } from './linegraph.js';
+import Linegraph, { renderLinegraphv2 } from './linegraphv2.js';
 import Barchart, { renderBargraph } from './bargraph.js';
 import Google, { MapElement, RenderGoogleMap } from './googlemap.js';
 import Calendar, { renderCalendar } from './calendar.js';
@@ -18,6 +18,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import tables, { TableElem } from './table.js';
 import tablesgen, { TableElemGen } from './genericTable.js';
+import Spinner from 'spin';
 momentLocalizer(moment);
 
 class NavElem extends React.Component{
@@ -548,12 +549,12 @@ class RealTime extends React.Component {
 					id="realTimeScatterplot"
 					margin="0 auto"
 
-					ref={ renderScatterplot("#realTimeScatterplot", this.props.selected,this.props.column, this.props.dateFrom, this.props.dateTo, true) }
+					ref={ renderScatterplotv2("#realTimeScatterplot", this.props.selected,this.props.column, this.props.dateFrom, this.props.dateTo,1, true) }
 				/>
 				<h2>{"Linegraph from this location " + this.props.selected + " on " +  this.props.column + " from " + new Date(this.props.dateFrom).toLocaleString() + " to " + new Date(this.props.dateTo).toLocaleString()} </h2>
 				<div
 					id="realTimeLinegraph"
-					ref={ renderLinegraph("#realTimeLinegraph",this.props.selected,this.props.column,this.props.dateFrom,this.props.dateTo, true) }
+					ref={ renderLinegraphv2("#realTimeLinegraph",this.props.selected,this.props.column,this.props.dateFrom,this.props.dateTo, 7, 1, true) }
 				/>
         <TableElemGen vdsID={this.props.selected} column={this.props.column} lowDate={this.props.dateFrom} highDate={this.props.dateTo} live={true}/>
       		</div>
@@ -561,8 +562,21 @@ class RealTime extends React.Component {
 	}
 
 	componentDidMount() {
-
-
+    var opts = {
+      
+  lines: 10, // The number of lines to draw
+  length: 9, // The length of each line
+  width: 5, // The line thickness
+  radius: 14, // The radius of the inner circle
+  color: 'OrangeRed', // #rgb or #rrggbb or array of colors
+  speed: 1.9, // Rounds per second
+  trail: 50, // Afterglow percentage
+  className: 'spinner', // The CSS class to assign to the spinner
+};
+    var scatterSpinner = new Spinner(opts).spin()
+    var lineSpinner = new Spinner(opts).spin()
+    document.getElementById('realTimeScatterplot').appendChild(scatterSpinner.el)
+    document.getElementById('realTimeLinegraph').appendChild(lineSpinner.el)
 	}
 	componentWillUnmount() {
 	}
@@ -611,14 +625,7 @@ class Historical extends React.Component {
 				<h2>{"Scatterplot from this location " + this.props.selected + " on " +  this.props.column + " from " + new Date(this.props.dateFrom).toLocaleString() + " to " + new Date(this.props.dateTo).toLocaleString()}</h2>
 				<div
 					id="historicalScatterplot"
-					ref={ renderScatterplot("#historicalScatterplot", this.props.selected, this.props.test, this.props.dateFrom, this.props.dateTo , false) }
-				/>
-				<div id="HistLineGraph_label">
-					<h2>{"Linegraph from this location " + this.props.selected + " on " +  this.props.column + " from " + new Date(this.props.dateFrom).toLocaleString() + " to " + new Date(this.props.dateTo).toLocaleString()}</h2>
-				</div>
-				<div
-					id="historicalLinegraph"
-					ref={ renderLinegraph("#historicalLinegraph", this.props.selected, this.props.test, this.props.dateFrom, this.props.dateTo, false) }
+					ref={ renderScatterplotv2("#historicalScatterplot", this.props.selected, this.props.test, this.props.dateFrom, this.props.dateTo , 1, false) }
 				/>
 				<TableElemGen vdsID={this.props.selected} column={this.props.test} lowDate={this.props.dateFrom} highDate={this.props.dateTo} live={false}/>
 				<div id="historicalScatterplot_label">
@@ -628,6 +635,23 @@ class Historical extends React.Component {
 		);
 	}
 	componentDidMount() {
+        var opts = {
+      
+  lines: 10, // The number of lines to draw
+  length: 9, // The length of each line
+  width: 5, // The line thickness
+  radius: 14, // The radius of the inner circle
+  color: 'OrangeRed', // #rgb or #rrggbb or array of colors
+  speed: 1.9, // Rounds per second
+  trail: 50, // Afterglow percentage
+  className: 'spinner', // The CSS class to assign to the spinner
+};
+    var scatterSpinner = new Spinner(opts).spin()
+    var calendarSpinner = new Spinner(opts).spin()
+    var hexSpinner = new Spinner(opts).spin()
+    document.getElementById('historicalScatterplot').appendChild(scatterSpinner.el)
+    document.getElementById('hexbin').appendChild(hexSpinner.el)
+    document.getElementById('Calendar').appendChild(calendarSpinner.el)
 	}
 	componentWillUnmount() {
 	}
@@ -663,6 +687,21 @@ export default class Errors extends React.Component {
 		);
 	}
 	componentDidMount() {
+    var opts = {
+      
+  lines: 10, // The number of lines to draw
+  length: 9, // The length of each line
+  width: 5, // The line thickness
+  radius: 14, // The radius of the inner circle
+  color: 'OrangeRed', // #rgb or #rrggbb or array of colors
+  speed: 1.9, // Rounds per second
+  trail: 50, // Afterglow percentage
+  className: 'spinner', // The CSS class to assign to the spinner
+};
+    var barSpinner = new Spinner(opts).spin()
+    var laneSpinner = new Spinner(opts).spin()
+    document.getElementById('vdsidBargraph').appendChild(barSpinner.el)
+    document.getElementById('lanesBargraph').appendChild(laneSpinner.el)
 	}
 	componentWillUnmount() {
 

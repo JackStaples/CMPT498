@@ -109,6 +109,8 @@ svg.append("g")
       .attr("fill", function(d) { return color(d3nest[d]); })
     .append("title")
       .text(function(d) { return d + ": " + d3nest[d] });
+      
+      d3.select(target+ " .spinner").html("");
 }
 
 function pathMonth(t0) {

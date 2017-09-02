@@ -2,23 +2,25 @@ import React, { Component } from 'react';
 import get, { httpGet } from './getRequest.js';
 import * as d3 from 'd3';
 import moment from 'moment';
+
 var startTime;
 var endTime;
 var lane;
 
-export function renderScatterplotV2(target,vdsID,column,lowDate,highDate, tarLane, live){
+export function renderScatterplotv2(target, vdsID, column, lowDate, highDate, tarLane, live){
+console.log(target);
   lane = tarLane;
  startTime = lowDate._d;
   endTime = highDate._d;
-  console.log(startTime, endTime);
   var lowTime = (lowDate._d.getUTCHours()) + ":" + (lowDate._d.getUTCMinutes()) + ":" + (lowDate._d.getUTCSeconds());
   var lowD = lowDate._d.getFullYear() + "-" + (lowDate._d.getMonth() + 1) + "-" + lowDate._d.getUTCDate();
   var highTime = (highDate._d.getUTCHours() + 1) + ":" + (highDate._d.getUTCMinutes() + 1) + ":" + (highDate._d.getUTCSeconds() + 1);
   var highD = highDate._d.getFullYear() + "-" + (highDate._d.getMonth() + 1) + "-" + highDate._d.getUTCDate();
-  httpGet("http://localhost:3001/scatterplot?column=" + column + "&vdsId=" + vdsID +"&lowdate=" +lowD +"+" + lowTime + "&highdate="+highD+"+" + highTime + "&live=" + live, target, handleScatterplotV2);
+  httpGet("http://localhost:3001/scatterplot?column=" + column + "&vdsId=" + vdsID +"&lowdate=" + lowD +"+" + lowTime + "&highdate="+ highD + "+" + highTime + "&live=" + live, target, handleScatterplotv2);
 }
 
-function handleScatterplotV2(target, response){
+function handleScatterplotv2(target, response){
+  
   var data = response.recordset;
   if (Object.keys(data).length === 0) {
     console.log("Hey it worked")
@@ -113,7 +115,6 @@ function handleScatterplotV2(target, response){
           greyDots.push(data[i]);
         }
       }
-      console.log(redDots, greyDots, "THOSE ARE THE DOTS");
       // selectAll the dataset, and add them to the chart as circles. the functions return the recordTime and speed position.
       
       var g = main.append("svg:g");
@@ -144,9 +145,7 @@ function handleScatterplotV2(target, response){
         // add the hover over on the circle that displays the time and speed
         .append("title")
           .text(function(redDots) { return "Time: " + redDots[property[0]].toString() + " "+ [property[2]] + ": " + redDots[property[2]] });
-          
-          
-          
+
         //this section adds the titles to the chart
         // y-axis title
         chart.append("text")
@@ -165,8 +164,8 @@ function handleScatterplotV2(target, response){
           .attr("text-anchor", "middle")
           .attr("transform", "translate(" + width/2 + "," + (margin.top-15) + ")")
           .text(property[1] + " from " + data[lowestTime][property[0]].toLocaleString() + " to " + data[highestTime][property[0]].toLocaleString());
-  console.log("Scatterplot code has run"); 
-}
+          d3.select(target+ " .spinner").html("");
+          }
 
 function getDateString(date){
   var jsDate = new Date(date)

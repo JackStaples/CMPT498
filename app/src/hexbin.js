@@ -53,6 +53,14 @@ function handleHexbin(target, response) {
         var margin = {top: 40, right: 15, bottom: 60, left: 60}
           , width = 1366 - margin.left - margin.right
           , height = 600 - margin.top - margin.bottom;
+          
+                
+        // select the body of the DOM and add the svg to it
+        var chart = d3.select(target)
+          .append('svg:svg')
+          .attr('width', width + margin.right + margin.left)
+          .attr('height', height + margin.top + margin.bottom)
+          .attr('class', 'chart')
         
         // could be 20 different colours between white and steelblue
         var color = d3.scaleSequential(d3.interpolateLab("LightGray", "OrangeRed"))
@@ -78,13 +86,7 @@ function handleHexbin(target, response) {
           .domain([lowColumnOne, highColumnOne])
           .range([ height, 0 ]);
         y.nice();
-        
-        // select the body of the DOM and add the svg to it
-        var chart = d3.select(target)
-          .append('svg:svg')
-          .attr('width', width + margin.right + margin.left)
-          .attr('height', height + margin.top + margin.bottom)
-          .attr('class', 'chart')
+
         
         // insert the graphic onto the svg
         var main = chart.append('g')
@@ -146,5 +148,5 @@ function handleHexbin(target, response) {
           .attr("text-anchor", "middle")
           .attr("transform", "translate(" + width/2 + "," + (margin.top-15) + ")")
           .text(property[0] + " vs." + property[1]);
-        
+        d3.select(target+ " .spinner").html("");
       }
