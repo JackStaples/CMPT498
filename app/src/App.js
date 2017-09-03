@@ -60,7 +60,7 @@ class NavElem extends React.Component{
 				document.getElementById('container')
 			);
 			ReactDOM.render(
-				<DataWidgetsRealTime locationName={this.state.locationName} updateColumnNav={this.updateColumnNav} column={this.state.column} selected={this.state.selected}/>,
+				<DataWidgetsRealTime locationName={this.state.locationName} updateColumnNav={this.updateColumnNav} column={this.state.column} selected={this.state.selected} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment().set({ "hour": 0, "minute" : 0, "second": 0}).add(1,'d')}/>,
 				document.getElementById('widgets')
 				);
 			this.setCurrentTab(0);
@@ -167,7 +167,7 @@ class NavElem extends React.Component{
 			document.getElementById('container')
 		);
 		ReactDOM.render(
-			<DataWidgetsRealTime  column={this.state.column} locationName={this.state.locationName} updateColumnNav={this.updateColumnNav} selected={this.state.selected}/>,
+			<DataWidgetsRealTime  column={this.state.column} locationName={this.state.locationName} updateColumnNav={this.updateColumnNav} selected={this.state.selected} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment().set({ "hour": 0, "minute" : 0, "second": 0}).add(1,'d')}/>,
 			document.getElementById('widgets')
 		);
     ReactDOM.render(
@@ -208,7 +208,7 @@ class NavElem extends React.Component{
 				document.getElementById('widgets')
 			);
 			ReactDOM.render(
-				<DataWidgetsRealTime column={this.state.column} locationName={this.state.locationName} updateHexColumn={this.updateHexColumn} updateColumnNav={this.updateColumnNav} selected={this.state.selected}/>,
+				<DataWidgetsRealTime column={this.state.column} locationName={this.state.locationName} updateHexColumn={this.updateHexColumn} updateColumnNav={this.updateColumnNav} selected={this.state.selected} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment().set({ "hour": 0, "minute" : 0, "second": 0}).add(1,'d')}/>,
 				document.getElementById('widgets')
 				);
 			this.setCurrentTab(0);
@@ -433,8 +433,8 @@ class DataWidgetsRealTime extends React.Component {
     	super(props);
     	this.state = {
     	column: this.props.column,
-    	dateFrom: new Date("2016/09/08"),
-        dateTo: new Date("2016/09/09"),
+    	dateFrom: this.props.dateFrom,
+        dateTo: this.props.dateTo,
         selected: this.props.selected,
         locationName: this.props.locationName
     };
