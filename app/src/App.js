@@ -482,11 +482,6 @@ class DataWidgetsRealTime extends React.Component {
 	render() {
 		return (
 		<div>
-
-		<div id="realTimeSubBttn" >
-		<Button onClick={this.update}> Submit </Button>
-		</div>
-
 		<div id="realTimecolumn_selector">
 		<DropdownButton bsStyle="default"  title={this.state.column} onSelect={this.updateColumn}>
 			<MenuItem eventKey="occ">Occupancy</MenuItem>
