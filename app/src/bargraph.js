@@ -134,7 +134,7 @@ console.log("changing!2");
                 
               console.log("changing!4");
               };          
-        console.log("done");
+            d3.select(target+ " .spinner").html("");
       }
       
 export function replacer(vdsid, target, sortCheck){

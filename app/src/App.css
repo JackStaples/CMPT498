@@ -167,6 +167,8 @@ html, body, #map {
   float: left;
   border-radius: var(--radius);
   border: var(--visborder) solid var(--viscolor);
+    height: 600px;
+  width: 1360px;
 }
 
 #hexbin_label {
@@ -185,6 +187,8 @@ html, body, #map {
   border-radius: var(--radius);
   border: var(--visborder) solid var(--viscolor);
   float: left;
+    height: 600px;
+  width: 1360px;
 }
 
 #abNormal_label {
@@ -221,15 +225,24 @@ html, body, #map {
 }
 
 #realTimeScatterplot {
+  position:relative;
   border-radius: var(--radius);
   border: var(--visborder) solid var(--viscolor);
+  height: 600px;
+  width:  1360px;
 }
 
 #realTimeLinegraph {
+  position:relative;
   border-radius: var(--radius);
   border: var(--visborder) solid var(--viscolor);
+  height: 600px;
+  width: 1360px;
 }
-
+.spinner {
+  top: 300px;
+  left: 680px;
+}
 /*
   Error screen css
 */
