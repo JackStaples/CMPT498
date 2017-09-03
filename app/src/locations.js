@@ -2,10 +2,11 @@ module.exports = { markers : [
 {
 	position: {
 		lat: 53.56104,
-		lng: -113.4462,
+		lng: -113.4442,
 	},
 	defaultAnimation: 2,
-	VDSID: 1001,
+	location: "Wayne Gretzky Dr North End Bridge SB",
+	VDSID:1001,
 },
 {
 	position: {
@@ -13,7 +14,8 @@ module.exports = { markers : [
 		lng: -113.4442,
 	},
 	defaultAnimation: 2,
-	VDSID: 1002,
+	location: "Wayne Gretzky Dr North End Bridge NB",
+	VDSID:1002,
 },
 {
 	position: {
@@ -21,7 +23,8 @@ module.exports = { markers : [
 		lng: -113.4379,
 	},
 	defaultAnimation: 2,
-	VDSID: 1003,
+	location: "Wayne Gretzky Dr South End Bridge SB",
+	VDSID:1003,
 },
 {
 	position: {
@@ -29,7 +32,8 @@ module.exports = { markers : [
 		lng: -113.4391,
 	},
 	defaultAnimation: 2,
-	VDSID: 1004,
+	location: "Wayne Gretzky Dr South End Bridge NB",
+	VDSID:1004,
 },
 {
 	position: {
@@ -37,7 +41,8 @@ module.exports = { markers : [
 		lng: -113.6052,
 	},
 	defaultAnimation: 2,
-	VDSID: 1007,
+	location: "Whitemud Dr - 164 St WB",
+	VDSID:1007,
 },
 {
 	position: {
@@ -45,7 +50,8 @@ module.exports = { markers : [
 		lng: -113.6052,
 	},
 	defaultAnimation: 2,
-	VDSID: 1008,
+	location: "Whitemud Dr - 164 St EB",
+	VDSID:1008,
 },
 {
 	position: {
@@ -53,7 +59,8 @@ module.exports = { markers : [
 		lng: -113.6299,
 	},
 	defaultAnimation: 2,
-	VDSID: 1009,
+	location: "Whitemud Dr - 178 St WB",
+	VDSID:1009,
 },
 {
 	position: {
@@ -61,7 +68,8 @@ module.exports = { markers : [
 		lng: -113.6298,
 	},
 	defaultAnimation: 2,
-	VDSID: 1010,
+	location: "Whitemud Dr - 178 St EB",
+	VDSID:1010,
 },
 {
 	position: {
@@ -69,7 +77,8 @@ module.exports = { markers : [
 		lng: -113.4885,
 	},
 	defaultAnimation: 2,
-	VDSID: 1011,
+	location: "James MacDonald Bridge - 101 St WB",
+	VDSID:1011,
 },
 {
 	position: {
@@ -77,7 +86,8 @@ module.exports = { markers : [
 		lng: -113.4882,
 	},
 	defaultAnimation: 2,
-	VDSID: 1012,
+	location: "James MacDonald Bridge - 101 St EB",
+	VDSID:1012,
 },
 {
 	position: {
@@ -85,7 +95,8 @@ module.exports = { markers : [
 		lng: -113.4857,
 	},
 	defaultAnimation: 2,
-	VDSID: 1013,
+	location: "94 Ave - Scona Rd NB",
+	VDSID:1013,
 },
 {
 	position: {
@@ -93,7 +104,8 @@ module.exports = { markers : [
 		lng: -113.499,
 	},
 	defaultAnimation: 2,
-	VDSID: 1014,
+	location: "Queen Eliz. Park Rd - N of Sask. Dr NB",
+	VDSID:1014,
 },
 {
 	position: {
@@ -101,7 +113,8 @@ module.exports = { markers : [
 		lng: -113.5012,
 	},
 	defaultAnimation: 2,
-	VDSID: 1015,
+	location: "Queen Eliz. Park Rd - Queen. Eliz. Pool NB",
+	VDSID:1015,
 },
 {
 	position: {
@@ -109,7 +122,8 @@ module.exports = { markers : [
 		lng: -113.5905,
 	},
 	defaultAnimation: 2,
-	VDSID: 1016,
+	location: "Whitemud Dr - 156 St WB",
+	VDSID:1016,
 },
 {
 	position: {
@@ -117,7 +131,8 @@ module.exports = { markers : [
 		lng: -113.5904,
 	},
 	defaultAnimation: 2,
-	VDSID: 1017,
+	location: "Whitemud Dr - 156 St EB",
+	VDSID:1017,
 },
 {
 	position: {
@@ -125,7 +140,8 @@ module.exports = { markers : [
 		lng: -113.5411,
 	},
 	defaultAnimation: 2,
-	VDSID: 1018,
+	location: "Whitemud Dr - 122 St WB",
+	VDSID:1018,
 },
 {
 	position: {
@@ -133,7 +149,8 @@ module.exports = { markers : [
 		lng: -113.5411,
 	},
 	defaultAnimation: 2,
-	VDSID: 1019,
+	location: "Whitemud Dr - 122 St EB",
+	VDSID:1019,
 },
 {
 	position: {
@@ -141,7 +158,8 @@ module.exports = { markers : [
 		lng: -113.5014,
 	},
 	defaultAnimation: 2,
-	VDSID: 1020,
+	location: "Yellowhead Tr - 62 St WB",
+	VDSID:1020,
 },
 {
 	position: {
@@ -149,7 +167,8 @@ module.exports = { markers : [
 		lng: -113.5012,
 	},
 	defaultAnimation: 2,
-	VDSID: 1021,
+	location: "Yellowhead Tr - 62 St EB",
+	VDSID:1021,
 },
 {
 	position: {
@@ -157,7 +176,8 @@ module.exports = { markers : [
 		lng: -113.5256,
 	},
 	defaultAnimation: 2,
-	VDSID: 1022,
+	location: "Yellowhead Tr - 121 St WB",
+	VDSID:1022,
 },
 {
 	position: {
@@ -165,7 +185,8 @@ module.exports = { markers : [
 		lng: -113.5513,
 	},
 	defaultAnimation: 2,
-	VDSID: 1023,
+	location: "Yellowhead Tr - 131 St EB",
+	VDSID:1023,
 },
 {
 	position: {
@@ -173,7 +194,8 @@ module.exports = { markers : [
 		lng: -113.6027,
 	},
 	defaultAnimation: 2,
-	VDSID: 1024,
+	location: "Yellowhead Tr - 163 St WB",
+	VDSID:1024,
 },
 {
 	position: {
@@ -181,7 +203,8 @@ module.exports = { markers : [
 		lng: -113.604,
 	},
 	defaultAnimation: 2,
-	VDSID: 1025,
+	location: "Yellowhead Tr - 163 St EB",
+	VDSID:1025,
 },
 {
 	position: {
@@ -189,7 +212,8 @@ module.exports = { markers : [
 		lng: -113.59,
 	},
 	defaultAnimation: 2,
-	VDSID: 1026,
+	location: "Whitemud Dr - Terwillegar Dr (E. Of) WB",
+	VDSID:1026,
 },
 {
 	position: {
@@ -197,7 +221,8 @@ module.exports = { markers : [
 		lng: -113.5898,
 	},
 	defaultAnimation: 2,
-	VDSID: 1027,
+	location: "Whitemud Dr - Terwillegar Dr (E. Of) EB",
+	VDSID:1027,
 },
 {
 	position: {
@@ -205,7 +230,8 @@ module.exports = { markers : [
 		lng: -113.4922,
 	},
 	defaultAnimation: 2,
-	VDSID: 1028,
+	location: "53 Ave - Whitemud Dr WB",
+	VDSID:1028,
 },
 {
 	position: {
@@ -213,7 +239,8 @@ module.exports = { markers : [
 		lng: -113.492,
 	},
 	defaultAnimation: 2,
-	VDSID: 1029,
+	location: "53 Ave - Whitemud Dr EB",
+	VDSID:1029,
 },
 {
 	position: {
@@ -221,7 +248,8 @@ module.exports = { markers : [
 		lng: -113.5717,
 	},
 	defaultAnimation: 2,
-	VDSID: 1030,
+	location: "58A Ave - Whitemud Dr WB",
+	VDSID:1030,
 },
 {
 	position: {
@@ -229,7 +257,8 @@ module.exports = { markers : [
 		lng: -113.5722,
 	},
 	defaultAnimation: 2,
-	VDSID: 1031,
+	location: "58A Ave - Whitemud Dr EB",
+	VDSID:1031,
 },
 {
 	position: {
@@ -237,7 +266,8 @@ module.exports = { markers : [
 		lng: -113.5731,
 	},
 	defaultAnimation: 2,
-	VDSID: 1032,
+	location: "Whitemud Dr - Quesnell Br WB",
+	VDSID:1032,
 },
 {
 	position: {
@@ -245,7 +275,8 @@ module.exports = { markers : [
 		lng: -113.5729,
 	},
 	defaultAnimation: 2,
-	VDSID: 1033,
+	location: "Whitemud Dr - Quesnell Br EB",
+	VDSID:1033,
 },
 {
 	position: {
@@ -253,7 +284,8 @@ module.exports = { markers : [
 		lng: -113.5821,
 	},
 	defaultAnimation: 2,
-	VDSID: 1034,
+	location: "Whitemud Dr - 149 St (E. Of) WB",
+	VDSID:1034,
 },
 {
 	position: {
@@ -261,7 +293,8 @@ module.exports = { markers : [
 		lng: -113.5819,
 	},
 	defaultAnimation: 2,
-	VDSID: 1035,
+	location: "Whitemud Dr - 149 St (E. Of) EB",
+	VDSID:1035,
 },
 {
 	position: {
@@ -269,7 +302,8 @@ module.exports = { markers : [
 		lng: -113.576,
 	},
 	defaultAnimation: 2,
-	VDSID: 1036,
+	location: "Whitemud Dr - 149 St (WB)",
+	VDSID:1036,
 },
 {
 	position: {
@@ -277,7 +311,8 @@ module.exports = { markers : [
 		lng: -113.5758,
 	},
 	defaultAnimation: 2,
-	VDSID: 1037,
+	location: "Whitemud Dr - 149 St (EB)",
+	VDSID:1037,
 },
 {
 	position: {
@@ -285,7 +320,8 @@ module.exports = { markers : [
 		lng: -113.5182,
 	},
 	defaultAnimation: 2,
-	VDSID: 1038,
+	location: "53 Ave - Whitemud Dr Offramp WB",
+	VDSID:1038,
 },
 {
 	position: {
@@ -293,7 +329,8 @@ module.exports = { markers : [
 		lng: -113.5688,
 	},
 	defaultAnimation: 2,
-	VDSID: 1039,
+	location: "Terwillegar Dr - Whitemud Dr On Ramp WB",
+	VDSID:1039,
 },
 {
 	position: {
@@ -301,7 +338,8 @@ module.exports = { markers : [
 		lng: -113.5736,
 	},
 	defaultAnimation: 2,
-	VDSID: 1040,
+	location: "53 Ave (N. Of) - Whitemud Dr On Ramp WB",
+	VDSID:1040,
 },
 {
 	position: {
@@ -309,7 +347,8 @@ module.exports = { markers : [
 		lng: -113.5648,
 	},
 	defaultAnimation: 2,
-	VDSID: 1041,
+	location: "Whitemud Dr - Fox Dr Off Ramp WB",
+	VDSID:1041,
 },
 {
 	position: {
@@ -317,7 +356,8 @@ module.exports = { markers : [
 		lng: -113.5648,
 	},
 	defaultAnimation: 2,
-	VDSID: 1042,
+	location: "Whitemud Dr - Fox Dr On Ramp WB",
+	VDSID:1042,
 },
 {
 	position: {
@@ -325,7 +365,8 @@ module.exports = { markers : [
 		lng: -113.5782,
 	},
 	defaultAnimation: 2,
-	VDSID: 1043,
+	location: "Whitemud Dr - 149 St Off Ramp WB",
+	VDSID:1043,
 },
 {
 	position: {
@@ -333,7 +374,8 @@ module.exports = { markers : [
 		lng: -113.5795,
 	},
 	defaultAnimation: 2,
-	VDSID: 1044,
+	location: "Whitemud Dr - 149 St On Ramp WB",
+	VDSID:1044,
 },
 {
 	position: {
@@ -341,7 +383,8 @@ module.exports = { markers : [
 		lng: -113.5978,
 	},
 	defaultAnimation: 2,
-	VDSID: 1045,
+	location: "Whitemud Dr - 159 St Off Ramp WB",
+	VDSID:1045,
 },
 {
 	position: {
@@ -349,49 +392,8 @@ module.exports = { markers : [
 		lng: -113.5983,
 	},
 	defaultAnimation: 2,
-	VDSID: 1046,
-},
+	location: "Whitemud Dr - 159 St On Ramp WB",
+	VDSID:1046,
+}
 
 ]};
-
-/*
-53.5117, -113.6052
-53.51218,	-113.6299
-53.51193,	-113.6298
-53.53572,	-113.4885
-53.53549,	-113.4882
-53.5308,	-113.4857
-53.52483,	-113.499
-53.52511,	-113.5012
-53.5122,	-113.5905
-53.51186,	-113.5904
-53.48307,	-113.5411
-53.48274,	-113.5411
-53.5815,	-113.5014
-53.58134,	-113.5012
-53.58055,	-113.5256
-53.58089,	-113.5513
-53.57623,	-113.6027
-53.57751,	-113.604
-53.45737,	-113.59
-53.45811,	-113.5898
-53.47991,	-113.4922
-53.4806,	-113.492
-53.49568,	-113.5717
-53.49576,	-113.5722
-53.51148,	-113.5731
-53.51126,	-113.5729
-53.51245,	-113.5821
-53.51204,	-113.5819
-53.51204,	-113.576
-53.51112,	-113.5758
-53.4835,	-113.5182
-53.48132,	-113.5688
-53.49041,	-113.5736
-53.50291,	-113.5648
-53.50377,	-113.5648
-53.51299,	-113.5782
-53.51327,	-113.5795
-53.51143,	-113.5978
-53.51241,	-113.5983
-*/

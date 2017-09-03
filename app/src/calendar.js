@@ -35,9 +35,9 @@ for (var i in data){
 
 }
 var year = parseInt(data[0][property[0]].slice(0,4));
-var width = 1006,
-    height = 136,
-    cellSize = 17;
+var width = 1366,
+    height = 170,
+    cellSize = 21;
 
 var formatPercent = d3.format(".1%");
 
@@ -69,7 +69,7 @@ svg.append("text")
 
 svg.append("text")
   .text("Dec")
-  .attr("transform", "translate(875)");
+  .attr("transform", "translate(1075)");
 
 svg.append("text")
   .text("Sun")
@@ -79,7 +79,7 @@ svg.append("text")
 svg.append("text")
   .text("Sat")
   .attr("font-size", 14)
-  .attr("transform", "translate(-25, 112)");
+  .attr("transform", "translate(-25, 140)");
 
 var rect = svg.append("g")
     .attr("fill", "none")
@@ -112,7 +112,7 @@ svg.append("g")
 }
 
 function pathMonth(t0) {
-	var cellSize = 17;
+	var cellSize = 21;
   var t1 = new Date(t0.getFullYear(), t0.getMonth() + 1, 0),
       d0 = t0.getDay(), w0 = d3.timeWeek.count(d3.timeYear(t0), t0),
       d1 = t1.getDay(), w1 = d3.timeWeek.count(d3.timeYear(t1), t1);
