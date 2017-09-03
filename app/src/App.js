@@ -313,13 +313,17 @@ class DataWidgetsCalendar extends React.Component {
   			this.reRender();
   		}
   		}
+
+  	componentDidUpdate(){
+  		this.reRender()
+  	}
+  	
   	laneChange(e) {
   		console.log("This is the lane: ", e)
   		this.setState({
   			lane: e
   		});
   		this.props.setLane(e)
-  		this.reRender()
   	}
 
   	updateColumn(eventKey){
@@ -376,6 +380,8 @@ class DataWidgetsCalendar extends React.Component {
       <div id="SubmitButton">
         <Button onClick={this.update} > Submit </Button>
       </div>
+      		<div> {this.state.lane}
+		</div>
       <div id="column_selector">
         <p> Column Selector </p>
         <DropdownButton bsStyle="default" title={this.state.column} onSelect={this.updateColumn}>
@@ -451,13 +457,17 @@ class DataWidgetsRealTime extends React.Component {
 
   	}
 
+  	componentDidUpdate(){
+  		this.reRender()
+  	}
+
   	laneChange(e) {
   		console.log("This is the lane: ", e)
   		this.setState({
   			lane: e
   		});
+  		console.log("this is the lane state: ", this.state.lane)
   		this.props.setLane(e)
-  		this.reRender()
   	}
   	update(){
   			this.reRender();
@@ -480,6 +490,7 @@ class DataWidgetsRealTime extends React.Component {
   		});
   	}
   	reRender(){
+  		console.log("rerender lane:", this.state.lane)
   		ReactDOM.render(
 				<Refresh/>,
 				document.getElementById('container')
@@ -501,6 +512,8 @@ class DataWidgetsRealTime extends React.Component {
 			<MenuItem eventKey="speed">Speed</MenuItem>
 			<MenuItem eventKey="vol">Volume	</MenuItem>
 		</DropdownButton>
+		<div> {this.state.lane}
+		</div>
 		</div>
 
 		<div id="realTimedatepicker">
@@ -722,7 +735,7 @@ class Historical extends React.Component {
 					id="historicalScatterplot"
 					ref={ renderScatterplotv2("#historicalScatterplot", this.props.selected, this.props.test, this.props.dateFrom, this.props.dateTo , this.props.lane, false) }
 				/>
-				<h2>{this.props.test + " on " + this.props.locationName + "(" + this.props.selected +  ") from " + new Date(this.props.dateFrom).toLocaleString() + " to " + new Date(this.props.dateTo).toLocaleString()}</h2>
+				<h2>{this.props.test + " on " + this.props.locationName + " (" + this.props.selected +  ") from " + new Date(this.props.dateFrom).toLocaleString() + " to " + new Date(this.props.dateTo).toLocaleString()}</h2>
 				<TableElemGen type={0} vdsID={this.props.selected} column={this.props.test} lowDate={this.props.dateFrom} highDate={this.props.dateTo} live={false}/>
 				<div id="historicalScatterplot_label">
 					<h2>Scatterplot</h2>

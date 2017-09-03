@@ -32,13 +32,10 @@ export class TableElem extends Component {
         if (rowInfo == undefined){
         }
         else {
-        console.log('It was in this rowssssss:', rowInfo.row.VDSID)
-
         this.setState({ 
         selected: rowInfo.row.VDSID
         });
         this.props.getID(rowInfo.row.VDSID)
-        console.log("this is the row info",rowInfo.row.Location)
       }
       }
       }
@@ -46,7 +43,7 @@ export class TableElem extends Component {
     else {
     return {
       style: {
-        background: rowInfo.row.VDSID ==  this.props.ID ? 'darkgrey' : 'lightgrey'
+        background: rowInfo.row.VDSID ==  this.props.ID ? 'lightgrey' : 'white'
       },
       onClick: (e) => {
         if (rowInfo == undefined){
@@ -80,10 +77,15 @@ function getColumns(jsonObj) {
     var keys = Object.keys(jsonObj[0]);
     var column = []
     for (var i =0; i< keys.length; i++) {
-
+      var widthVar = 238;
+      console.log("This is the key", keys[i]);
+      if (keys[i] == "VDSID"){
+        widthVar = 75;
+      }
       var string = {
         Header : keys[i],
         accessor : keys[i],
+        width : widthVar,
       }
       column.push(string)
     }
