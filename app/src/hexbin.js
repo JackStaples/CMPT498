@@ -5,6 +5,7 @@ import * as d3hexbin from 'd3-hexbin';
 import get, { httpGet } from './getRequest.js';
 
 export function renderHexbin(target, x, y, lowDate, highDate) {
+  d3.select(target).html("");
 var lowTime = (lowDate._d.getHours()) + ":" + (lowDate._d.getMinutes()) + ":" + (lowDate._d.getSeconds());
   var lowD = lowDate._d.getFullYear() + "-" + (lowDate._d.getMonth() + 1) + "-" + lowDate._d.getDate();
   var highTime = (highDate._d.getHours() + 1) + ":" + (highDate._d.getMinutes() + 1) + ":" + (highDate._d.getSeconds() + 1);
@@ -21,7 +22,7 @@ function handleHexbin(target, response) {
     return
   }
         var property = Object.keys(data[0]);
-        console.log("This is the property" + property);
+        console.log("Hey it worked")
         var highColumnOne = 0;
         var lowColumnOne = 0;
         var highColumnTwo = 0;

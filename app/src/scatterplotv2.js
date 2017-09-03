@@ -8,7 +8,7 @@ var endTime;
 var lane;
 
 export function renderScatterplotv2(target, vdsID, column, lowDate, highDate, tarLane, live){
-console.log(target);
+d3.select(target).html("");
   lane = tarLane;
  startTime = lowDate._d;
   endTime = highDate._d;

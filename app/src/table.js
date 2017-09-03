@@ -23,21 +23,47 @@ export class TableElem extends Component {
   <ReactTable className="-highlight"
     data={this.props.data}
     columns={this.state.columns}
-  	 getTdProps={(state, rowInfo, column, instance) => {
+    showPagination={false}
+    defaultPageSize={50} 
+  	getTdProps={(state, rowInfo, column, instance) => {
+    if (rowInfo == undefined){ 
+      return {
+        onClick: (e) => {
+        if (rowInfo == undefined){
+        }
+        else {
+        console.log('It was in this rowssssss:', rowInfo.row.VDSID)
 
+        this.setState({ 
+        selected: rowInfo.row.VDSID
+        });
+        this.props.getID(rowInfo.row.VDSID)
+        console.log("this is the row info",rowInfo.row.Location)
+      }
+      }
+      }
+    }
+    else {
     return {
       style: {
         background: rowInfo.row.VDSID ==  this.props.ID ? 'darkgrey' : 'lightgrey'
       },
       onClick: (e) => {
+        if (rowInfo == undefined){
+        }
+        else {
         console.log('It was in this row:', rowInfo.row.VDSID)
-
+        console.log("this is the row info",rowInfo.row.Location)
         this.setState({
         selected: rowInfo.row.VDSID
         });
         this.props.getID(rowInfo.row.VDSID)
+        this.props.setName(rowInfo.row.Location)
       }
-    }
+      }
+    }}
+
+
   }}
 />
   	</div>
@@ -57,7 +83,7 @@ function getColumns(jsonObj) {
 
       var string = {
         Header : keys[i],
-        accessor : keys[i]
+        accessor : keys[i],
       }
       column.push(string)
     }

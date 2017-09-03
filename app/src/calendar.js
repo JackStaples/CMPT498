@@ -35,9 +35,9 @@ for (var i in data){
 
 }
 var year = parseInt(data[0][property[0]].slice(0,4));
-var width = 1006,
-    height = 136,
-    cellSize = 17;
+var width = 1360,
+    height = 200,
+    cellSize = 24;
 
 var formatPercent = d3.format(".1%");
 
@@ -45,7 +45,7 @@ var months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", 
 
 var color = d3.scaleQuantize()
     .domain([min, max])
-    .range(["#FF4500", "#FA5315", "#F6612A", "#F16F3F", "#ED7D54", "#E98C69", "#E49A7E", "#E0A893", "#DBB6A8", "#D7C4BD", "#D3D3D3"]);
+    .range(["#D3D3D3", "#D7C4BD", "#DBB6A8", "#E0A893", "#E49A7E", "#E98C69", "#ED7D54", "#F16F3F", "#F6612A", "#FA5315", "#FF4500"]);
 //Creates the number of
 var svg = d3.select(target)
   .selectAll("svg")
@@ -65,11 +65,11 @@ svg.append("text")
 
 svg.append("text")
   .text("Jan")
-  .attr("transform", "translate(20)");
+  .attr("transform", "translate(25)");
 
 svg.append("text")
   .text("Dec")
-  .attr("transform", "translate(875)");
+  .attr("transform", "translate(1215)");
 
 svg.append("text")
   .text("Sun")
@@ -79,7 +79,7 @@ svg.append("text")
 svg.append("text")
   .text("Sat")
   .attr("font-size", 14)
-  .attr("transform", "translate(-25, 112)");
+  .attr("transform", "translate(-25, 160)");
 
 var rect = svg.append("g")
     .attr("fill", "none")
@@ -114,7 +114,7 @@ svg.append("g")
 }
 
 function pathMonth(t0) {
-	var cellSize = 17;
+	var cellSize = 24;
   var t1 = new Date(t0.getFullYear(), t0.getMonth() + 1, 0),
       d0 = t0.getDay(), w0 = d3.timeWeek.count(d3.timeYear(t0), t0),
       d1 = t1.getDay(), w1 = d3.timeWeek.count(d3.timeYear(t1), t1);

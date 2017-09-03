@@ -36,6 +36,7 @@ export class MapElement extends Component {
   
   handleMarkerClick(targetMarker) {
     this.props.getID(targetMarker.VDSID);
+    this.props.getName(targetMarker.location);
   }
   
   render() {

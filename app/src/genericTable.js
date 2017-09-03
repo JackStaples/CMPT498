@@ -9,6 +9,7 @@ export class TableElemGen extends Component {
 
   constructor(props) {
   super(props);
+  console.log(props)
   this.getJSONObj = this.getJSONObj.bind(this);
   this.setJSONState = this.setJSONState.bind(this);
   this.getJSONObj();
@@ -17,11 +18,18 @@ export class TableElemGen extends Component {
   }
   }
   getJSONObj() {
+
     var lowTime = (this.props.lowDate._d.getUTCHours()) + ":" + (this.props.lowDate._d.getUTCMinutes()) + ":" + (this.props.lowDate._d.getUTCSeconds());
     var lowD = this.props.lowDate._d.getFullYear() + "-" + (this.props.lowDate._d.getMonth() + 1) + "-" + this.props.lowDate._d.getUTCDate();
     var highTime = (this.props.highDate._d.getUTCHours() + 1) + ":" + (this.props.highDate._d.getUTCMinutes() + 1) + ":" + (this.props.highDate._d.getUTCSeconds() + 1);
     var highD = this.props.highDate._d.getFullYear() + "-" + (this.props.highDate._d.getMonth() + 1) + "-" + this.props.highDate._d.getUTCDate();
+    if (this.props.type == 0){
     var querystring = "http://localhost:3001/scatterplot?column=" + this.props.column + "&vdsId=" + this.props.vdsID +" &lowdate=" +lowD +"+" + lowTime + "&highdate="+highD+"+" + highTime + "&live=" + this.props.live;
+  }
+  else {
+    var querystring = "http://localhost:3001/bargraphLanes?VDSID=" + this.props.vdsID + "&lowdate=" + lowD + "&highdate=" + highD
+    console.log(querystring)
+  }
     httpGet(querystring, null, this.setJSONState);
   }
 
