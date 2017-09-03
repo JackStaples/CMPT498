@@ -56,11 +56,11 @@ class NavElem extends React.Component{
 	handleSelect(eventKey){
 		if (eventKey === 0){
 			ReactDOM.render(
-				<RealTime locationName={this.state.locationName} selected={this.state.selected} column={this.state.column} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment().set({ "hour": 0, "minute" : 0, "second": 0}).add(1,'d')}/>,
+				<RealTime lane={this.state.lane} locationName={this.state.locationName} selected={this.state.selected} column={this.state.column} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment().set({ "hour": 0, "minute" : 0, "second": 0}).add(1,'d')}/>,
 				document.getElementById('container')
 			);
 			ReactDOM.render(
-				<DataWidgetsRealTime locationName={this.state.locationName} updateColumnNav={this.updateColumnNav} column={this.state.column} selected={this.state.selected} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment().set({ "hour": 0, "minute" : 0, "second": 0}).add(1,'d')}/>,
+				<DataWidgetsRealTime setLane={this.setLane} lane={this.state.lane} locationName={this.state.locationName} updateColumnNav={this.updateColumnNav} column={this.state.column} selected={this.state.selected} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment().set({ "hour": 0, "minute" : 0, "second": 0}).add(1,'d')}/>,
 				document.getElementById('widgets')
 				);
 			this.setCurrentTab(0);
@@ -163,11 +163,11 @@ class NavElem extends React.Component{
 
 	setup() {
 		ReactDOM.render(
-			<RealTime locationName={this.state.locationName}  selected={this.state.selected} column={this.state.column} dateFrom={ (moment().set({ "hour": 0, "minute" : 0, "second": 0}))} dateTo={ (moment().set({ "hour": 0, "minute" : 0, "second": 0}).add(1,'d'))}/>,
+			<RealTime lane={this.state.lane} locationName={this.state.locationName}  selected={this.state.selected} column={this.state.column} dateFrom={ (moment().set({ "hour": 0, "minute" : 0, "second": 0}))} dateTo={ (moment().set({ "hour": 0, "minute" : 0, "second": 0}).add(1,'d'))}/>,
 			document.getElementById('container')
 		);
 		ReactDOM.render(
-			<DataWidgetsRealTime  column={this.state.column} locationName={this.state.locationName} updateColumnNav={this.updateColumnNav} selected={this.state.selected} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment().set({ "hour": 0, "minute" : 0, "second": 0}).add(1,'d')}/>,
+			<DataWidgetsRealTime  setLane={this.setLane} lane={this.state.lane}  column={this.state.column} locationName={this.state.locationName} updateColumnNav={this.updateColumnNav} selected={this.state.selected} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment().set({ "hour": 0, "minute" : 0, "second": 0}).add(1,'d')}/>,
 			document.getElementById('widgets')
 		);
     ReactDOM.render(
@@ -208,7 +208,7 @@ class NavElem extends React.Component{
 				document.getElementById('widgets')
 			);
 			ReactDOM.render(
-				<DataWidgetsRealTime column={this.state.column} locationName={this.state.locationName} updateHexColumn={this.updateHexColumn} updateColumnNav={this.updateColumnNav} selected={this.state.selected} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment().set({ "hour": 0, "minute" : 0, "second": 0}).add(1,'d')}/>,
+				<DataWidgetsRealTime setLane={this.setLane} lane={this.state.lane} column={this.state.column} locationName={this.state.locationName} updateHexColumn={this.updateHexColumn} updateColumnNav={this.updateColumnNav} selected={this.state.selected} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment().set({ "hour": 0, "minute" : 0, "second": 0}).add(1,'d')}/>,
 				document.getElementById('widgets')
 				);
 			this.setCurrentTab(0);
@@ -318,7 +318,7 @@ class DataWidgetsCalendar extends React.Component {
   		this.setState({
   			lane: e
   		});
-  		//this.props.setLane(e)
+  		this.props.setLane(e)
   		this.reRender()
   	}
 
@@ -442,7 +442,8 @@ class DataWidgetsRealTime extends React.Component {
     	dateFrom: this.props.dateFrom,
         dateTo: this.props.dateTo,
         selected: this.props.selected,
-        locationName: this.props.locationName
+        locationName: this.props.locationName,
+        lane: this.props.lane
     };
     console.log(this.props.column);
 
@@ -452,7 +453,17 @@ class DataWidgetsRealTime extends React.Component {
     	this.dateUpdate2 = this.dateUpdate2.bind(this);
     	this.updateColumn = this.updateColumn.bind(this);
     	this.tabIndex = 5;
+    	this.laneChange = this.laneChange.bind(this);
 
+  	}
+
+  	laneChange(e) {
+  		console.log("This is the lane: ", e)
+  		this.setState({
+  			lane: e
+  		});
+  		this.props.setLane(e)
+  		this.reRender()
   	}
   	update(){
   			this.reRender();
@@ -480,10 +491,12 @@ class DataWidgetsRealTime extends React.Component {
 				document.getElementById('container')
 			);
   		ReactDOM.render(
-				<RealTime locationName={this.state.locationName} selected={this.state.selected} column={this.state.column} dateTo={moment(this.state.dateTo)} dateFrom={moment(this.state.dateFrom)}/>,
+				<RealTime lane={this.state.lane} locationName={this.state.locationName} selected={this.state.selected} column={this.state.column} dateTo={moment(this.state.dateTo)} dateFrom={moment(this.state.dateFrom)}/>,
 				document.getElementById('container')
 			);
   	}
+
+
 
 	render() {
 		return (
@@ -505,7 +518,7 @@ class DataWidgetsRealTime extends React.Component {
 		</div>
 		<div id="realTimeButtonToolbar">
 			<ButtonToolbar>
-      <ToggleButtonGroup type="radio" name="lanes">
+      <ToggleButtonGroup type="radio" name="lanes" defaultValue={this.state.lane} onChange={this.laneChange}>
         <ToggleButton value={1}>Lane 1</ToggleButton>
         <ToggleButton value={2}>Lane 2</ToggleButton>
         <ToggleButton value={3}>Lane 3</ToggleButton>
@@ -561,6 +574,14 @@ class DataWidgetsError extends React.Component {
   			dateFrom: new Date(eventKey)
   		});
   		this.props.updateFromDateNav(eventKey)
+  	}
+
+  	laneChange(e) {
+  		this.setState({
+  			lane: e
+  		});
+  		this.props.setLane(e)
+  		this.reRender()
   	}
 
   rerenderSorted(){
@@ -639,12 +660,12 @@ class RealTime extends React.Component {
 					id="realTimeScatterplot"
 					margin="0 auto"
 
-					ref={ renderScatterplotv2("#realTimeScatterplot", this.props.selected,this.props.column, this.props.dateFrom, this.props.dateTo,1, true) }
+					ref={ renderScatterplotv2("#realTimeScatterplot", this.props.selected,this.props.column, this.props.dateFrom, this.props.dateTo,this.props.lane, true) }
 				/>
 				<h2>{ this.props.column + " on " + this.props.locationName + "(" + this.props.selected + ") from " + new Date(this.props.dateFrom).toLocaleString() + " to " + new Date(this.props.dateTo).toLocaleString()} </h2>
 				<div
 					id="realTimeLinegraph"
-					ref={ renderLinegraphv2("#realTimeLinegraph",this.props.selected,this.props.column,this.props.dateFrom,this.props.dateTo, 7, 1, true) }
+					ref={ renderLinegraphv2("#realTimeLinegraph",this.props.selected,this.props.column,this.props.dateFrom,this.props.dateTo, 7, this.props.lane, true) }
 				/>
         <TableElemGen type={0} vdsID={this.props.selected} column={this.props.column} lowDate={this.props.dateFrom} highDate={this.props.dateTo} live={true}/>
       		</div>
