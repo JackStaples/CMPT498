@@ -12,7 +12,7 @@ body {
 
 #appheader {
   padding-top: 0px;
-  height: 270px;
+  height: 210px;
 }
 
 #maintitle h1 {
@@ -40,7 +40,7 @@ body {
   padding-left: 10px;
   float: left;
   width: 25%;
-  height: 840px;
+  height: 1800px;
 }
 
 #well {
@@ -55,7 +55,7 @@ body {
   width: 98%;
   padding-top: -1px;
   padding-left: 0px;
-  height: 2850px;
+  height: 3400px;
   border-radius: var(--radius);
   border-left: var(--visborder) solid var(--viscolor);
   border-radius: var(--radius);
@@ -96,7 +96,7 @@ height: 50px;
 
 #container {
   float: left;
-	padding-top: 10px;
+	padding-top: 40px;
   padding-left: 10px;
   /*background-color: #fdfcfc !important;*/
 }

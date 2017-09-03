@@ -1,8 +1,8 @@
 
 var sql = require('mssql/msnodesqlv8');
 
-var table1 = "fauxWareHouse";
-var table2 = "Warehouse";
+var table1 = "rawdata";
+var table2 = "fauxWareHouse";
 
 function callDB(query, res, callback, sql) {
   console.log("QUERY:     " + query);
@@ -40,7 +40,7 @@ exports.scatterPlotQuery = function(column, vdsId, lowdate, highdate, live, res,
   query += DateSplit(table, lowdate, highdate, live);
   query += " and " + table + ".vdsId = " + vdsId  + " and " + table +
   ".vdsId = VDSIDs.vdsId order by " + datetime + ", lane;";
-  
+
   callDB(query, res, callback, sql);
 }
 
@@ -93,7 +93,7 @@ exports.barChartQuery = function(res, callback, sql, lowdate, highdate) {
 
 exports.laneErrorQuery = function(vdsId, res, callback, sql, lowdate, highdate) {
   var query = "select lane, sum(correct) as correct, sum(incorrect) as incorrect" +
-  " from " + table2 + " where vdsId = " + vdsId + " and datetime >= '" + 
+  " from " + table2 + " where vdsId = " + vdsId + " and datetime >= '" +
   lowdate + "' and datetime <= '" + highdate + "' group by lane";
   callDB(query, res, callback, sql);
 }

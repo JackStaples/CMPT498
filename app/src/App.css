@@ -32,64 +32,72 @@ html, body, #map {
 #lowdate_label {
   position:relative;
   float: left;
-  top: 10px;
-  right: 400px;
+  top: 692px;
+  left: 65px;
   z-index: 20;
 }
 
 #lowdatetimepicker {
   position:relative;
   float: left;
-  top: 3px;
-  right: 395px;
+  top: 685px;
+  left: 70px;
   z-index: 20;
 }
 
 #highdate_label {
   position:relative;
   float: left;
-  top: 10px;
-  right: 350px;
+  top: 692px;
+  left: 75px;
   z-index: 20;
 }
 
 #highdatetimepicker {
   position:relative;
   float: left;
-  top: 3px;
-  right: 345px;
+  top: 685px;
+  left: 80px;
   z-index: 20;
 }
 
 #submitButton {
   float: left;
 }
-
+/*         <div id="errSubmitButton">
+				<Button onClick={this.updatePage} > Submit </Button>
+				</div>
+*/
 #SubmitButton {
   position:relative;
   float: left;
-  top: 40px;
-  right: 961px;
+  top: 685px;
+  left: 1060px;
   z-index: 20;
 }
 
 #realTimeSubBttn {
-  float: left;
+  position:relative;
+  /*float: left;*/
+  width: 80px;
+  top: 652px;
+  left: 344px;
+  z-index: 20;
 }
 
 #column_selector {
   position:relative;
   float: left;
-  top: 1505px;
-  left: 20px;
+  top: 686px;
+  right: 70px;
   z-index: 20;
 }
 
 #colselect_label {
-  position:relative;
+  padding-top: 7px;
+  padding-right: 5px;
   float: left;
-  top: 1512px;
-  z-index: 20;
+
 }
 
 #hexselector_label {
@@ -103,34 +111,61 @@ html, body, #map {
 #hexcolumn_selector {
   position:relative;
   float: left;
-  top: 843px;
-  right: 150px;
+  top: 1140px;
+  right: 90px;
   z-index: 20;
 }
 
 #year_selector {
   position:relative;
   float: left;
-  top: 168px;
-  left: 720px;
+  top: 730px;
+  right: 320px;
   z-index: 20;
 }
 
 #year_label {
   position:relative;
   float: left;
-  top: 175px;
-  left: 700px;
+  top: 1750px;
+  right: 700px;
   z-index: 20;
 }
 
+#realTimeButtonToolbar {
+  position:relative;
+  /*float: left;*/
+  top: 618px;
+  left: 420px;
+  z-index: 20;
+  width: 300px;
+  /*height: 170px;*/
+}
+
+#ButtonToolbar {
+  position:relative;
+  /*float: left;*/
+  top: 622px;
+  left: 192px;
+  z-index: 20;
+  width: 300px;
+}
 #realTimecolumn_selector {
-  float: left;
-  display: inline-block;
+  position:relative;
+  /*float: left;*/
+  top: 720px;
+  left: 10px;
+  z-index: 20;
+  /*display: inline-block;*/
 }
 
 #realTimedatepicker {
-    float: left;
+  position:relative;
+  /*float: left;*/
+  top: 686px;
+  left: 90px;
+  width: 250px;
+  z-index: 20;
 }
 
 #Realtime {
@@ -140,7 +175,7 @@ html, body, #map {
 }
 
 #Realtime h2 {
-  text-align: center;
+  text-align: left;
 }
 
 #historical {
@@ -153,6 +188,15 @@ html, body, #map {
 }
 
 #thebigmap {
+  position:relative;
+  /*float: left;*/
+  bottom: 0px;
+  left: 0px;
+  /*width: 250px;*/
+  z-index: 20;
+  float: left;
+  padding-left: 5px;
+  padding-bottom: 10px;
   border-radius: var(--radius);
   border: var(--visborder) solid var(--viscolor);
 }
@@ -191,6 +235,10 @@ html, body, #map {
   width: 1360px;
 }
 
+#Calendar {
+  height: 300px;
+width: 1360px;
+}
 #abNormal_label {
   height: 640px;
 }
@@ -256,42 +304,49 @@ html, body, #map {
 }
 
 #sort_button {
-  position:relative;
-  top: 50px;
+  float:left;
+  /*top: 0px;
   left: 34px;
-  z-index: 20;
+  z-index: 20;*/
 }
 
 #error_fromdate {
-  position:relative;
+  padding-left: 3px;
+  padding-right: 3px;
+  padding-top: 5px;
   float: left;
+  /*position:relative;
   bottom: 24px;
   left: 34px;
-  z-index: 20;
+  z-index: 20;*/
 }
 
 #error_fromdatepicker {
-  position:relative;
   float: left;
+  /*position:relative;
   bottom: 31px;
   left: 39px;
-  z-index: 20;
+  z-index: 20;*/
 }
 
 #error_todate {
-  position:relative;
+  padding-left: 3px;
+  padding-right: 3px;
+  padding-top: 5px;
   float: left;
+  /*position:relative;
   bottom: 24px;
   left: 84px;
   z-index: 20;
+  */
 }
 
 #error_todatepicker {
-  position:relative;
   float: left;
+  /*position:relative;
   bottom: 31px;
   left: 89px;
-  z-index: 20;
+  z-index: 20;*/
 }
 
 #vdsidBargraph {

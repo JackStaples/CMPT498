@@ -94,7 +94,7 @@ class NavElem extends React.Component{
       );
 
 		}
-		
+
 		else if (eventKey === 2){
 			ReactDOM.render(
 				<Errors locationName={this.state.locationName} target={this.state.selected} sort={true} setSelected={this.setSelected} dateFrom={this.state.dateFrom} dateTo={this.state.dateTo}/>,
@@ -155,7 +155,7 @@ class NavElem extends React.Component{
 		});
 	}
 
-	updateColumnNav(e) { 
+	updateColumnNav(e) {
 		this.setState({
 			column: e
 		});
@@ -178,7 +178,7 @@ class NavElem extends React.Component{
         document.getElementById('thebigmap')
       );
 	}
-	
+
 	setSelected(e) {
 		this.setState({
 			selected: e
@@ -229,7 +229,7 @@ class NavElem extends React.Component{
 				document.getElementById('widgets')
 			);
 			ReactDOM.render(
-				<DataWidgetsCalendar setLane={this.setLane} lane={this.state.lane} locationName={this.state.locationName} updateFromDateNav={this.updateFromDateNav} updateToDateNav={this.updateToDateNav} hexColumn={this.state.hexColumn} 
+				<DataWidgetsCalendar setLane={this.setLane} lane={this.state.lane} locationName={this.state.locationName} updateFromDateNav={this.updateFromDateNav} updateToDateNav={this.updateToDateNav} hexColumn={this.state.hexColumn}
 				updateYearNav={this.updateYearNav} updateColumnNav={this.updateColumnNav}  updateHexColumn={this.updateHexColumn}
 				selected={this.state.selected} dateFrom={this.state.dateFrom} dateTo={this.state.dateTo} column={this.state.column} year={this.state.year}/>,
 				document.getElementById('widgets')
@@ -377,7 +377,9 @@ class DataWidgetsCalendar extends React.Component {
         <Button onClick={this.update} > Submit </Button>
       </div>
       <div id="column_selector">
+				<div id="colselect_label">
         <p> Column Selector </p>
+				</div>
         <DropdownButton bsStyle="default" title={this.state.column} onSelect={this.updateColumn}>
           <MenuItem eventKey="occ">Occupancy</MenuItem>
           <MenuItem eventKey="speed">Speed</MenuItem>
@@ -385,7 +387,7 @@ class DataWidgetsCalendar extends React.Component {
         </DropdownButton>
       </div>
       <div id="hexcolumn_selector">
-        <p> Hexbin Selector </p>
+        <p> select column </p>
         <DropdownButton bsStyle="default" title={this.state.hexColumn} onSelect={this.updateColumnHexbin}>
           <MenuItem eventKey="occ">Occupancy</MenuItem>
           <MenuItem eventKey="speed">Speed</MenuItem>
@@ -399,19 +401,23 @@ class DataWidgetsCalendar extends React.Component {
           <MenuItem eventKey='2017'>2017</MenuItem>
         </DropdownButton>
       </div>
+
+			<div id="lowdate_label">
+				<p> From Date </p>
+			</div>
+
       <div id="lowdatetimepicker">
-        <p> From Date </p>
         <DateTimePicker id="test2" defaultValue={new Date("2016/09/03")} onSelect={this.dateUpdate}>
         </DateTimePicker>
       </div>
+
+			<div id="highdate_label">
+				<p> To Date </p>
+			</div>
       <div id="highdatetimepicker">
-        <p> To Date </p>
         <DateTimePicker id="test" defaultValue={new Date("2016/09/04")} onSelect={this.dateUpdate2}>
         </DateTimePicker>
       </div>
-			<div id="SubmitButton">
-				<Button onClick={this.update} > Submit </Button>
-			</div>
 			<div id="ButtonToolbar">
 			<ButtonToolbar>
       <ToggleButtonGroup type="radio" name="lanes" defaultValue={this.state.lane} onChange={this.laneChange}>
@@ -497,7 +503,7 @@ class DataWidgetsRealTime extends React.Component {
 		<div id="realTimeSubBttn" >
 			<Button onClick={this.update}> Submit </Button>
 		</div>
-		<div id="ButtonToolbar">
+		<div id="realTimeButtonToolbar">
 			<ButtonToolbar>
       <ToggleButtonGroup type="radio" name="lanes">
         <ToggleButton value={1}>Lane 1</ToggleButton>
@@ -533,7 +539,7 @@ class DataWidgetsError extends React.Component {
 	}
 
   sortBoolean(){
-    if (this.swapCheck.sort === true){ 
+    if (this.swapCheck.sort === true){
       this.swapCheck.sort = false;
       return this.swapCheck.sort;
     } else {
@@ -541,7 +547,7 @@ class DataWidgetsError extends React.Component {
       return this.swapCheck.sort;
     }
   }
-  
+
 	dateUpdate2(eventKey){
   		console.log("This is the event key this is the issue" + eventKey);
   		this.setState({
@@ -568,7 +574,7 @@ class DataWidgetsError extends React.Component {
       document.getElementById('container')
     );
   }
-  
+
   update(){
     console.log("This update ran for some unknown goddamn reason")
     this.rerenderSorted();
@@ -587,7 +593,7 @@ class DataWidgetsError extends React.Component {
   }
 
 
-  
+
 	render() {
 		return (
 		<div>
@@ -603,13 +609,16 @@ class DataWidgetsError extends React.Component {
 				<DateTimePicker id="test2" defaultValue={new Date(this.props.dateFrom)} onSelect={this.dateUpdate}>
         </DateTimePicker>
 			</div>
+
+			<div id="error_todate">
+				<p> To Date </p>
+			</div>
+
 			<div id="error_todatepicker">
 				<DateTimePicker id="test" defaultValue={new Date(this.props.dateTo)} onSelect={this.dateUpdate2}>
         </DateTimePicker>
         </div>
-        <div id="SubmitButton">
-				<Button onClick={this.updatePage} > Submit </Button>
-		</div>
+
 		</div>
 		);
 	}
@@ -644,7 +653,7 @@ class RealTime extends React.Component {
 
 	componentDidMount() {
     var opts = {
-      
+
   lines: 10, // The number of lines to draw
   length: 9, // The length of each line
   width: 5, // The line thickness
@@ -685,7 +694,7 @@ class Historical extends React.Component {
 	render(){
 		return (
 			<div id="historical">
-			<h2>{this.props.test + " on " + this.props.locationName + "(" + this.props.selected + ") from " + this.props.year}</h2>
+
 				<div  id="Calendar">
 					<div ref={ renderCalendar("#Calendar", this.props.year, this.props.test) } />
        		 </div>
@@ -695,7 +704,7 @@ class Historical extends React.Component {
 					id="hexbin"
 					ref={ renderHexbin("#hexbin", this.props.test, this.props.hexColumn, this.props.dateFrom, this.props.dateTo) }
 				/>
-				<div id="abNormal_label"><h2>S</h2></div>
+
 				<h2>{this.props.test + " on " + this.props.locationName + "(" + this.props.selected +  ") from " + new Date(this.props.dateFrom).toLocaleString() + " to " + new Date(this.props.dateTo).toLocaleString()}</h2>
 				<div
 					id="historicalScatterplot"
@@ -703,15 +712,13 @@ class Historical extends React.Component {
 				/>
 				<h2>{this.props.test + " on " + this.props.locationName + "(" + this.props.selected +  ") from " + new Date(this.props.dateFrom).toLocaleString() + " to " + new Date(this.props.dateTo).toLocaleString()}</h2>
 				<TableElemGen type={0} vdsID={this.props.selected} column={this.props.test} lowDate={this.props.dateFrom} highDate={this.props.dateTo} live={false}/>
-				<div id="historicalScatterplot_label">
-					<h2>Scatterplot</h2>
-				</div>
+
 			</div>
 		);
 	}
 	componentDidMount() {
         var opts = {
-      
+
   lines: 10, // The number of lines to draw
   length: 9, // The length of each line
   width: 5, // The line thickness
@@ -765,7 +772,7 @@ export default class Errors extends React.Component {
 	}
 	componentDidMount() {
     var opts = {
-      
+
   lines: 10, // The number of lines to draw
   length: 9, // The length of each line
   width: 5, // The line thickness
