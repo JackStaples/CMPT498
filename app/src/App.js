@@ -497,6 +497,16 @@ class DataWidgetsRealTime extends React.Component {
 		<div id="realTimeSubBttn" >
 			<Button onClick={this.update}> Submit </Button>
 		</div>
+		<div id="ButtonToolbar">
+			<ButtonToolbar>
+      <ToggleButtonGroup type="radio" name="lanes">
+        <ToggleButton value={1}>Lane 1</ToggleButton>
+        <ToggleButton value={2}>Lane 2</ToggleButton>
+        <ToggleButton value={3}>Lane 3</ToggleButton>
+        <ToggleButton value={4}>Lane 4</ToggleButton>
+      </ToggleButtonGroup>
+    	</ButtonToolbar>
+    	</div>
 
 		</div>
 		);
@@ -519,6 +529,7 @@ class DataWidgetsError extends React.Component {
     this.rerenderSorted = this.rerenderSorted.bind(this);
     this.dateUpdate = this.dateUpdate.bind(this);
     this.dateUpdate2 = this.dateUpdate2.bind(this);
+    this.updatePage = this.updatePage.bind(this);
 	}
 
   sortBoolean(){
@@ -563,6 +574,18 @@ class DataWidgetsError extends React.Component {
     this.rerenderSorted();
   }
 
+  updatePage(){
+  	ReactDOM.render(
+        <div id="unseen">
+        </div>,
+      document.getElementById('container')
+		);
+    ReactDOM.render(
+      <Errors locationName={this.state.locationName} target={this.props.selected} sort={this.swapCheck.sort} setSelected={this.props.setSelected} dateFrom={this.state.dateFrom} dateTo={this.state.dateTo}/>,
+      document.getElementById('container')
+    );
+  }
+
 
   
 	render() {
@@ -580,16 +603,12 @@ class DataWidgetsError extends React.Component {
 				<DateTimePicker id="test2" defaultValue={new Date(this.props.dateFrom)} onSelect={this.dateUpdate}>
         </DateTimePicker>
 			</div>
-
-		
-		<Button id="sortIncorrect"> Sort by Errors 
-    </Button>
 			<div id="error_todatepicker">
 				<DateTimePicker id="test" defaultValue={new Date(this.props.dateTo)} onSelect={this.dateUpdate2}>
         </DateTimePicker>
         </div>
         <div id="SubmitButton">
-				<Button onClick={this.update} > Submit </Button>
+				<Button onClick={this.updatePage} > Submit </Button>
 		</div>
 		</div>
 		);
