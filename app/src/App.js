@@ -639,6 +639,9 @@ class DataWidgetsError extends React.Component {
 				<DateTimePicker id="test" defaultValue={new Date(this.props.dateTo)} onSelect={this.dateUpdate2}>
         </DateTimePicker>
         </div>
+				<div id="errSubmitButton">
+	       <Button onClick={this.updatePage} > Submit </Button>
+	      </div>
 
 		</div>
 		);
@@ -662,12 +665,20 @@ class RealTime extends React.Component {
 
 					ref={ renderScatterplotv2("#realTimeScatterplot", this.props.selected,this.props.column, this.props.dateFrom, this.props.dateTo,this.props.lane, true) }
 				/>
-				<h2>{ this.props.column + " on " + this.props.locationName + "(" + this.props.selected + ") from " + new Date(this.props.dateFrom).toLocaleString() + " to " + new Date(this.props.dateTo).toLocaleString()} </h2>
+				<div id="realTimespacertop">
+					<h2>{ this.props.column + " on " + this.props.locationName + "(" + this.props.selected + ") from " + new Date(this.props.dateFrom).toLocaleString() + " to " + new Date(this.props.dateTo).toLocaleString()} </h2>
+				</div>
+
 				<div
 					id="realTimeLinegraph"
 					ref={ renderLinegraphv2("#realTimeLinegraph",this.props.selected,this.props.column,this.props.dateFrom,this.props.dateTo, 7, this.props.lane, true) }
 				/>
+				<div id="realTimespacerbttm">
+					<h2>{ this.props.column + " on " + this.props.locationName + "(" + this.props.selected + ") from " + new Date(this.props.dateFrom).toLocaleString() + " to " + new Date(this.props.dateTo).toLocaleString()} </h2>
+				</div>
+				<div id="realTimetablespacer">
         <TableElemGen type={0} vdsID={this.props.selected} column={this.props.column} lowDate={this.props.dateFrom} highDate={this.props.dateTo} live={true}/>
+				</div>
       		</div>
 		);
 	}
@@ -725,15 +736,20 @@ class Historical extends React.Component {
 					id="hexbin"
 					ref={ renderHexbin("#hexbin", this.props.test, this.props.hexColumn, this.props.dateFrom, this.props.dateTo) }
 				/>
+				<div id="historicalspacertop">
+					<h2>{this.props.test + " on " + this.props.locationName + "(" + this.props.selected +  ") from " + new Date(this.props.dateFrom).toLocaleString() + " to " + new Date(this.props.dateTo).toLocaleString()}</h2>
+					</div>
 
-				<h2>{this.props.test + " on " + this.props.locationName + "(" + this.props.selected +  ") from " + new Date(this.props.dateFrom).toLocaleString() + " to " + new Date(this.props.dateTo).toLocaleString()}</h2>
 				<div
 					id="historicalScatterplot"
 					ref={ renderScatterplotv2("#historicalScatterplot", this.props.selected, this.props.test, this.props.dateFrom, this.props.dateTo , this.props.lane, false) }
 				/>
+				<div id="historicalspacerbttm">
 				<h2>{this.props.test + " on " + this.props.locationName + "(" + this.props.selected +  ") from " + new Date(this.props.dateFrom).toLocaleString() + " to " + new Date(this.props.dateTo).toLocaleString()}</h2>
+				</div>
+				<div id="historicaltablespacer">
 				<TableElemGen type={0} vdsID={this.props.selected} column={this.props.test} lowDate={this.props.dateFrom} highDate={this.props.dateTo} live={false}/>
-
+				</div>
 			</div>
 		);
 	}
@@ -781,14 +797,21 @@ export default class Errors extends React.Component {
 					id="vdsidBargraph"
 					ref={ renderBargraph(0, "#vdsidBargraph", this.props.target, this.props.sort, moment(this.props.dateFrom), moment(this.props.dateTo), this.props.setSelected) }
 				/>
+				<div id="errorspacer">
 					<h2>{"Errors by lane for " + this.props.locationName + " (" + this.props.target + ") from " + new Date(this.state.dateFrom).toLocaleString() + " to " + new Date(this.state.dateTo).toLocaleString()}</h2>
-				<svg width="1366" height="700"
+				</div>
+				<svg width="1366" height="300"
 					id="lanesBargraph"
 					ref={ renderBargraph(1, "#lanesBargraph", this.props.target, this.props.sort, moment(this.props.dateFrom), moment(this.props.dateTo), this.props.setSelected) }
 				/>
-				<h2>{"Errors by lane for " + this.props.locationName + " (" + this.props.target + ") from " + new Date(this.state.dateFrom).toLocaleString() + " to " + new Date(this.state.dateTo).toLocaleString()}</h2>
+				<div id="errorspacer2">
+					<h2>{"Errors by lane for " + this.props.locationName + " (" + this.props.target + ") from " + new Date(this.state.dateFrom).toLocaleString() + " to " + new Date(this.state.dateTo).toLocaleString()}</h2>
+					</div>
+				<div id="errorstable">
 				<TableElemGen type={1} vdsID={this.props.target} column={this.props.test} lowDate={moment(this.props.dateFrom)} highDate={moment(this.props.dateTo)} live={false}/>
+				</div>
 			</div>
+
 		);
 	}
 	componentDidMount() {

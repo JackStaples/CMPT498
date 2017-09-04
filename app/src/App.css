@@ -29,10 +29,12 @@ html, body, #map {
   padding-left: 100px;
 }
 
+#widgets > [data-reactroot] { height: 0px; }
+
 #lowdate_label {
   position:relative;
   float: left;
-  top: 692px;
+  top: 977px;
   left: 65px;
   z-index: 20;
 }
@@ -40,7 +42,7 @@ html, body, #map {
 #lowdatetimepicker {
   position:relative;
   float: left;
-  top: 685px;
+  top: 970px;
   left: 70px;
   z-index: 20;
 }
@@ -48,7 +50,7 @@ html, body, #map {
 #highdate_label {
   position:relative;
   float: left;
-  top: 692px;
+  top: 977px;
   left: 75px;
   z-index: 20;
 }
@@ -56,7 +58,7 @@ html, body, #map {
 #highdatetimepicker {
   position:relative;
   float: left;
-  top: 685px;
+  top: 970px;
   left: 80px;
   z-index: 20;
 }
@@ -71,7 +73,7 @@ html, body, #map {
 #SubmitButton {
   position:relative;
   float: left;
-  top: 685px;
+  top: 970px;
   left: 1060px;
   z-index: 20;
 }
@@ -80,15 +82,15 @@ html, body, #map {
   position:relative;
   /*float: left;*/
   width: 80px;
-  top: 652px;
-  left: 344px;
+  top: 602px;
+  left: 644px;
   z-index: 20;
 }
 
 #column_selector {
   position:relative;
   float: left;
-  top: 686px;
+  top: 970px;
   right: 70px;
   z-index: 20;
 }
@@ -112,31 +114,23 @@ html, body, #map {
   position:relative;
   float: left;
   top: 1140px;
-  right: 90px;
+  right: 62px;
   z-index: 20;
 }
 
 #year_selector {
   position:relative;
   float: left;
-  top: 730px;
-  right: 320px;
-  z-index: 20;
-}
-
-#year_label {
-  position:relative;
-  float: left;
-  top: 1750px;
-  right: 700px;
+  top: 630px;
+  right: 148px;
   z-index: 20;
 }
 
 #realTimeButtonToolbar {
   position:relative;
   /*float: left;*/
-  top: 618px;
-  left: 420px;
+  top: 568px;
+  left: 344px;
   z-index: 20;
   width: 300px;
   /*height: 170px;*/
@@ -145,7 +139,7 @@ html, body, #map {
 #ButtonToolbar {
   position:relative;
   /*float: left;*/
-  top: 622px;
+  top: 906px;
   left: 192px;
   z-index: 20;
   width: 300px;
@@ -153,7 +147,7 @@ html, body, #map {
 #realTimecolumn_selector {
   position:relative;
   /*float: left;*/
-  top: 720px;
+  top: 670px;
   left: 10px;
   z-index: 20;
   /*display: inline-block;*/
@@ -162,7 +156,7 @@ html, body, #map {
 #realTimedatepicker {
   position:relative;
   /*float: left;*/
-  top: 686px;
+  top: 636px;
   left: 90px;
   width: 250px;
   z-index: 20;
@@ -173,7 +167,20 @@ html, body, #map {
   padding-left: 0px;
   border-radius: 5px;
 }
-
+#realTimespacertop {
+  position:relative;
+  top: 20px;
+  right: 0px;
+  z-index: 20;
+  padding-bottom: 40px;
+}
+#realTimespacerbttm {
+  position:relative;
+  top: 20px;
+  right: 0px;
+  z-index: 20;
+  padding-bottom: 40px;
+}
 #Realtime h2 {
   text-align: left;
 }
@@ -190,7 +197,7 @@ html, body, #map {
 #thebigmap {
   position:relative;
   /*float: left;*/
-  bottom: 0px;
+  bottom: 70px;
   left: 0px;
   /*width: 250px;*/
   z-index: 20;
@@ -215,15 +222,34 @@ html, body, #map {
   width: 1360px;
 }
 
-#hexbin_label {
+#hexbin_label h2{
+  text-align: left;
+  padding-top: 20px;
   padding-bottom: 20px;
 }
 
-#hexbin_label h2 {
+#historicalspacertop {
   position:relative;
-  top: 20px;
+  top: 30px;
   right: 0px;
   z-index: 20;
+  padding-bottom: 40px;
+}
+
+#historicalspacertop h2 {
+    text-align: left;
+}
+
+#historicalspacerbttm {
+  position:relative;
+  top: 30px;
+  right: 0px;
+  z-index: 20;
+  padding-bottom: 40px;
+}
+
+#historicalspacerbttm h2{
+    text-align: left;
 }
 
 #historicalScatterplot {
@@ -235,9 +261,17 @@ html, body, #map {
   width: 1360px;
 }
 
+#historicaltablespacer {
+  height: 1550px;
+  width: 1360px;
+}
+#realTimetablespacer {
+  height: 1000px;
+  width: 1360px;
+}
 #Calendar {
   height: 300px;
-width: 1360px;
+  width: 1360px;
 }
 #abNormal_label {
   height: 640px;
@@ -300,7 +334,34 @@ width: 1360px;
 }
 
 #Errors h2 {
-  text-align: center;
+  text-align: left;
+}
+#errorspacer {
+  position:relative;
+  top: 20px;
+  right: 0px;
+  z-index: 20;
+  padding-bottom: 30px;
+}
+
+#errorspacer h2{
+  /*text-align: left;*/
+}
+
+#errorspacer2 {
+  position:relative;
+  top: 20px;
+  right: 0px;
+  z-index: 20;
+  padding-bottom: 30px;
+}
+
+#errorspacer2 h2{
+  /*text-align: left;*/
+}
+#errorstable {
+  width: 1366px;
+  height: 875px;
 }
 
 #sort_button {
@@ -311,14 +372,19 @@ width: 1360px;
 }
 
 #error_fromdate {
-  padding-left: 3px;
-  padding-right: 3px;
+  padding-left: 8px;
+  padding-right: 8px;
   padding-top: 5px;
   float: left;
   /*position:relative;
   bottom: 24px;
   left: 34px;
   z-index: 20;*/
+}
+
+#errSubmitButton {
+  float: left;
+  padding-left: 15px;
 }
 
 #error_fromdatepicker {
@@ -330,8 +396,8 @@ width: 1360px;
 }
 
 #error_todate {
-  padding-left: 3px;
-  padding-right: 3px;
+  padding-left: 8px;
+  padding-right: 8px;
   padding-top: 5px;
   float: left;
   /*position:relative;

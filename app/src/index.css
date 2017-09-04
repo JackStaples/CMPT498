@@ -12,7 +12,7 @@ body {
 
 #appheader {
   padding-top: 0px;
-  height: 210px;
+  height: 170px;
 }
 
 #maintitle h1 {
@@ -21,11 +21,16 @@ body {
   font: "Ariel";
 }
 
-#subtitle h2 {
+
+#maintitle h2 {
+  text-align: left;
+  font: "Ariel";
+  font-size: 30px;
+  color: grey;
+}
+
+#subtitle  {
     padding-top: 100px;
-    text-align: center;
-    font: "Ariel";
-    font-size: 30px;
 }
 
 .main_container {
@@ -53,7 +58,7 @@ body {
 
 #wellContainer {
   width: 98%;
-  padding-top: -1px;
+  padding-top: 0px;
   padding-left: 0px;
   height: 3400px;
   border-radius: var(--radius);
@@ -78,25 +83,15 @@ body {
 #widgets {
 padding-top: 5px;
 padding-left: 10px;
-height: 50px;
+height: 0px;
 }
 
 #realTimeSubBttn {
   padding-left: 0px;
 }
 
-#realTimecolumn_selector {
-  /*position:relative;
-  width: 200px;
-  float: left;
-  left: 10px;
-  top: 500px;
-  z-index: 20;*/
-}
-
 #container {
   float: left;
-	padding-top: 40px;
+	padding-top: 10px;
   padding-left: 10px;
-  /*background-color: #fdfcfc !important;*/
 }
