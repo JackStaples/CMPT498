@@ -20,6 +20,12 @@ export const RenderGoogleMap = withGoogleMap(props => (
       <Marker
         {...marker}
         onClick={() => props.onMarkerClick(marker)}
+        icon={() => 
+           {
+          url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
+          Size: 3
+        };
+        }  
       />
     ))}
   </GoogleMap>

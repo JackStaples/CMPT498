@@ -2,8 +2,9 @@ import * as d3 from 'd3';
 import get, { httpGet } from './getRequest.js';
 
 
-
-export function renderCalendar(target, year, occ){
+var f
+export function renderCalendar(target, year, occ, func){
+  f = func
   var queryString = "http://localhost:3001/calendar?column=" + occ + "&year=" + year;
   httpGet(queryString, target, handleCalendar);
 }
@@ -15,6 +16,7 @@ var data = response.recordset;
     console.log("Hey it worked")
     return
   }
+  f()
 var property = Object.keys(data[0]);
 var max = 0;
 var min = 1000;

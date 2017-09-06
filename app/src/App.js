@@ -40,6 +40,10 @@ class NavElem extends React.Component{
     		lane: 1,
     		hour: 7,
     	};
+    	this.fuck = {
+    		count: 0,
+    		disabled: true
+    	}
     	this.setSelected = this.setSelected.bind(this);
     	this.setCurrentTab = this.setCurrentTab.bind(this);
     	this.handleSelect = this.handleSelect.bind(this);
@@ -49,12 +53,15 @@ class NavElem extends React.Component{
     	this.updateFromDateNav = this.updateFromDateNav.bind(this);
     	this.updateToDateNav = this.updateToDateNav.bind(this);
     	this.setup = this.setup.bind(this);
+    	this.updateCalendar = this.updateCalendar.bind(this);
     	this.setLocationName = this.setLocationName.bind(this);
+    	this.renderMe = this.renderMe.bind(this)
     	this.setLane = this.setLane.bind(this);
     	this.setup()
     }
 
 	handleSelect(eventKey){
+		this.fuck.count = 0
 		if (eventKey === 0){
 			ReactDOM.render(
 				<RealTime hour={this.state.hour} lane={this.state.lane} locationName={this.state.locationName} selected={this.state.selected} column={this.state.column} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment().set({ "hour": 0, "minute" : 0, "second": 0}).add(1,'d')}/>,
@@ -76,11 +83,11 @@ class NavElem extends React.Component{
 		}
 		else if (eventKey === 1){
 			ReactDOM.render(
-				<Historical lane={this.state.lane} locationName={this.state.locationName} test={this.state.column} selected={this.state.selected} date={new Date()} hexColumn={this.state.hexColumn} dateFrom={moment(this.state.dateFrom)} dateTo={moment(this.state.dateTo)} year={this.state.year}/>,
+				<Historical updateCalendar={this.updateCalendar} lane={this.state.lane} locationName={this.state.locationName} test={this.state.column} selected={this.state.selected} date={new Date()} hexColumn={this.state.hexColumn} dateFrom={moment(this.state.dateFrom)} dateTo={moment(this.state.dateTo)} year={this.state.year}/>,
 				document.getElementById('container')
 			);
 			ReactDOM.render(
-				<DataWidgetsCalendar setLane={this.setLane} lane={this.state.lane} locationName={this.state.locationName} updateFromDateNav={this.updateFromDateNav} updateToDateNav={this.updateToDateNav} hexColumn={this.state.hexColumn}
+				<DataWidgetsCalendar me={this.renderMe} updateCalendar={this.updateCalendar} disabled={this.fuck.disabled} setLane={this.setLane} lane={this.state.lane} locationName={this.state.locationName} updateFromDateNav={this.updateFromDateNav} updateToDateNav={this.updateToDateNav} hexColumn={this.state.hexColumn}
 				updateHexColumn={this.updateHexColumn} column={this.state.column} updateColumnNav={this.updateColumnNav} updateYearNav={this.updateYearNav}
 				selected={this.state.selected} year={this.state.year} dateFrom={this.state.dateFrom} dateTo={this.state.dateTo}/>,
 				document.getElementById('widgets')
@@ -111,6 +118,39 @@ class NavElem extends React.Component{
 				document.getElementById('thebigmap')
 			);
 			this.setCurrentTab(2);
+		}
+	}
+
+	renderMe(){
+		this.fuck.disabled = true;
+			ReactDOM.render(
+				<Refresh/>,
+				document.getElementById('widgets')
+			);
+
+			ReactDOM.render(
+				<DataWidgetsCalendar me={this.renderMe} updateCalendar={this.updateCalendar} disabled={this.fuck.disabled} setLane={this.setLane} lane={this.state.lane} locationName={this.state.locationName} updateFromDateNav={this.updateFromDateNav} updateToDateNav={this.updateToDateNav} hexColumn={this.state.hexColumn}
+				updateHexColumn={this.updateHexColumn} column={this.state.column} updateColumnNav={this.updateColumnNav} updateYearNav={this.updateYearNav}
+				selected={this.state.selected} year={this.state.year} dateFrom={this.state.dateFrom} dateTo={this.state.dateTo}/>,
+				document.getElementById('widgets')
+				);
+		}
+
+	updateCalendar(){
+		this.fuck.count += 1
+		if (this.fuck.count == 2){
+			this.fuck.disabled = false;
+			ReactDOM.render(
+				<Refresh/>,
+				document.getElementById('widgets')
+			);
+
+			ReactDOM.render(
+				<DataWidgetsCalendar me={this.renderMe} updateCalendar={this.updateCalendar} disabled={this.fuck.disabled} setLane={this.setLane} lane={this.state.lane} locationName={this.state.locationName} updateFromDateNav={this.updateFromDateNav} updateToDateNav={this.updateToDateNav} hexColumn={this.state.hexColumn}
+				updateHexColumn={this.updateHexColumn} column={this.state.column} updateColumnNav={this.updateColumnNav} updateYearNav={this.updateYearNav}
+				selected={this.state.selected} year={this.state.year} dateFrom={this.state.dateFrom} dateTo={this.state.dateTo}/>,
+				document.getElementById('widgets')
+				);
 		}
 	}
 
@@ -185,6 +225,8 @@ class NavElem extends React.Component{
 		this.setState({
 			selected: e
 		},function() {
+			this.fuck.count = 0;
+			this.fuck.disabled = true;
 
 		ReactDOM.render(
 		<Refresh/>,
@@ -223,7 +265,7 @@ class NavElem extends React.Component{
 				document.getElementById('container')
 			);
 			ReactDOM.render(
-				<Historical lane={this.state.lane} locationName={this.state.locationName} selected={this.state.selected} hexColumn={this.state.hexColumn} year={this.state.year} test={this.state.column} date={moment(this.state.date)} dateTo={moment(this.state.dateTo)} dateFrom={moment(this.state.dateFrom)}/>,
+				<Historical updateCalendar={this.updateCalendar} lane={this.state.lane} locationName={this.state.locationName} selected={this.state.selected} hexColumn={this.state.hexColumn} year={this.state.year} test={this.state.column} date={moment(this.state.date)} dateTo={moment(this.state.dateTo)} dateFrom={moment(this.state.dateFrom)}/>,
 				document.getElementById('container')
 			);
 			ReactDOM.render(
@@ -231,7 +273,7 @@ class NavElem extends React.Component{
 				document.getElementById('widgets')
 			);
 			ReactDOM.render(
-				<DataWidgetsCalendar setLane={this.setLane} lane={this.state.lane} locationName={this.state.locationName} updateFromDateNav={this.updateFromDateNav} updateToDateNav={this.updateToDateNav} hexColumn={this.state.hexColumn} 
+				<DataWidgetsCalendar me={this.renderMe} updateCalendar={this.updateCalendar} disabled={this.fuck.disabled} setLane={this.setLane} lane={this.state.lane} locationName={this.state.locationName} updateFromDateNav={this.updateFromDateNav} updateToDateNav={this.updateToDateNav} hexColumn={this.state.hexColumn} 
 				updateYearNav={this.updateYearNav} updateColumnNav={this.updateColumnNav}  updateHexColumn={this.updateHexColumn}
 				selected={this.state.selected} dateFrom={this.state.dateFrom} dateTo={this.state.dateTo} column={this.state.column} year={this.state.year}/>,
 				document.getElementById('widgets')
@@ -285,6 +327,7 @@ class DataWidgetsCalendar extends React.Component {
 
 	constructor(props) {
     	super(props);
+    	console.log("uuu", props)
     	this.update = this.update.bind(this);
     	this.reRender = this.reRender.bind(this);
     	this.dateUpdate = this.dateUpdate.bind(this);
@@ -301,7 +344,8 @@ class DataWidgetsCalendar extends React.Component {
     				hexColumn: this.props.hexColumn,
     				selected: this.props.selected,
     				locationName: this.props.locationName,
-    				lane: this.props.lane};
+    				lane: this.props.lane,
+    				disabled: this.props.disabled};
 
   	}
 
@@ -318,6 +362,7 @@ class DataWidgetsCalendar extends React.Component {
 
   	componentDidUpdate(){
   		this.reRender()
+  		this.props.me()
   	}
 
   	laneChange(e) {
@@ -370,7 +415,7 @@ class DataWidgetsCalendar extends React.Component {
 			);
 		console.log("This is what is being passed in" + this.state.selected)
   		ReactDOM.render(
-				<Historical lane={this.state.lane} locationName={this.state.locationName} test={this.state.column} selected={this.state.selected} date={moment(this.state.date)} dateTo={moment(this.state.dateTo)} dateFrom={moment(this.state.dateFrom)} year={this.state.year}
+				<Historical updateCalendar={this.props.updateCalendar} lane={this.state.lane} locationName={this.state.locationName} test={this.state.column} selected={this.state.selected} date={moment(this.state.date)} dateTo={moment(this.state.dateTo)} dateFrom={moment(this.state.dateFrom)} year={this.state.year}
 				hexColumn={this.state.hexColumn}/>,
 				document.getElementById('container')
 			);
@@ -409,7 +454,7 @@ class DataWidgetsCalendar extends React.Component {
       </div>
       <div id="lowdatetimepicker">
         <p> From Date </p>
-        <DateTimePicker id="test2" defaultValue={new Date(this.state.dateFrom)} onSelect={this.dateUpdate}>
+        <DateTimePicker disabled={this.state.disabled} id="test2" defaultValue={new Date(this.state.dateFrom)} onSelect={this.dateUpdate}>
         </DateTimePicker>
       </div>
       <div id="highdatetimepicker">
@@ -752,13 +797,13 @@ class Historical extends React.Component {
 			<div id="historical">
 			<h2>{this.props.test + " on " + this.props.locationName + " (" + this.props.selected + ") from " + this.props.year}</h2>
 				<div  id="Calendar">
-					<div ref={ renderCalendar("#Calendar", this.props.year, this.props.test) } />
+					<div ref={ renderCalendar("#Calendar", this.props.year, this.props.test, this.props.updateCalendar) } />
        		 </div>
 
 				<div id="hexbin_label"><h2>{this.props.test + " and " + this.props.hexColumn +  " on " + this.props.locationName + " (" + this.props.selected +  "): " + moment(this.props.dateFrom)._d.toLocaleString() + " - " + moment(this.props.dateTo)._d.toLocaleString()}</h2></div>
 				<div
 					id="hexbin"
-					ref={ renderHexbin("#hexbin", this.props.test, this.props.hexColumn, this.props.dateFrom, this.props.dateTo) }
+					ref={ renderHexbin("#hexbin", this.props.test, this.props.hexColumn, this.props.dateFrom, this.props.dateTo,this.props.updateCalendar) }
 				/>
 				<div id="abNormal_label"><h2>S</h2></div>
 				<h2>{this.props.test + " on " + this.props.locationName + " (" + this.props.selected +  "): " + new Date(this.props.dateFrom).toLocaleString() + " - " + new Date(this.props.dateTo).toLocaleString()}</h2>
