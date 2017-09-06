@@ -84,6 +84,7 @@ function handleBargraph(target, response, sort){
         var xAxis = d3.axisBottom(x).ticks(null, "s");
         
         g.append('g')
+          .style("font", "14px times")
           .attr('transform', 'translate(0,' + height + ')')
           .attr('class', 'axis')
           .call(xAxis);
@@ -94,6 +95,7 @@ function handleBargraph(target, response, sort){
 
         // append the y-axis to the chart
         g.append('g')
+          .style("font", "14px times")
           .attr('transform', 'translate(0,0)')
           .attr('class', 'axis')
           .call(yAxis);

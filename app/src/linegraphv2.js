@@ -115,6 +115,7 @@ function handleLinegraphv2(target, response){
 
           // append the x-axis
           main.append('g')
+            .style("font", "14px times")
             .attr('transform', 'translate(0,' + height + ')')
             .attr('class', 'main axis date')
             .call(xAxis);
@@ -124,6 +125,7 @@ function handleLinegraphv2(target, response){
 
           // append the y-axis to the chart
           main.append('g')
+            .style("font", "14px times")
             .attr('transform', 'translate(0,0)')
             .attr('class', 'main axis date')
             .call(yAxis);
@@ -137,7 +139,7 @@ function handleLinegraphv2(target, response){
             g.append("path")
             .datum(lanes[i])
             .attr("fill", "none")
-            .attr("stroke", function(){ if (lanes[i][0][property[1]] == lane){return "OrangeRed"} else { return "#D3D3D3"} })
+            .attr("stroke", function(){ if (lanes[i][0][property[1]] == lane){return "#ff4500"} else { return "#D3D3D3"} })
             .attr("stroke-width", 2)
             .attr("d", line)
             .append("title")
@@ -146,53 +148,6 @@ function handleLinegraphv2(target, response){
             }
           }
           
-          
-          /*if (lanesOne.length > 0){
-          // Add the first line
-          g.append("path")
-            .attr("fill", "none")
-            .attr("stroke", "#FFA686")
-            .attr("stroke-width", 2)
-            .datum(lanesOne)
-            .attr("d", line)
-            .append("title")
-              .text(function() { return "Lane: " + lanesOne[0][property[1]] });
-          }
-
-          if (lanesTwo.length > 0){
-          // Add the second line
-          g.append("path")
-            .attr("fill", "none")
-            .attr("stroke", "#FF7A49")
-            .attr("stroke-width", 2)
-            .datum(lanesTwo)
-            .attr("d", line)
-            .append("title")
-              .text(function() { return "Lane: " + lanesTwo[0][property[1]] });
-          }
-          if (lanesThree.length > 0){
-          // Add the third line
-          g.append("path")
-            .attr("fill", "none")
-            .attr("stroke", "#8B2600")
-            .attr("stroke-width", 2)
-            .datum(lanesThree)
-            .attr("d", line)
-            .append("title")
-              .text(function() { return "Lane: " + lanesThree[0][property[1]] });
-          }
-
-          if (lanesFour.length > 0){
-          // Add the fourth line
-          g.append("path")
-            .attr("fill", "none")
-            .attr("stroke", "#1F0800")
-            .attr("stroke-width", 2)
-            .datum(lanesFour)
-            .attr("d", line)
-            .append("title")
-              .text(function() { return "Lane " + lanesFour[0][property[1]] });
-          }*/
         //this section adds the titles to the chart
         // y-axis title
         chart.append("text")
@@ -207,33 +162,11 @@ function handleLinegraphv2(target, response){
           .text(property[0]);
 
         // header title
-        /*chart.append("text")
+        chart.append("text")
+          .style('fill', '#ff4500')
           .attr("text-anchor", "middle")
           .attr("transform", "translate(" + width/2 + "," + (margin.top-15) + ")")
-          .text(property[1] + " of different lanes from " + data[lowestTime][property[0]].toLocaleString() + " to " + data[highestTime][property[0]].toLocaleString());
+          .text("Lane"  + lane);
 
-        var lanes = ["Lane 1", "Lane 2", "Lane 3", "Lane 4"];
-        var legend = g.append("g")
-            .attr("font-family", "sans-serif")
-            .attr("font-size", 10)
-            .attr("text-anchor", "end")
-          .selectAll("g")
-          .data(lanes.slice(0, lane))
-          .enter().append("g")
-            .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-
-          var z = d3.scaleOrdinal()
-            .range(["#800000", "#00eeee", "#00ee00", "#ffff00"]);
-          legend.append("rect")
-            .attr("x", width - 19)
-            .attr("width", 19)
-            .attr("height", 19)
-            .attr("fill", z);
-
-          legend.append("text")
-            .attr("x", width - 24)
-            .attr("y", 9.5)
-            .attr("dy", "0.32em")
-            .text(function(d) { return d; });*/
     d3.select(target+ " .spinner").html("");
 }

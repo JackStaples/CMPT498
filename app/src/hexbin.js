@@ -104,6 +104,7 @@ function handleHexbin(target, response) {
     
         // append the x-axis
         main.append('g')
+          .style("font", "14px times")
           .attr('transform', 'translate(0,' + height + ')')
           .attr('class', 'main axis')
           .call(xAxis);
@@ -113,6 +114,7 @@ function handleHexbin(target, response) {
 
         // append the y-axis to the chart
         main.append('g')
+          .style("font", "14px times")
           //.attr('transform', 'translate(0,0)')
           .attr('class', 'main axis')
           .call(yAxis);
