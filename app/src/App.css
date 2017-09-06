@@ -29,67 +29,77 @@ html, body, #map {
   padding-left: 100px;
 }
 
+#widgets > [data-reactroot] { height: 0px; }
+
 #lowdate_label {
   position:relative;
   float: left;
-  top: 10px;
-  right: 400px;
+  top: 977px;
+  left: 65px;
   z-index: 20;
 }
 
 #lowdatetimepicker {
   position:relative;
   float: left;
-  top: 3px;
-  right: 395px;
+  top: 970px;
+  left: 70px;
   z-index: 20;
 }
 
 #highdate_label {
   position:relative;
   float: left;
-  top: 10px;
-  right: 350px;
+  top: 977px;
+  left: 75px;
   z-index: 20;
 }
 
 #highdatetimepicker {
   position:relative;
   float: left;
-  top: 3px;
-  right: 345px;
+  top: 970px;
+  left: 80px;
   z-index: 20;
 }
 
 #submitButton {
   float: left;
 }
-
+/*         <div id="errSubmitButton">
+				<Button onClick={this.updatePage} > Submit </Button>
+				</div>
+*/
 #SubmitButton {
   position:relative;
   float: left;
-  top: 40px;
-  right: 961px;
+  top: 970px;
+  left: 1060px;
   z-index: 20;
 }
 
 #realTimeSubBttn {
-  float: left;
+  position:relative;
+  /*float: left;*/
+  width: 80px;
+  top: 602px;
+  left: 644px;
+  z-index: 20;
 }
 
 #column_selector {
   position:relative;
   float: left;
-  top: 1505px;
-  left: 20px;
+  top: 970px;
+  right: 70px;
   z-index: 20;
 }
 
 #colselect_label {
-  position:relative;
+  padding-top: 7px;
+  padding-right: 5px;
   float: left;
-  top: 1512px;
-  z-index: 20;
+
 }
 
 #hexselector_label {
@@ -103,34 +113,53 @@ html, body, #map {
 #hexcolumn_selector {
   position:relative;
   float: left;
-  top: 843px;
-  right: 150px;
+  top: 1140px;
+  right: 62px;
   z-index: 20;
 }
 
 #year_selector {
   position:relative;
   float: left;
-  top: 168px;
-  left: 720px;
+  top: 630px;
+  right: 148px;
   z-index: 20;
 }
 
-#year_label {
+#realTimeButtonToolbar {
   position:relative;
-  float: left;
-  top: 175px;
-  left: 700px;
+  /*float: left;*/
+  top: 568px;
+  left: 344px;
   z-index: 20;
+  width: 300px;
+  /*height: 170px;*/
 }
 
+#ButtonToolbar {
+  position:relative;
+  /*float: left;*/
+  top: 906px;
+  left: 192px;
+  z-index: 20;
+  width: 300px;
+}
 #realTimecolumn_selector {
-  float: left;
-  display: inline-block;
+  position:relative;
+  /*float: left;*/
+  top: 670px;
+  left: 10px;
+  z-index: 20;
+  /*display: inline-block;*/
 }
 
 #realTimedatepicker {
-    float: left;
+  position:relative;
+  /*float: left;*/
+  top: 636px;
+  left: 90px;
+  width: 250px;
+  z-index: 20;
 }
 
 #Realtime {
@@ -138,9 +167,22 @@ html, body, #map {
   padding-left: 0px;
   border-radius: 5px;
 }
-
+#realTimespacertop {
+  position:relative;
+  top: 20px;
+  right: 0px;
+  z-index: 20;
+  padding-bottom: 40px;
+}
+#realTimespacerbttm {
+  position:relative;
+  top: 20px;
+  right: 0px;
+  z-index: 20;
+  padding-bottom: 40px;
+}
 #Realtime h2 {
-  text-align: center;
+  text-align: left;
 }
 
 #historical {
@@ -153,6 +195,15 @@ html, body, #map {
 }
 
 #thebigmap {
+  position:relative;
+  /*float: left;*/
+  bottom: 70px;
+  left: 0px;
+  /*width: 250px;*/
+  z-index: 20;
+  float: left;
+  padding-left: 5px;
+  padding-bottom: 10px;
   border-radius: var(--radius);
   border: var(--visborder) solid var(--viscolor);
 }
@@ -171,15 +222,34 @@ html, body, #map {
   width: 1360px;
 }
 
-#hexbin_label {
+#hexbin_label h2{
+  text-align: left;
+  padding-top: 20px;
   padding-bottom: 20px;
 }
 
-#hexbin_label h2 {
+#historicalspacertop {
   position:relative;
-  top: 20px;
+  top: 30px;
   right: 0px;
   z-index: 20;
+  padding-bottom: 40px;
+}
+
+#historicalspacertop h2 {
+    text-align: left;
+}
+
+#historicalspacerbttm {
+  position:relative;
+  top: 30px;
+  right: 0px;
+  z-index: 20;
+  padding-bottom: 40px;
+}
+
+#historicalspacerbttm h2{
+    text-align: left;
 }
 
 #historicalScatterplot {
@@ -191,6 +261,18 @@ html, body, #map {
   width: 1360px;
 }
 
+#historicaltablespacer {
+  height: 1550px;
+  width: 1360px;
+}
+#realTimetablespacer {
+  height: 1000px;
+  width: 1360px;
+}
+#Calendar {
+  height: 300px;
+  width: 1360px;
+}
 #abNormal_label {
   height: 640px;
 }
@@ -252,46 +334,85 @@ html, body, #map {
 }
 
 #Errors h2 {
-  text-align: center;
+  text-align: left;
+}
+#errorspacer {
+  position:relative;
+  top: 20px;
+  right: 0px;
+  z-index: 20;
+  padding-bottom: 30px;
+}
+
+#errorspacer h2{
+  /*text-align: left;*/
+}
+
+#errorspacer2 {
+  position:relative;
+  top: 20px;
+  right: 0px;
+  z-index: 20;
+  padding-bottom: 30px;
+}
+
+#errorspacer2 h2{
+  /*text-align: left;*/
+}
+#errorstable {
+  width: 1366px;
+  height: 875px;
 }
 
 #sort_button {
-  position:relative;
-  top: 50px;
+  float:left;
+  /*top: 0px;
   left: 34px;
-  z-index: 20;
+  z-index: 20;*/
 }
 
 #error_fromdate {
-  position:relative;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 5px;
   float: left;
+  /*position:relative;
   bottom: 24px;
   left: 34px;
-  z-index: 20;
+  z-index: 20;*/
+}
+
+#errSubmitButton {
+  float: left;
+  padding-left: 15px;
 }
 
 #error_fromdatepicker {
-  position:relative;
   float: left;
+  /*position:relative;
   bottom: 31px;
   left: 39px;
-  z-index: 20;
+  z-index: 20;*/
 }
 
 #error_todate {
-  position:relative;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 5px;
   float: left;
+  /*position:relative;
   bottom: 24px;
   left: 84px;
   z-index: 20;
+  */
 }
 
 #error_todatepicker {
-  position:relative;
   float: left;
+  /*position:relative;
   bottom: 31px;
   left: 89px;
-  z-index: 20;
+  z-index: 20;*/
 }
 
 #vdsidBargraph {
