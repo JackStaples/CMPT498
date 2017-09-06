@@ -38,6 +38,7 @@ class NavElem extends React.Component{
     		year: 2016,
     		hexColumn: 'occ',
     		lane: 1,
+    		hour: 7,
     	};
     	this.setSelected = this.setSelected.bind(this);
     	this.setCurrentTab = this.setCurrentTab.bind(this);
@@ -56,11 +57,11 @@ class NavElem extends React.Component{
 	handleSelect(eventKey){
 		if (eventKey === 0){
 			ReactDOM.render(
-				<RealTime lane={this.state.lane} locationName={this.state.locationName} selected={this.state.selected} column={this.state.column} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment().set({ "hour": 0, "minute" : 0, "second": 0}).add(1,'d')}/>,
+				<RealTime hour={this.state.hour} lane={this.state.lane} locationName={this.state.locationName} selected={this.state.selected} column={this.state.column} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment().set({ "hour": 0, "minute" : 0, "second": 0}).add(1,'d')}/>,
 				document.getElementById('container')
 			);
 			ReactDOM.render(
-				<DataWidgetsRealTime setLane={this.setLane} lane={this.state.lane} locationName={this.state.locationName} updateColumnNav={this.updateColumnNav} column={this.state.column} selected={this.state.selected} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment().set({ "hour": 0, "minute" : 0, "second": 0}).add(1,'d')}/>,
+				<DataWidgetsRealTime hour={this.state.hour} setLane={this.setLane} lane={this.state.lane} locationName={this.state.locationName} updateColumnNav={this.updateColumnNav} column={this.state.column} selected={this.state.selected} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment().set({ "hour": 0, "minute" : 0, "second": 0}).add(1,'d')}/>,
 				document.getElementById('widgets')
 				);
 			this.setCurrentTab(0);
@@ -94,7 +95,7 @@ class NavElem extends React.Component{
       );
 
 		}
-		
+
 		else if (eventKey === 2){
 			ReactDOM.render(
 				<Errors locationName={this.state.locationName} target={this.state.selected} sort={true} setSelected={this.setSelected} dateFrom={this.state.dateFrom} dateTo={this.state.dateTo}/>,
@@ -147,6 +148,7 @@ class NavElem extends React.Component{
 		this.setState({
 			dateTo: e
 		});
+		console.log("dateyy", e)
 	}
 
 	updateHexColumn(e) {
@@ -155,7 +157,7 @@ class NavElem extends React.Component{
 		});
 	}
 
-	updateColumnNav(e) { 
+	updateColumnNav(e) {
 		this.setState({
 			column: e
 		});
@@ -163,11 +165,11 @@ class NavElem extends React.Component{
 
 	setup() {
 		ReactDOM.render(
-			<RealTime lane={this.state.lane} locationName={this.state.locationName}  selected={this.state.selected} column={this.state.column} dateFrom={ (moment().set({ "hour": 0, "minute" : 0, "second": 0}))} dateTo={ (moment().set({ "hour": 0, "minute" : 0, "second": 0}).add(1,'d'))}/>,
+			<RealTime hour={this.state.hour} lane={this.state.lane} locationName={this.state.locationName}  selected={this.state.selected} column={this.state.column} dateFrom={ (moment().set({ "hour": 0, "minute" : 0, "second": 0}))} dateTo={ (moment().set({ "hour": 0, "minute" : 0, "second": 0}).add(1,'d'))}/>,
 			document.getElementById('container')
 		);
 		ReactDOM.render(
-			<DataWidgetsRealTime  setLane={this.setLane} lane={this.state.lane}  column={this.state.column} locationName={this.state.locationName} updateColumnNav={this.updateColumnNav} selected={this.state.selected} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment().set({ "hour": 0, "minute" : 0, "second": 0}).add(1,'d')}/>,
+			<DataWidgetsRealTime  hour={this.state.hour} setLane={this.setLane} lane={this.state.lane}  column={this.state.column} locationName={this.state.locationName} updateColumnNav={this.updateColumnNav} selected={this.state.selected} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment().set({ "hour": 0, "minute" : 0, "second": 0}).add(1,'d')}/>,
 			document.getElementById('widgets')
 		);
     ReactDOM.render(
@@ -178,7 +180,7 @@ class NavElem extends React.Component{
         document.getElementById('thebigmap')
       );
 	}
-	
+
 	setSelected(e) {
 		this.setState({
 			selected: e
@@ -200,7 +202,7 @@ class NavElem extends React.Component{
 				document.getElementById('container')
 			);
 			ReactDOM.render(
-				<RealTime  locationName={this.state.locationName} selected={this.state.selected} column={"vol"} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment().set({ "hour": 0, "minute" : 0, "second": 0}).add(1,'d')}/>,
+				<RealTime  lane={this.state.lane} hour={this.state.hour} locationName={this.state.locationName} selected={this.state.selected} column={"vol"} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment().set({ "hour": 0, "minute" : 0, "second": 0}).add(1,'d')}/>,
 				document.getElementById('container')
 			);
 			ReactDOM.render(
@@ -208,7 +210,7 @@ class NavElem extends React.Component{
 				document.getElementById('widgets')
 			);
 			ReactDOM.render(
-				<DataWidgetsRealTime setLane={this.setLane} lane={this.state.lane} column={this.state.column} locationName={this.state.locationName} updateHexColumn={this.updateHexColumn} updateColumnNav={this.updateColumnNav} selected={this.state.selected} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment().set({ "hour": 0, "minute" : 0, "second": 0}).add(1,'d')}/>,
+				<DataWidgetsRealTime hour={this.state.hour} setLane={this.setLane} lane={this.state.lane} column={this.state.column} locationName={this.state.locationName} updateHexColumn={this.updateHexColumn} updateColumnNav={this.updateColumnNav} selected={this.state.selected} dateFrom={ moment().set({ "hour": 0, "minute" : 0, "second": 0}) } dateTo={moment().set({ "hour": 0, "minute" : 0, "second": 0}).add(1,'d')}/>,
 				document.getElementById('widgets')
 				);
 			this.setCurrentTab(0);
@@ -229,7 +231,7 @@ class NavElem extends React.Component{
 				document.getElementById('widgets')
 			);
 			ReactDOM.render(
-				<DataWidgetsCalendar setLane={this.setLane} lane={this.state.lane} locationName={this.state.locationName} updateFromDateNav={this.updateFromDateNav} updateToDateNav={this.updateToDateNav} hexColumn={this.state.hexColumn} 
+				<DataWidgetsCalendar setLane={this.setLane} lane={this.state.lane} locationName={this.state.locationName} updateFromDateNav={this.updateFromDateNav} updateToDateNav={this.updateToDateNav} hexColumn={this.state.hexColumn}
 				updateYearNav={this.updateYearNav} updateColumnNav={this.updateColumnNav}  updateHexColumn={this.updateHexColumn}
 				selected={this.state.selected} dateFrom={this.state.dateFrom} dateTo={this.state.dateTo} column={this.state.column} year={this.state.year}/>,
 				document.getElementById('widgets')
@@ -317,7 +319,7 @@ class DataWidgetsCalendar extends React.Component {
   	componentDidUpdate(){
   		this.reRender()
   	}
-  	
+
   	laneChange(e) {
   		console.log("This is the lane: ", e)
   		this.setState({
@@ -383,7 +385,9 @@ class DataWidgetsCalendar extends React.Component {
       		<div> {this.state.lane}
 		</div>
       <div id="column_selector">
+				<div id="colselect_label">
         <p> Column Selector </p>
+				</div>
         <DropdownButton bsStyle="default" title={this.state.column} onSelect={this.updateColumn}>
           <MenuItem eventKey="occ">Occupancy</MenuItem>
           <MenuItem eventKey="speed">Speed</MenuItem>
@@ -391,7 +395,7 @@ class DataWidgetsCalendar extends React.Component {
         </DropdownButton>
       </div>
       <div id="hexcolumn_selector">
-        <p> Hexbin Selector </p>
+        <p> select column </p>
         <DropdownButton bsStyle="default" title={this.state.hexColumn} onSelect={this.updateColumnHexbin}>
           <MenuItem eventKey="occ">Occupancy</MenuItem>
           <MenuItem eventKey="speed">Speed</MenuItem>
@@ -405,19 +409,25 @@ class DataWidgetsCalendar extends React.Component {
           <MenuItem eventKey='2017'>2017</MenuItem>
         </DropdownButton>
       </div>
+
+			<div id="lowdate_label">
+				<p> From Date </p>
+			</div>
+
       <div id="lowdatetimepicker">
         <p> From Date </p>
-        <DateTimePicker id="test2" defaultValue={new Date("2016/09/03")} onSelect={this.dateUpdate}>
+        <DateTimePicker id="test2" defaultValue={new Date(this.state.dateFrom)} onSelect={this.dateUpdate}>
         </DateTimePicker>
       </div>
+
+			<div id="highdate_label">
+				<p> To Date </p>
+			</div>
       <div id="highdatetimepicker">
         <p> To Date </p>
-        <DateTimePicker id="test" defaultValue={new Date("2016/09/04")} onSelect={this.dateUpdate2}>
+        <DateTimePicker id="test" defaultValue={new Date(this.state.dateTo)} onSelect={this.dateUpdate2}>
         </DateTimePicker>
       </div>
-			<div id="SubmitButton">
-				<Button onClick={this.update} > Submit </Button>
-			</div>
 			<div id="ButtonToolbar">
 			<ButtonToolbar>
       <ToggleButtonGroup type="radio" name="lanes" defaultValue={this.state.lane} onChange={this.laneChange}>
@@ -443,7 +453,8 @@ class DataWidgetsRealTime extends React.Component {
         dateTo: this.props.dateTo,
         selected: this.props.selected,
         locationName: this.props.locationName,
-        lane: this.props.lane
+        lane: this.props.lane,
+        hour: this.props.hour
     };
     console.log(this.props.column);
 
@@ -454,11 +465,18 @@ class DataWidgetsRealTime extends React.Component {
     	this.updateColumn = this.updateColumn.bind(this);
     	this.tabIndex = 5;
     	this.laneChange = this.laneChange.bind(this);
+    	this.updateHour = this.updateHour.bind(this);
 
   	}
 
   	componentDidUpdate(){
   		this.reRender()
+  	}
+
+  	updateHour(e){
+  		this.setState({
+  			hour: e
+  		})
   	}
 
   	laneChange(e) {
@@ -496,7 +514,7 @@ class DataWidgetsRealTime extends React.Component {
 				document.getElementById('container')
 			);
   		ReactDOM.render(
-				<RealTime lane={this.state.lane} locationName={this.state.locationName} selected={this.state.selected} column={this.state.column} dateTo={moment(this.state.dateTo)} dateFrom={moment(this.state.dateFrom)}/>,
+				<RealTime hour={this.state.hour} lane={this.state.lane} locationName={this.state.locationName} selected={this.state.selected} column={this.state.column} dateTo={moment(this.state.dateTo)} dateFrom={moment(this.state.dateFrom)}/>,
 				document.getElementById('container')
 			);
   	}
@@ -512,18 +530,39 @@ class DataWidgetsRealTime extends React.Component {
 			<MenuItem eventKey="speed">Speed</MenuItem>
 			<MenuItem eventKey="vol">Volume	</MenuItem>
 		</DropdownButton>
-		<div> {this.state.lane}
-		</div>
 		</div>
 
-		<div id="realTimedatepicker">
-		<DateTimePicker id="getAdate" defaultValue={this.state.dateFrom} onSelect={this.dateUpdate}/>
-		</div>
+		<DropdownButton bsStyle="default"  title={this.state.hour} onSelect={this.updateHour}>
+			<MenuItem eventKey="0">0</MenuItem>
+			<MenuItem eventKey="1">1</MenuItem>
+			<MenuItem eventKey="2">2</MenuItem>
+			<MenuItem eventKey="3">3</MenuItem>
+			<MenuItem eventKey="4">4</MenuItem>
+			<MenuItem eventKey="5">5</MenuItem>
+			<MenuItem eventKey="6">6</MenuItem>
+			<MenuItem eventKey="7">7</MenuItem>
+			<MenuItem eventKey="8">8</MenuItem>
+			<MenuItem eventKey="9">9</MenuItem>
+			<MenuItem eventKey="10">10</MenuItem>
+			<MenuItem eventKey="11">11</MenuItem>
+			<MenuItem eventKey="12">12</MenuItem>
+			<MenuItem eventKey="13">13</MenuItem>
+			<MenuItem eventKey="14">14</MenuItem>
+			<MenuItem eventKey="15">15</MenuItem>
+			<MenuItem eventKey="16">16</MenuItem>
+			<MenuItem eventKey="17">17</MenuItem>
+			<MenuItem eventKey="18">18</MenuItem>
+			<MenuItem eventKey="19">19</MenuItem>
+			<MenuItem eventKey="20">20</MenuItem>
+			<MenuItem eventKey="21">21</MenuItem>
+			<MenuItem eventKey="22">22</MenuItem>
+			<MenuItem eventKey="23">23</MenuItem>
+		</DropdownButton>
 
 		<div id="realTimeSubBttn" >
 			<Button onClick={this.update}> Submit </Button>
 		</div>
-		<div id="ButtonToolbar">
+		<div id="realTimeButtonToolbar">
 			<ButtonToolbar>
       <ToggleButtonGroup type="radio" name="lanes" defaultValue={this.state.lane} onChange={this.laneChange}>
         <ToggleButton value={1}>Lane 1</ToggleButton>
@@ -559,7 +598,7 @@ class DataWidgetsError extends React.Component {
 	}
 
   sortBoolean(){
-    if (this.swapCheck.sort === true){ 
+    if (this.swapCheck.sort === true){
       this.swapCheck.sort = false;
       return this.swapCheck.sort;
     } else {
@@ -567,9 +606,8 @@ class DataWidgetsError extends React.Component {
       return this.swapCheck.sort;
     }
   }
-  
+
 	dateUpdate2(eventKey){
-  		console.log("This is the event key this is the issue" + eventKey);
   		this.setState({
   			dateTo: new Date(eventKey)
   		});
@@ -602,7 +640,7 @@ class DataWidgetsError extends React.Component {
       document.getElementById('container')
     );
   }
-  
+
   update(){
     console.log("This update ran for some unknown goddamn reason")
     this.rerenderSorted();
@@ -621,7 +659,7 @@ class DataWidgetsError extends React.Component {
   }
 
 
-  
+
 	render() {
 		return (
 		<div>
@@ -637,13 +675,19 @@ class DataWidgetsError extends React.Component {
 				<DateTimePicker id="test2" defaultValue={new Date(this.props.dateFrom)} onSelect={this.dateUpdate}>
         </DateTimePicker>
 			</div>
+
+			<div id="error_todate">
+				<p> To Date </p>
+			</div>
+
 			<div id="error_todatepicker">
 				<DateTimePicker id="test" defaultValue={new Date(this.props.dateTo)} onSelect={this.dateUpdate2}>
         </DateTimePicker>
         </div>
-        <div id="SubmitButton">
-				<Button onClick={this.updatePage} > Submit </Button>
-		</div>
+				<div id="errSubmitButton">
+	       <Button onClick={this.updatePage} > Submit </Button>
+	      </div>
+
 		</div>
 		);
 	}
@@ -658,7 +702,7 @@ class RealTime extends React.Component {
 
 
 			<div name="Realtime" id="Realtime">
-				<h2>{ this.props.column + " on " + this.props.locationName + "(" + this.props.selected + ") from " + new Date(this.props.dateFrom).toLocaleString() + " to " + new Date(this.props.dateTo).toLocaleString()}</h2>
+				<h2>{ this.props.column + " on " + this.props.locationName + " (" + this.props.selected + "): " + new Date(this.props.dateFrom).toLocaleString()}</h2>
 
 				<div
 					id="realTimeScatterplot"
@@ -666,19 +710,26 @@ class RealTime extends React.Component {
 
 					ref={ renderScatterplotv2("#realTimeScatterplot", this.props.selected,this.props.column, this.props.dateFrom, this.props.dateTo,this.props.lane, true) }
 				/>
-				<h2>{ this.props.column + " on " + this.props.locationName + "(" + this.props.selected + ") from " + new Date(this.props.dateFrom).toLocaleString() + " to " + new Date(this.props.dateTo).toLocaleString()} </h2>
+				<div id="realTimespacertop">
+					<h2>{ this.props.column + " on " + this.props.locationName + " (" + this.props.selected + "): " + new Date(this.props.dateFrom).toLocaleString() + " " + this.props.hour} </h2>
+				</div>
 				<div
 					id="realTimeLinegraph"
-					ref={ renderLinegraphv2("#realTimeLinegraph",this.props.selected,this.props.column,this.props.dateFrom,this.props.dateTo, 7, this.props.lane, true) }
+					ref={ renderLinegraphv2("#realTimeLinegraph",this.props.selected,this.props.column,this.props.dateFrom,this.props.dateTo, this.props.hour, this.props.lane, true) }
 				/>
+				<div id="realTimespacerbttm">
+					<h2>{ this.props.column + " on " + this.props.locationName + " (" + this.props.selected + "): " + new Date(this.props.dateFrom).toLocaleString()}</h2>
+				</div>
+				<div id="realTimetablespacer">
         <TableElemGen type={0} vdsID={this.props.selected} column={this.props.column} lowDate={this.props.dateFrom} highDate={this.props.dateTo} live={true}/>
+				</div>
       		</div>
 		);
 	}
 
 	componentDidMount() {
     var opts = {
-      
+
   lines: 10, // The number of lines to draw
   length: 9, // The length of each line
   width: 5, // The line thickness
@@ -719,33 +770,36 @@ class Historical extends React.Component {
 	render(){
 		return (
 			<div id="historical">
-			<h2>{this.props.test + " on " + this.props.locationName + "(" + this.props.selected + ") from " + this.props.year}</h2>
+			<h2>{this.props.test + " on " + this.props.locationName + " (" + this.props.selected + ") from " + this.props.year}</h2>
 				<div  id="Calendar">
 					<div ref={ renderCalendar("#Calendar", this.props.year, this.props.test) } />
        		 </div>
 
-				<div id="hexbin_label"><h2>{this.props.test + " and " + this.props.hexColumn +  " on " + this.props.locationName + "(" + this.props.selected +  ") from " + moment(this.props.dateFrom)._d.toLocaleString() + " to " + moment(this.props.dateTo)._d.toLocaleString()}</h2></div>
+				<div id="hexbin_label"><h2>{this.props.test + " and " + this.props.hexColumn +  " on " + this.props.locationName + " (" + this.props.selected +  "): " + moment(this.props.dateFrom)._d.toLocaleString() + " - " + moment(this.props.dateTo)._d.toLocaleString()}</h2></div>
 				<div
 					id="hexbin"
 					ref={ renderHexbin("#hexbin", this.props.test, this.props.hexColumn, this.props.dateFrom, this.props.dateTo) }
 				/>
-				<div id="abNormal_label"><h2>S</h2></div>
-				<h2>{this.props.test + " on " + this.props.locationName + "(" + this.props.selected +  ") from " + new Date(this.props.dateFrom).toLocaleString() + " to " + new Date(this.props.dateTo).toLocaleString()}</h2>
+				<div id="abNormal_label"><h2></h2></div>
+				<div id="historicalspacertop">
+					<h2>{this.props.test + " on " + this.props.locationName + " (" + this.props.selected +  "): " + new Date(this.props.dateFrom).toLocaleString() + " - " + new Date(this.props.dateTo).toLocaleString()}</h2>
+					</div>
 				<div
 					id="historicalScatterplot"
 					ref={ renderScatterplotv2("#historicalScatterplot", this.props.selected, this.props.test, this.props.dateFrom, this.props.dateTo , this.props.lane, false) }
 				/>
-				<h2>{this.props.test + " on " + this.props.locationName + " (" + this.props.selected +  ") from " + new Date(this.props.dateFrom).toLocaleString() + " to " + new Date(this.props.dateTo).toLocaleString()}</h2>
+				<div id="historicalspacerbttm">
+				<h2>{this.props.test + " on " + this.props.locationName + " (" + this.props.selected +  "): " + new Date(this.props.dateFrom).toLocaleString() + " - " + new Date(this.props.dateTo).toLocaleString()}</h2>
+				</div>
+				<div id="historicaltablespacer">
 				<TableElemGen type={0} vdsID={this.props.selected} column={this.props.test} lowDate={this.props.dateFrom} highDate={this.props.dateTo} live={false}/>
-				<div id="historicalScatterplot_label">
-					<h2>Scatterplot</h2>
 				</div>
 			</div>
 		);
 	}
 	componentDidMount() {
         var opts = {
-      
+
   lines: 10, // The number of lines to draw
   length: 9, // The length of each line
   width: 5, // The line thickness
@@ -782,24 +836,31 @@ export default class Errors extends React.Component {
     console.log(this.props.target, "This is the state in the render")
 		return (
 			<div id="Errors">
-				<h2>Errors by vdsId</h2>
+				<h2>{"Errors by VDSID: " + new Date(this.state.dateFrom).toLocaleString() + " - " + new Date(this.state.dateTo).toLocaleString() }</h2>
 				<svg width="1366" height="700"
 					id="vdsidBargraph"
 					ref={ renderBargraph(0, "#vdsidBargraph", this.props.target, this.props.sort, moment(this.props.dateFrom), moment(this.props.dateTo), this.props.setSelected) }
 				/>
-					<h2>{"Errors by lane for " + this.props.locationName + " (" + this.props.target + ") from " + new Date(this.state.dateFrom).toLocaleString() + " to " + new Date(this.state.dateTo).toLocaleString()}</h2>
-				<svg width="1366" height="700"
+				<div id="errorspacer">
+					<h2>{"Errors by lane for " + this.props.locationName + " (" + this.props.target + "): " + new Date(this.state.dateFrom).toLocaleString() + " - " + new Date(this.state.dateTo).toLocaleString()}</h2>
+				</div>
+				<svg width="1366" height="300"
 					id="lanesBargraph"
 					ref={ renderBargraph(1, "#lanesBargraph", this.props.target, this.props.sort, moment(this.props.dateFrom), moment(this.props.dateTo), this.props.setSelected) }
 				/>
-				<h2>{"Errors by lane for " + this.props.locationName + " (" + this.props.target + ") from " + new Date(this.state.dateFrom).toLocaleString() + " to " + new Date(this.state.dateTo).toLocaleString()}</h2>
+				<div id="errorspacer2">
+					<h2>{"Errors by lane for " + this.props.locationName + " (" + this.props.target + "): " + new Date(this.state.dateFrom).toLocaleString() + " - " + new Date(this.state.dateTo).toLocaleString()}</h2>
+					</div>
+				<div id="errorstable">
 				<TableElemGen type={1} vdsID={this.props.target} column={this.props.test} lowDate={moment(this.props.dateFrom)} highDate={moment(this.props.dateTo)} live={false}/>
+				</div>
 			</div>
+
 		);
 	}
 	componentDidMount() {
     var opts = {
-      
+
   lines: 10, // The number of lines to draw
   length: 9, // The length of each line
   width: 5, // The line thickness

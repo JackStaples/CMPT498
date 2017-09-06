@@ -10,6 +10,7 @@ var lane;
 export function renderScatterplotv2(target, vdsID, column, lowDate, highDate, tarLane, live){
 d3.select(target).html("");
   lane = tarLane;
+  console.log("This is the lane that is being passed in Scatter:" ,lane)
  startTime = lowDate._d;
   endTime = highDate._d;
   var lowTime = (lowDate._d.getUTCHours()) + ":" + (lowDate._d.getUTCMinutes()) + ":" + (lowDate._d.getUTCSeconds());
@@ -20,13 +21,15 @@ d3.select(target).html("");
 }
 
 function handleScatterplotv2(target, response){
-  
+  console.log("this is the response", response)
+  d3.select(target).html("");
   var data = response.recordset;
   if (Object.keys(data).length === 0) {
     console.log("Hey it worked")
     return
   }
       var property = Object.keys(data[0]);
+      console.log("handling scatterplot")
       var highVal = 0;
       var minVal = 0;
       var lowestTime = 0;
