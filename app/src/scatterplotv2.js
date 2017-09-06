@@ -95,6 +95,7 @@ function handleScatterplotv2(target, response){
 
       // append the x-axis
       main.append('g')
+        .style("font", "14px times")
         .attr('transform', 'translate(0,' + height + ')')
         .attr('class', 'main axis date')
         .call(xAxis);
@@ -104,6 +105,7 @@ function handleScatterplotv2(target, response){
 
       // append the y-axis to the chart
       main.append('g')
+        .style("font", "14px times")
         .attr('transform', 'translate(0,0)')
         .attr('class', 'main axis date')
         .call(yAxis);
@@ -144,7 +146,7 @@ function handleScatterplotv2(target, response){
           return (len > 3500 ? 2 : 4); })
         .attr("cx", function(redDots) { return x(redDots[property[0]]); })
         .attr("cy", function(redDots) { return y(redDots[property[2]]); })
-        .attr("fill","OrangeRed")
+        .attr("fill","#ff4500")
         // add the hover over on the circle that displays the time and speed
         .append("title")
           .text(function(redDots) { return "Time: " + redDots[property[0]].toString() + " "+ [property[2]] + ": " + redDots[property[2]] });
@@ -164,9 +166,10 @@ function handleScatterplotv2(target, response){
 
         // header title
         chart.append("text")
+          .style('fill', '#ff4500')
           .attr("text-anchor", "middle")
           .attr("transform", "translate(" + width/2 + "," + (margin.top-15) + ")")
-          .text(property[1] + " from " + data[lowestTime][property[0]].toLocaleString() + " to " + data[highestTime][property[0]].toLocaleString());
+          .text("Lane " + lane);
           d3.select(target+ " .spinner").html("");
           }
 
