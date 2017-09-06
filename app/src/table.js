@@ -77,7 +77,7 @@ function getColumns(jsonObj) {
     var keys = Object.keys(jsonObj[0]);
     var column = []
     for (var i =0; i< keys.length; i++) {
-      var widthVar = 238;
+      var widthVar = 400;
       console.log("This is the key", keys[i]);
       if (keys[i] == "VDSID"){
         widthVar = 75;

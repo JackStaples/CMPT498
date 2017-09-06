@@ -34,9 +34,9 @@ class NavElem extends React.Component{
     		locationName : "Wayne Gretzky Dr South End Bridge NB",
     		dateFrom: "2016/09/02",
     		dateTo: "2016/09/03",
-    		column: 'speed',
+    		column: 'Speed',
     		year: 2016,
-    		hexColumn: 'occupancy',
+    		hexColumn: 'Occupancy',
     		lane: 1,
     		hour: 7,
     	};
@@ -75,7 +75,7 @@ class NavElem extends React.Component{
 			this.setCurrentTab(0);
 			ReactDOM.render(
         <div>
-          <h2>Map</h2>
+          <h2>VDSID Locations</h2>
           <MapElement getID={this.setSelected} getName={this.setLocationName}/>
         </div>,
         document.getElementById('thebigmap')
@@ -96,7 +96,7 @@ class NavElem extends React.Component{
 			this.setCurrentTab(1);
 			ReactDOM.render(
         <div>
-          <h2>Map</h2>
+          <h2>VDSID Locations</h2>
           <MapElement getID={this.setSelected} getName={this.setLocationName}/>
         </div>,
         document.getElementById('thebigmap')
@@ -221,7 +221,7 @@ class NavElem extends React.Component{
 		);
     ReactDOM.render(
         <div>
-          <h2>Map</h2>
+          <h2>VDSID Locations</h2>
           <MapElement getID={this.setSelected} getName={this.setLocationName}/>
         </div>,
         document.getElementById('thebigmap')
@@ -432,31 +432,24 @@ class DataWidgetsCalendar extends React.Component {
 	render() {
 		return (
 		<div>
-      <div id="SubmitButton">
-        <Button onClick={this.update} > Submit </Button>
-      </div>
-      		<div> {this.state.lane}
-		</div>
       <div id="column_selector">
 				<div id="colselect_label">
-        <p> Column Selector </p>
 				</div>
         <DropdownButton bsStyle="default" title={this.state.column} onSelect={this.updateColumn}>
-          <MenuItem eventKey="occupancy">Occupancy</MenuItem>
-          <MenuItem eventKey="speed">Speed</MenuItem>
-          <MenuItem eventKey="volume">Volume	</MenuItem>
+          <MenuItem eventKey="Occupancy">Occupancy</MenuItem>
+          <MenuItem eventKey="Speed">Speed</MenuItem>
+          <MenuItem eventKey="Volume">Volume	</MenuItem>
         </DropdownButton>
       </div>
       <div id="hexcolumn_selector">
-        <p> select column </p>
+        <p></p>
         <DropdownButton bsStyle="default" title={this.state.hexColumn} onSelect={this.updateColumnHexbin}>
-          <MenuItem eventKey="occupancy">Occupancy</MenuItem>
-          <MenuItem eventKey="speed">Speed</MenuItem>
-          <MenuItem eventKey="volume">Volume	</MenuItem>
+          <MenuItem eventKey="Occupancy">Occupancy</MenuItem>
+          <MenuItem eventKey="Speed">Speed</MenuItem>
+          <MenuItem eventKey="Volume">Volume	</MenuItem>
         </DropdownButton>
       </div>
       <div id="year_selector">
-        <p> Year </p>
         <DropdownButton bsStyle="default"  title={this.state.year} onSelect={this.updateYear}>
           <MenuItem eventKey='2016'>2016</MenuItem>
           <MenuItem eventKey='2017'>2017</MenuItem>
@@ -468,7 +461,6 @@ class DataWidgetsCalendar extends React.Component {
 			</div>
 
       <div id="lowdatetimepicker">
-        <p> From Date </p>
         <DateTimePicker disabled={this.state.disabled} id="test2" defaultValue={new Date(this.state.dateFrom)} onSelect={this.dateUpdate}>
         </DateTimePicker>
       </div>
@@ -477,7 +469,6 @@ class DataWidgetsCalendar extends React.Component {
 				<p> To Date </p>
 			</div>
       <div id="highdatetimepicker">
-        <p> To Date </p>
         <DateTimePicker id="test" disabled={this.state.disabled} defaultValue={new Date(this.state.dateTo)} onSelect={this.dateUpdate2}>
         </DateTimePicker>
       </div>
@@ -579,9 +570,9 @@ class DataWidgetsRealTime extends React.Component {
 		<div>
 		<div id="realTimecolumn_selector">
 		<DropdownButton bsStyle="default"  title={this.state.column} onSelect={this.updateColumn}>
-			<MenuItem eventKey="occupancy">Occupancy</MenuItem>
-			<MenuItem eventKey="speed">Speed</MenuItem>
-			<MenuItem eventKey="volume">Volume	</MenuItem>
+			<MenuItem eventKey="Occupancy">Occupancy</MenuItem>
+			<MenuItem eventKey="Speed">Speed</MenuItem>
+			<MenuItem eventKey="Volume">Volume	</MenuItem>
 		</DropdownButton>
 		</div>
 
@@ -704,6 +695,7 @@ class DataWidgetsError extends React.Component {
   }
 
   updatePage(){
+  	console.log(this.swapCheck.sort)
   	ReactDOM.render(
         <div id="unseen">
         </div>,
@@ -759,7 +751,7 @@ class RealTime extends React.Component {
 
 
 			<div name="Realtime" id="Realtime">
-				<h2>{ this.props.column + " on " + this.props.locationName + " (" + this.props.selected + "): " + new Date(this.props.dateFrom).toLocaleString()}</h2>
+				<h2>{ this.props.column + " on " + this.props.locationName + " (" + this.props.selected + "): " + new Date(this.props.dateFrom).toLocaleDateString()}</h2>
 
 				<div
 					id="realTimeScatterplot"
@@ -768,7 +760,7 @@ class RealTime extends React.Component {
 					ref={ renderScatterplotv2("#realTimeScatterplot", this.props.selected,this.props.column, this.props.dateFrom, this.props.dateTo,this.props.lane, true) }
 				/>
 				<div id="realTimespacertop">
-					<h2>{ this.props.column + " on " + this.props.locationName + " (" + this.props.selected + "): " + new Date(this.props.dateFrom).toLocaleString() + " " + this.props.hour} </h2>
+					<h2>{ this.props.column + " on " + this.props.locationName + " (" + this.props.selected + "): " + new Date(this.props.dateFrom).toLocaleDateString() + " " + this.props.hour} </h2>
 				</div>
 				<div
 					id="realTimeLinegraph"
@@ -826,12 +818,14 @@ class Historical extends React.Component {
 	render(){
 		return (
 			<div id="historical">
+			<div id="calendar-title">
 			<h2>{this.props.test + " on " + this.props.locationName + " (" + this.props.selected + ") from " + this.props.year}</h2>
+			</div>
 				<div  id="Calendar">
 					<div ref={ renderCalendar("#Calendar", this.props.year, this.props.test, this.props.updateCalendar) } />
        		 </div>
 
-				<div id="hexbin_label"><h2>{this.props.test + " and " + this.props.hexColumn +  " on " + this.props.locationName + " (" + this.props.selected +  "): " + moment(this.props.dateFrom)._d.toLocaleString() + " - " + moment(this.props.dateTo)._d.toLocaleString()}</h2></div>
+				<div id="hexbin_label"><h2>{this.props.test + " and " + this.props.hexColumn +  " : " + moment(this.props.dateFrom)._d.toLocaleString() + " - " + moment(this.props.dateTo)._d.toLocaleString()}</h2></div>
 				<div
 					id="hexbin"
 					ref={ renderHexbin("#hexbin", this.props.test, this.props.hexColumn, this.props.dateFrom, this.props.dateTo,this.props.updateCalendar) }
