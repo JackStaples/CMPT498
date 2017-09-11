@@ -24,7 +24,7 @@ export class TableElem extends Component {
     data={this.props.data}
     columns={this.state.columns}
     showPagination={false}
-    defaultPageSize={50} 
+    defaultPageSize={48} 
   	getTdProps={(state, rowInfo, column, instance) => {
     if (rowInfo == undefined){ 
       return {
@@ -77,7 +77,7 @@ function getColumns(jsonObj) {
     var keys = Object.keys(jsonObj[0]);
     var column = []
     for (var i =0; i< keys.length; i++) {
-      var widthVar = 400;
+      var widthVar = 380;
       console.log("This is the key", keys[i]);
       if (keys[i] == "VDSID"){
         widthVar = 75;

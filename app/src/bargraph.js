@@ -35,6 +35,9 @@ function handleBargraph(target, response, sort){
           data[i][property[0]] = parseInt(data[i][property[0]]);
           data[i][property[1]] = parseInt(data[i][property[1]]);
           data[i][property[2]] = parseInt(data[i][property[2]]);
+          if (data[i][property[2]] === 0){
+            data[i][property[2]]++;
+          }
         }
         
         if (sortBool === true){
