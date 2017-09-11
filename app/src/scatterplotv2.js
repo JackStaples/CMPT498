@@ -9,6 +9,7 @@ var lane;
 
 export function renderScatterplotv2(target, vdsID, column, lowDate, highDate, tarLane, live){
 d3.select(target).html("");
+console.log("hihi", vdsID)
   lane = tarLane;
   console.log("This is the lane that is being passed in Scatter:" ,lane)
  startTime = lowDate._d;

@@ -8,9 +8,12 @@ var endTime;
 
 export function renderLinegraphv2(target, vdsID, column, lowDate, highDate, hour, tarLane, live){
   lane = tarLane;
+  console.log("kkk", hour)
   startTime = moment(lowDate).add(hour,'hours')._d;
   endTime = moment(startTime).add(1,'hours')._d;
-  hour = hour + 6;
+
+  hour = hour - -6;
+  hour = hour % 24;
   var lowTime = lowDate._d.toTimeString().slice(0,8);
   var lowD = lowDate._d.toISOString().slice(0,10);
   var highTime = highDate._d.toTimeString().slice(0,8);
