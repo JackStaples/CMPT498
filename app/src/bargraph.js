@@ -39,6 +39,9 @@ function handleBargraph(target, response, sort){
           }
         }
         
+        // this was the second method for sorting, it is currently always used through its rendering 
+        // in app.js. There is a bug in the react code that we where using to implement sorting
+        // found in the errors widgets class.
         if (sortBool === true){
           data.sort(function(a, b) { return a[property[2]] - b[property[2]]; });
         };
@@ -53,7 +56,6 @@ function handleBargraph(target, response, sort){
           .domain([0, d3.max(data, function(d) { return d[property[1]]; })])
           .range([0, width])
           .nice();
-          
         var y = d3.scaleBand()
           .domain(data.map(function(d) { return d[property[0]]; }))
           .rangeRound([ height, 0 ])
@@ -103,7 +105,8 @@ function handleBargraph(target, response, sort){
 
           //d3.select("#sortIncorrect").on("click", change);
           
-          
+          // This is the original method for sorting that had to be scrapped
+          // It does not work as it is now.
             function change() {
               
               // Copy-on-write since tweens are evaluated after a delay.
