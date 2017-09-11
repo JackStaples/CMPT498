@@ -21,7 +21,6 @@ export function renderLinegraph(target, vdsID,column, lowDate, highDate, live){
 function handleLinegraph(target, response){
   var data = response.recordset;
   if (Object.keys(data).length === 0) {
-    console.log("Hey it worked")
     return
   }
           var property = Object.keys(data[0]);

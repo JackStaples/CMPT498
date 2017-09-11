@@ -9,19 +9,16 @@ export function renderScatterplot(target,vdsID,column,lowDate,highDate, live){
   
   startTime = lowDate._d;
   endTime = highDate._d;
-  console.log(startTime, endTime);
   var lowTime = (lowDate._d.getUTCHours()) + ":" + (lowDate._d.getUTCMinutes()) + ":" + (lowDate._d.getUTCSeconds());
   var lowD = lowDate._d.getFullYear() + "-" + (lowDate._d.getMonth() + 1) + "-" + lowDate._d.getUTCDate();
   var highTime = (highDate._d.getUTCHours() + 1) + ":" + (highDate._d.getUTCMinutes() + 1) + ":" + (highDate._d.getUTCSeconds() + 1);
   var highD = highDate._d.getFullYear() + "-" + (highDate._d.getMonth() + 1) + "-" + highDate._d.getUTCDate();
-  console.log("http://localhost:3001/scatterplot?column=" + column + "+&lowdate=" +lowD +"+" + lowTime + "&highdate="+highD+"+" + highTime + "&live=" + live);
   httpGet("http://localhost:3001/scatterplot?column=" + column + "&vdsId=" + vdsID +"&lowdate=" +lowD +"+" + lowTime + "&highdate="+highD+"+" + highTime + "&live=" + live, target, handleScatterplot);
 }
 
 function handleScatterplot(target, response){
   var data = response.recordset;
   if (Object.keys(data).length === 0) {
-    console.log("Hey it worked")
     return
   }
       var property = Object.keys(data[0]);

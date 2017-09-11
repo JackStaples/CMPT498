@@ -13,19 +13,17 @@ export function handleCalendar(target,response){
 
 var data = response.recordset;
   if (Object.keys(data).length === 0) {
-    console.log("Hey it worked")
     return
+    f()
   }
   f()
 var property = Object.keys(data[0]);
 var max = 0;
 var min = 1000;
-//console.log("This is the property" + property)
 for (var i in data){
   data[i][property[0]] = data[i][property[0]].slice(0,10)
 }
       for (var i in data){
-        //console.log("This is the number         " + data[i][property[1]])
         data[i][property[0]] = data[i][property[0]].slice(0,10)
         data[i][property[1]] = parseInt(data[i][property[1]]);
         if (data[i][property[1]] > max){

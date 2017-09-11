@@ -49,8 +49,6 @@ export class TableElem extends Component {
         if (rowInfo == undefined){
         }
         else {
-        console.log('It was in this row:', rowInfo.row.VDSID)
-        console.log("this is the row info",rowInfo.row.Location)
         this.setState({
         selected: rowInfo.row.VDSID
         });

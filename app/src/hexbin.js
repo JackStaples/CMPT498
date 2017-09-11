@@ -4,10 +4,9 @@ import * as d3 from 'd3';
 import * as d3hexbin from 'd3-hexbin';
 import get, { httpGet } from './getRequest.js';
 var func
-export function renderHexbin(target, x, y, lowDate, highDate, fuckingFunc) {
-  func = fuckingFunc
+export function renderHexbin(target, x, y, lowDate, highDate, haltingFunction) {
+  func = haltingFunction
   d3.select(target).html("");
-  console.log("uuu",fuckingFunc)
 var lowTime = (lowDate._d.getHours()) + ":" + (lowDate._d.getMinutes()) + ":" + (lowDate._d.getSeconds());
   var lowD = lowDate._d.getFullYear() + "-" + (lowDate._d.getMonth() + 1) + "-" + lowDate._d.getDate();
   var highTime = (highDate._d.getHours() + 1) + ":" + (highDate._d.getMinutes() + 1) + ":" + (highDate._d.getSeconds() + 1);
@@ -21,13 +20,11 @@ function handleHexbin(target, response) {
    d3.select(target).html("");
         var data = response.recordset;
           if (Object.keys(data).length === 0) {
-    console.log("Hey it worked")
     func()
     return
   }
         func()
         var property = Object.keys(data[0]);
-        console.log("Handling hex")
         var highColumnOne = 0;
         var lowColumnOne = 0;
         var highColumnTwo = 0;

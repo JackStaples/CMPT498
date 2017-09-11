@@ -9,7 +9,6 @@ export class TableElemGen extends Component {
 
   constructor(props) {
   super(props);
-  console.log(props)
   this.getJSONObj = this.getJSONObj.bind(this);
   this.setJSONState = this.setJSONState.bind(this);
   this.getJSONObj();
@@ -35,7 +34,6 @@ export class TableElemGen extends Component {
 
   setJSONState(target, response) {
   var data = response.recordset;
-  console.log(data, "THIS IS THE DATA YAH COOOOONT")
   if (Object.keys(data).length === 0) {
     return
   }
@@ -47,7 +45,6 @@ export class TableElemGen extends Component {
   }
 
   render() {
-    console.log(this.state)
   	return (
   		<div>
       <ReactTable className="-highlight"

@@ -25,7 +25,6 @@ export function renderBargraph(lanes, target, vdsid, sort, lowDate, highDate, se
 function handleBargraph(target, response, sort){
   var data = response.recordset;
   if (Object.keys(data).length === 0) {
-    console.log("No data was returned")
     return
   }
   var property = Object.keys(data[0]);
@@ -55,7 +54,6 @@ function handleBargraph(target, response, sort){
           .range([0, width])
           .nice();
           
-        console.log(data[data.length-1][property[0]]);
         var y = d3.scaleBand()
           .domain(data.map(function(d) { return d[property[0]]; }))
           .rangeRound([ height, 0 ])
@@ -107,9 +105,7 @@ function handleBargraph(target, response, sort){
           
           
             function change() {
-              console.log("changing!");
               
-
               // Copy-on-write since tweens are evaluated after a delay.
               
               var ysort = y.domain(data.sort(this.checked
@@ -117,10 +113,8 @@ function handleBargraph(target, response, sort){
                 : function(a, b) { return b[property[1]] - a[property[1]];; })
                 .map(function(d) { return d[property[0]]; }))
                 .copy();
-                console.log("changing!1");
               svg.selectAll(".group")
                 .sort(function(a, b) { return ysort(a[property[0]]) - ysort(b[property[0]]); });
-console.log("changing!2");
               var transition = svg.transition().duration(750),
                 delay = function(d, i) { return i * 50; };
               
@@ -130,20 +124,17 @@ console.log("changing!2");
                 .attr("y", function(d) { return ysort(d[property[0]]); });
                 
                 
-              console.log("changing!3");
               transition.select(".y.axis")
                 .call(d3.axisLeft(y))
                 .selectAll("g")
                 .delay(delay);
                 
                 
-              console.log("changing!4");
               };          
             d3.select(target+ " .spinner").html("");
       }
       
 export function replacer(vdsid, target, sortCheck){
-  console.log(target, "this is the target");
   	ReactDOM.render(
         <div id="unseen">
         </div>,
