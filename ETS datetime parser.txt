@@ -1,0 +1,10 @@
+Unimplemented adjustemnt to ETL stored procedure, as well as component from API, to read ETS datetimes.
+
+
+
+select datetimefromparts(t.year, t.month, t.day, t.hour, t.minute, t.second, t.mil) as datetime from (
+select substring(datetime, 0, 5) as year, substring(datetime, 5, 2) as month,
+substring(datetime, 7, 2) as day, substring(datetime, 9, 2) as hour,
+substring(datetime, 11, 2) as minute, substring(datetime, 13, 2) as second,
+substring(datetime, 16, 3) as mil
+from bothrawETSdatetime where datetime > 20170130235940.000) as t

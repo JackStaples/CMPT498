@@ -1,4 +1,6 @@
-
+USE [CMPT498]
+GO
+/****** Object:  StoredProcedure [dbo].[DataBaseTransfer]    Script Date: 2017-09-06 10:54:05 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7,11 +9,11 @@ GO
 -- Author:		Mark Tigchelaar
 -- Create date: July 17, 2017
 -- Description:	Stored Procedure for transfering data
---		from ETS traffic database into a data warehouse
---		for analysis.
+--				from ETS traffic database into a data warehouse
+--				for analysis.
 -- =============================================
 
-CREATE PROCEDURE DataBaseTransfer
+ALTER PROCEDURE [dbo].[DataBaseTransfer]
 		@StartDate datetime,
 		@EndDate datetime
 AS
@@ -21,80 +23,44 @@ BEGIN
 	begin try
 	SET NOCOUNT ON;
 
-	insert into Warehouse 
-		(dt, vdsId, lane, rawSpeed, speed, rawOcc, occ, vol, correct, incorrect, total)
+	insert into Warehouse
+	(datetime, vdsId, lane, Speed, Occupancy, Volume, correct, incorrect, total)
 
-			select
-				@StartDate,
-				vdsId,
-				lane,
-				avg(speed) as rawSpeed,
-				avg((case when speed >= 0 then speed else 0 end)) as speed,
-				avg(occupancy) as rawOcc,
-				avg((case when occupancy >= 0 then occupancy else 0 end)) as occ,
-				avg(volume) as vol,
-				sum(case when volume >= 0 then 1 else 0 end) +
-				sum(case when speed >= 0 then 1 else 0 end) + 
-				sum(case when occupancy >= 0 then 1 else 0 end) as correct,
-				sum(case when volume < 0 then 1 else 0 end) +
-				sum(case when speed < 0 then 1 else 0 end) +
-				sum(case when occupancy < 0 then 1 else 0 end) as incorrect,
-				count(1) as total
-			from [both raw]
-			where datetime >= @StartDate and datetime < @EndDate
-			group by vdsId, lane
-			order by vdsId, lane
+	select
+		@StartDate,
+		vdsId,
+		lane,
+			(sum(case when Speed> 0 then Speed else 0 end) /
+			(case when sum(case when Speed > 0 then 1 else 0 end) = 0 then 1
+			else sum(case when Speed> 0 then 1 else 0 end) end))
+		as Speed,
+			(sum(case when Occupancy > 0 then Occupancy else 0 end) /
+			(case when sum(case when Occupancy > 0 then 1 else 0 end) = 0 then 1
+			else sum(case when Occupancy > 0 then 1 else 0 end) end))
+		as occ,
+			(sum(case when Volume > 0 then Volume else 0 end) /
+			(case when sum(case when Volume > 0 then 1 else 0 end) = 0 then 1
+			else sum(case when Volume > 0 then 1 else 0 end) end))
+		as vol,
+			sum(case when Volume >= 0 then 1 else 0 end) +
+			sum(case when Speed>= 0 then 1 else 0 end) + 
+			sum(case when Occupancy >= 0 then 1 else 0 end)
+		as correct,
+			sum(case when Volume < 0 then 1 else 0 end) +
+			sum(case when Speed< 0 then 1 else 0 end) +
+			sum(case when Occupancy < 0 then 1 else 0 end)
+		as incorrect,
+			count(1)
+		as total
+
+	from [rawdata]
+	where datetime >= @StartDate and datetime < @EndDate
+	group by vdsId, lane
+	order by vdsId, lane
 			
-	update Warehouse 
-	set
-	speed = (case when Warehouse.speed < B.speed then B.speed else Warehouse.speed end)--,
-	from
-	(select datetime, vdsId, lane, avg(speed) as speed
-	from [both raw]
-	where 
-	speed > 0
-	and
-	datetime >= @StartDate and datetime < @EndDate
-	group by datetime, vdsId, lane
-	) as B
-	where Warehouse.dt = B.datetime and Warehouse.vdsId = B.vdsId and Warehouse.lane = B.lane
-
-
-	update Warehouse 
-	set
-	occ = (case when Warehouse.rawOcc < B.occ then B.occ else Warehouse.rawOcc end)
-	from
-	(select datetime, vdsId, lane,  avg(occupancy) as occ
-	from [both raw]
-	where 
-	occupancy > 0
-	and
-	datetime >= @StartDate and datetime < @EndDate
-	group by datetime, vdsId, lane
-	) as B
-	where Warehouse.dt = B.datetime and Warehouse.vdsId = B.vdsId and Warehouse.lane = B.lane
-	
-
-	update Warehouse 
-	set
-	vol = (case when Warehouse.vol < B.vol then B.vol else Warehouse.vol end)
-	from
-	(select datetime, vdsId, lane,  avg(volume) as vol
-	from [both raw]
-	where 
-	volume > 0
-	and
-	datetime >= @StartDate and datetime < @EndDate
-	group by datetime, vdsId, lane
-	) as B
-	where Warehouse.dt = B.datetime and Warehouse.vdsId = B.vdsId and Warehouse.lane = B.lane
-	
 	commit
-	select 1;
 	end try
 	begin catch
-		select ERROR_LINE(), ERROR_MESSAGE(), ERROR_NUMBER()
 		rollback 
 	end catch
 END 
-GO
