@@ -1,6 +1,6 @@
 USE [CMPT498]
 GO
-/****** Object:  StoredProcedure [dbo].[DataBaseTransfer]    Script Date: 2017-09-06 10:54:05 PM ******/
+/****** Object:  StoredProcedure [dbo].[DataBaseTransfer]    Script Date: 2017-10-01 10:00:01 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13,7 +13,7 @@ GO
 --				for analysis.
 -- =============================================
 
-ALTER PROCEDURE [dbo].[DataBaseTransfer]
+ALTER PROCEDURE [dbo].[DataBaseTransfer] -- use create procedure if first time install
 		@StartDate datetime,
 		@EndDate datetime
 AS
@@ -30,30 +30,30 @@ BEGIN
 		@StartDate,
 		vdsId,
 		lane,
-			(sum(case when Speed> 0 then Speed else 0 end) /
+			(sum(case when Speed > 0 then Speed else 0 end) /
 			(case when sum(case when Speed > 0 then 1 else 0 end) = 0 then 1
-			else sum(case when Speed> 0 then 1 else 0 end) end))
+			else sum(case when Speed > 0 then 1 else 0 end) end))
 		as Speed,
 			(sum(case when Occupancy > 0 then Occupancy else 0 end) /
 			(case when sum(case when Occupancy > 0 then 1 else 0 end) = 0 then 1
 			else sum(case when Occupancy > 0 then 1 else 0 end) end))
-		as occ,
+		as Occupancy,
 			(sum(case when Volume > 0 then Volume else 0 end) /
 			(case when sum(case when Volume > 0 then 1 else 0 end) = 0 then 1
 			else sum(case when Volume > 0 then 1 else 0 end) end))
-		as vol,
+		as Volume,
 			sum(case when Volume >= 0 then 1 else 0 end) +
-			sum(case when Speed>= 0 then 1 else 0 end) + 
+			sum(case when speed >= 0 then 1 else 0 end) + 
 			sum(case when Occupancy >= 0 then 1 else 0 end)
 		as correct,
 			sum(case when Volume < 0 then 1 else 0 end) +
-			sum(case when Speed< 0 then 1 else 0 end) +
+			sum(case when Speed < 0 then 1 else 0 end) +
 			sum(case when Occupancy < 0 then 1 else 0 end)
 		as incorrect,
 			count(1)
 		as total
 
-	from [rawdata]
+	from rawdata
 	where datetime >= @StartDate and datetime < @EndDate
 	group by vdsId, lane
 	order by vdsId, lane

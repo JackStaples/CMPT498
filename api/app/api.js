@@ -1,7 +1,7 @@
 
 var sql = require('mssql/msnodesqlv8');
 
-var table1 = "rawdata3";
+var table1 = "rawdata";
 var table2 = "Warehouse";
 
 
@@ -41,7 +41,7 @@ exports.scatterPlotQuery = function(column, vdsId, lowdate, highdate, live, res,
   query += DateSplit(table, lowdate, highdate, live);
   query += " and " + table + ".vdsId = " + vdsId  + " and " + table +
   ".vdsId = VDSIDs.vdsId order by " + datetime + ", lane;";
-  
+
   callDB(query, res, callback, sql);
 }
 

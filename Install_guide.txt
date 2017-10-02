@@ -1,0 +1,44 @@
+Installation manual
+
+For this project, there are several steps to undergo in order to have a runnable application:
+
+
+1. Go to node.js website and download the .msi windows installer.
+2. Run the installer.
+3. Follow the prompts of the installer.
+4. Restart your computer.
+5. Open up powershell.
+6. Type node -v to test the install of node.
+7. Type npm -v to test the install of npm.
+8. In powershell naviate to the app folder in the project directory.
+9. Type npm install, wait for installation to complete.
+10. Navigate to api folder, type npm install mssql –save
+11. Type npm install msnodesqlv8 –save
+12. Type npm install express --save
+13. Unzip the ETLtool.zip found in the project folder.
+14. Open Visual Studio (2015+), and open the ETL as a project / solution.
+15. In the solution explorer, open the MainWindow.xaml.cs file.
+16. In the arguments for the ETLController constructor, type in the table to draw from, the name of the data warehouse, the name of your MSSQL server, and the name of the database you're working with.
+17. Open db_controller.js in the folder api/app/controllers change the server and database to match yours.
+18. Open the api.js file, change table1 to the raw data table, and table 2 to the name of your Warehouse.
+19. Open Microsoft SQL Server, navigate to the database being used.
+20. Right click on the database, go to tasks, go to import data.
+21. Choose source as a flat text file, choose the uploaded csv file.
+22. Set destination as a SQL server Native Client 11.0, ensure database and server match
+23. go to edit mappings, Rename the columns speed to Speed, occ to Occupancy, and vol to Volume.
+24. Set columns as ints, except the datetime column, which should be a datetime.
+25. Set the import options to ignore potential data loss, to not halt the import.
+26. Import the flat text file location.csv.
+27. repeat the previous import steps, and set the columns as lat = real, long = real, location = varchar(50), spdLimit = int, vdsId = int.
+28. Navigate to Programmability in the database, right click on stored procedures, make new.
+29. delete contents.
+30. copy contents of ETL tool Stored Procedure over.
+31. Change top line so database name matches yours eg USE ##dbname##
+32. change line “insert into Warehouse” to insert into ##your table##
+33. change line “from rawdata” to from ##your raw table##
+34. click execute at the top of the text window.
+35. Go to Visual Studio, and run the ETL tool. Select add data to Warehouse, select a low date to Sept 1, 2016 or earlier. Select a high date as Jan 31, or later.
+36. Run the ETL tool.
+37. From the power shell navigate to the api folder. Type node main.
+38. Open a new powershell window, naviagte to the app folder. Type npm start.
+39. Check app in browser upon load for proper functionality.
